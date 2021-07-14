@@ -1,76 +1,106 @@
 @extends('backend.template')
 @section('title')
-    {{$title}}
+    {{ $title }}
 @endsection
 @section('content')
-<div class="container">
-  <div class="main-title-wrapper">
-    <h2 class="main-title">{{$pageTitle}}</h2>
-    <a class="primary-default-btn" href="{{$btnRight['link']}}">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-      {{$btnRight['text']}}
-    </a>
-  </div>
-  <div class="sort-bar">
-    <div class="sort-bar-start col-md-2 offset-9">
-      <form action="" method="get">
-        <div class="search-wrapper">
-          <input type="text" name="keyword" value="{{Request::get('keyword')}}" placeholder="Search" >
-          <button type="submit" style="background-color: transparent">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          </button>
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        <i class="metismenu-icon fa fa-{{$pageIcon}} icon-gradient bg-arielle-smile">
+                        </i>
+                    </div>
+                    <div>
+                        {{ $pageTitle }}
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                @if (session('status'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <i class="fa fa-check-circle"></i> {{session('status')}}
+                    </div>
+                @endif
 
-      </form>
+                @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <i class="fa fa-times-circle"></i> {{session('error')}}
+                </div>
+                @endif
+                <div class="row">
+                    <div class="col-md-2 mb-3">
+                        <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-user-plus mr-2"></i>{{$btnRight['text']}}</button></a>
+                    </div>
+                </div>
+                <div class="main-card mb-3 card">
+                    <div class="card-header">List User
+                        <div class="btn-actions-pane-right">
+                            <form action="" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="keyword"
+                                        value="{{ Request::get('keyword') }}" placeholder="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $page = Request::get('page');
+                                    $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
+                                @endphp
+                                @foreach ($user as $item)
+                                    <tr>
+                                        <td class="text-center text-muted">{{ $no }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>
+                                            <div class="form-inline">
+                                                <a href="{{ route('user.edit', $item->id) }}" class="mr-2">
+                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-pen"></span></button>
+                                                </a>
+                                                <form action="{{ route('user.destroy', $item->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @php
+                                        $no++;
+                                    @endphp
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        {{$user->appends(Request::all())->links('vendor.pagination.custom')}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="users-table table-wrapper">
-    <table class="table-striped">
-      <thead>
-        <tr class="users-table-info">
-          <th>
-            <label class="users-table__checkbox ms-20">No
-            </label>
-          </th>
-          <th>Nama</th>
-          <th>Email</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @php
-            $page = Request::get('page');
-            $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
-        @endphp
-        @foreach ($user as $item)
-          <tr>
-            <td>
-              <label class="users-table__checkbox">{{$no}}</label></td>
-            <td>{{$item->name}}</td>
-            <td>{{$item->email}}</td>
-            <td>
-              <span class="p-relative">
-                <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                  <div class="sr-only">More info</div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                </button>
-                <ul class="users-item-dropdown dropdown">
-                  <li><a href="https://dashboard.elegant-goodies.com/demo/users-01.html##">Edit</a></li>
-                  <li><a href="https://dashboard.elegant-goodies.com/demo/users-01.html##">Quick edit</a></li>
-                  <li><a href="https://dashboard.elegant-goodies.com/demo/users-01.html##">Trash</a></li>
-                </ul>
-              </span>
-            </td>
-          </tr>
-          @php
-              $no++;
-          @endphp
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-  
-    {{$user->appends(Request::all())->links('vendor.pagination.custom')}}
-  
-</div>
 @endsection

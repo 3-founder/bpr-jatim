@@ -25,7 +25,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'administrator'], function () {
         Route::get('dashboard', function(){
-            return view('backend.dashboard', ['pageTitle' => 'Dashboard', 'title' => 'Dashboard']);
+            return view('backend.dashboard', ['pageTitle' => 'Dashboard', 'pageIcon' => 'tachometer-alt', 'title' => 'Dashboard']);
         })->name('dashboard');
         Route::resource('user', 'Backend\UserController');
         Route::resource('slider', 'Backend\SliderController');

@@ -14,9 +14,10 @@ class UserController extends Controller
     {
         $this->param['title'] = 'User';
         $this->param['pageTitle'] = 'User';
-        $this->param['btnRight']['text'] = 'Tambah';
+        $this->param['pageIcon'] = 'users';
+        $this->param['btnRight']['text'] = 'Tambah User';
         $this->param['btnRight']['link'] = route('user.create');
-        
+
         try {
             $keyword = $request->get('keyword');
             $getUsers = User::orderBy('name', 'ASC');
@@ -26,17 +27,18 @@ class UserController extends Controller
             }
 
             $this->param['user'] = $getUsers->paginate(10);
-            
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->back()->withStatus('Terjadi Kesalahan');
         }
-                
+
         return \view('backend.user.list-user', $this->param);
     }
 
     public function create()
     {
-        $this->param['pageInfo'] = 'Manage User / Tambah Data';
+        $this->param['title'] = 'User';
+        $this->param['pageTitle'] = 'Tambah User';
+        $this->param['pageIcon'] = 'users';
         $this->param['btnRight']['text'] = 'Lihat Data';
         $this->param['btnRight']['link'] = route('user.index');
 
@@ -45,56 +47,53 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama' => 'required',
-            'username' => 'required|unique:users,username',
-            'email' => 'required|email|unique:users',
-        ],
-        [
-            'required' => ':attribute tidak boleh kosong.',
-            'email' => 'Masukan email yang valid.',
-            'unique' => ':attribute telah terdaftar'
-        ],
-        [
-            'nama' => 'Nama',
-            'username' => 'Username',
-            'email' => 'Alamat email',
-        ]);
-        try{
+        $validatedData = $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+            ],
+            [
+                'required' => ':attribute tidak boleh kosong.',
+                'email' => 'Masukan email yang valid.',
+                'unique' => ':attribute telah terdaftar'
+            ],
+            [
+                'name' => 'Nama',
+                'email' => 'Email',
+            ]
+        );
+        try {
             $newUser = new User;
-    
-            $newUser->nama = $request->get('nama');
-            $newUser->username = $request->get('username');
+
+            $newUser->name = $request->get('name');
             $newUser->email = $request->get('email');
-            $newUser->password = \Hash::make($request->get('username'));
+            $newUser->password = \Hash::make($request->get('email'));
 
             $newUser->save();
 
             return redirect()->route('user.index')->withStatus('Data berhasil ditambahkan.');
-        }
-        catch(\Exception $e){
-            return redirect()->back()->withStatus('Terjadi kesalahan. : '. $e->getMessage());
-        }
-        catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()->withStatus('Terjadi kesalahan pada database : '. $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->route('user.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('user.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
 
     public function edit($id)
     {
-        try{
-            $this->param['pageInfo'] = 'Manage User / Edit Data';
+        try {
+            $this->param['title'] = 'User';
+            $this->param['pageTitle'] = 'Edit User';
+            $this->param['pageIcon'] = 'users';
             $this->param['btnRight']['text'] = 'Lihat Data';
             $this->param['btnRight']['link'] = route('user.index');
             $this->param['user'] = User::find($id);
 
             return \view('backend.user.edit-user', $this->param);
-        }
-        catch(\Exception $e){
-            return redirect()->back()->withError('Terjadi kesalahan : '. $e->getMessage());
-        }
-        catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()->withError('Terjadi kesalahan pada database : '. $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
 
@@ -102,56 +101,47 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $isUnique = $user->email == $request->email ? '' : '|unique:users,email';
-        $isUniqueUsername = $user->username == $request->username ? '' : '|unique:users,username';
-        $validatedData = $request->validate([
-            'nama' => 'required',
-            'username' => 'required|'.$isUniqueUsername,
-            'email' => 'required|email'.$isUnique,
-        ],
-        [
-            'nama.required' => ':attribute tidak boleh kosong.',
-            'username.required' => ':attribute tidak boleh kosong.',
-            'email.required' => ':attribute tidak boleh kosong.'
-        ],
-        [
-           'nama' => 'Nama',
-           'username' => 'Username',
-           'email' => 'Email' 
-        ]);
-        try{
+        $isUnique = $user->email == $request->email ? '' : '|unique:users';
+        $validatedData = $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email' . $isUnique,
+            ],
+            [
+                'name.required' => ':attribute tidak boleh kosong.',
+                'email.required' => ':attribute tidak boleh kosong.'
+            ],
+            [
+                'name' => 'Nama',
+                'email' => 'Email'
+            ]
+        );
+        try {
 
-            $user->nama = $request->get('nama');
+            $user->name = $request->get('name');
             $user->email = $request->get('email');
-            $user->username = $request->get('username');
-            // $user->akses = $request->get('akses');
             $user->save();
 
             return redirect()->route('user.index')->withStatus('Data berhasil diperbarui.');
-        }
-        catch(\Exception $e){
-            return redirect()->back()->withError('Terjadi kesalahan : '. $e->getMessage());
-        }
-        catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()->withError('Terjadi kesalahan pada database : '. $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
 
     public function destroy($id)
     {
-        try{
-            $member = User::findOrFail($id);
+        try {
+            $user = User::findOrFail($id);
 
-            $member->delete();
+            $user->delete();
 
             return redirect()->route('user.index')->withStatus('Data berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('user.index')->withError('Terjadi kesalahan : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('user.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
-        catch(\Exception $e){
-            return redirect()->route('user.index')->withError('Terjadi kesalahan : '. $e->getMessage());
-        }
-        catch(\Illuminate\Database\QueryException $e){
-            return redirect()->route('user.index')->withError('Terjadi kesalahan pada database : '. $e->getMessage());
-        }
-        
     }
 }

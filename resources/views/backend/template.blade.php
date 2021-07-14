@@ -1,263 +1,283 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bank BPR Jatim | @yield('title')</title>
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="{{ asset('img/logo/logo-bpr2.png') }}" type="image/x-icon">
-  <!-- Custom styles -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-  <link rel="stylesheet" href="{{ asset('css/style.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('') }}users-01_files/style.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Bank BPR Jawa Timur</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}" type="image/x-icon">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    -->
+    <link href="{{ asset('') }}main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 </head>
 
 <body>
-  <div class="layer"></div>
-<!-- ! Body -->
-<a class="skip-link sr-only" href="#skip-target">Skip to content</a>
-<div class="page-flex">
-  <!-- ! Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-start">
-        <div class="sidebar-head">
-            <a href="/" class="logo-wrapper" title="Home">
-                <span class="sr-only">Home</span>
-                <span class="icon logo" aria-hidden="true"></span>
-                <div class="logo-text">
-                    <span class="logo-title">BPR <br> Jatim </span>
-                    <span class="logo-subtitle">Dashboard</span>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-header header-shadow">
+            <div class="app-header__logo">
+                <div class="logo-src"></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
                 </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button"
+                        class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>
+            <div class="app-header__content">
+                <div class="app-header-left">
 
-            </a>
-            <button class="sidebar-toggle transparent-btn" title="Menu" type="button">
-                <span class="sr-only">Toggle menu</span>
-                <span class="icon menu-toggle" aria-hidden="true"></span>
-            </button>
+
+                </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        {{ auth()->user()->name }}
+                                    </div>
+                                </div>
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
+                                                alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true"
+                                            class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#">
+                                                <i
+                                                    class="metismenu-icon fa fa-fingerprint icon-gradient bg-arielle-smile mr-1"></i>
+                                                Ganti Password
+                                            </a>
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#exampleModal">
+                                                <i
+                                                    class="metismenu-icon fa fa-sign-out-alt icon-gradient bg-love-kiss mr-1"></i>
+                                                Logout
+                                            </a>
+                                            {{-- <button type="button" tabindex="0" class="dropdown-item">Logout</button> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="sidebar-body">
-            <ul class="sidebar-body-menu">
-                <li>
-                    <a class="{{Request::segment(2) == 'dashboard' ? 'active' : ''}}" href="{{ url('administrator/dashboard') }}"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
-                </li>
-                <li>
-                    <a class="{{Request::segment(2) == 'user' ? 'active' : ''}}" href="{{ url('administrator/user') }}"><span class="icon user-3" aria-hidden="true"></span>User</a>
-                </li>
-                
-                <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon document" aria-hidden="true"></span>Posts
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="posts.html">All Posts</a>
-                        </li>
-                        <li>
-                            <a href="new-post.html">Add new post</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon folder" aria-hidden="true"></span>Categories
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="categories.html">All categories</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon image" aria-hidden="true"></span>Media
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="media-01.html">Media-01</a>
-                        </li>
-                        <li>
-                            <a href="media-02.html">Media-02</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon paper" aria-hidden="true"></span>Pages
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="pages.html">All pages</a>
-                        </li>
-                        <li>
-                            <a href="new-page.html">Add new page</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="comments.html">
-                        <span class="icon message" aria-hidden="true"></span>
-                        Comments
-                    </a>
-                    <span class="msg-counter">7</span>
-                </li>
-            </ul>
-            <span class="system-menu__title">system</span>
-            <ul class="sidebar-body-menu">
-                <li>
-                    <a href="appearance.html"><span class="icon edit" aria-hidden="true"></span>Appearance</a>
-                </li>
-                <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon category" aria-hidden="true"></span>Extentions
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="extention-01.html">Extentions-01</a>
-                        </li>
-                        <li>
-                            <a href="extention-02.html">Extentions-02</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon user-3" aria-hidden="true"></span>Users
-                        <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                        <li>
-                            <a href="users-01.html">Users-01</a>
-                        </li>
-                        <li>
-                            <a href="users-02.html">Users-02</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="##"><span class="icon setting" aria-hidden="true"></span>Settings</a>
-                </li>
-            </ul>
+        
+        <div class="app-main">
+            <div class="app-sidebar sidebar-shadow">
+                <div class="app-header__logo">
+                    <div class="logo-src"></div>
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <div class="scrollbar-sidebar">
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading">Dashboards</li>
+                            <li>
+                                <a href="{{ url('administrator/dashboard') }}" class="{{Request::segment(2) == 'dashboard' ? 'mm-active' : ''}}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-tachometer-alt icon-gradient bg-arielle-smile"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            
+                            <li class="app-sidebar__heading">Master</li>
+                            <li>
+                                <a href="{{ url('administrator/user') }}" class="{{Request::segment(2) == 'user' ? 'mm-active' : ''}}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-users icon-gradient bg-arielle-smile"></i>
+                                    User
+                                </a>
+                            </li>
+
+                            <li class="app-sidebar__heading">General</li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon fa fa-globe-asia icon-gradient bg-arielle-smile"></i>
+                                    General
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="elements-buttons-standard.html">
+                                            <i class="metismenu-icon"></i>
+                                            Buttons
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="elements-dropdowns.html">
+                                            <i class="metismenu-icon">
+                                            </i>Dropdowns
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="elements-icons.html">
+                                            <i class="metismenu-icon">
+                                            </i>Icons
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="elements-badges-labels.html">
+                                            <i class="metismenu-icon">
+                                            </i>Badges
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="elements-cards.html">
+                                            <i class="metismenu-icon">
+                                            </i>Cards
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="elements-list-group.html">
+                                            <i class="metismenu-icon">
+                                            </i>List Groups
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="elements-navigation.html">
+                                            <i class="metismenu-icon">
+                                            </i>Navigation Menus
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="elements-utilities.html">
+                                            <i class="metismenu-icon">
+                                            </i>Utilities
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="app-main__outer">
+                @yield('content')
+                <div class="app-wrapper-footer">
+                    <div class="app-footer">
+                        <div class="app-footer__inner">
+                            <div class="app-footer-left">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <a href="javascript:void(0);" class="nav-link">
+                                            &copy; Bank BPR Jawa Timur 2021
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>
-    {{-- <div class="sidebar-footer">
-        <a href="##" class="sidebar-user">
-            <span class="sidebar-user-img">
-                <picture><source srcset="{{ asset('') }}img/avatar/avatar-illustrated-01.webp" type="image/webp"><img src="{{ asset('') }}img/avatar/avatar-illustrated-01.png" alt="User name"></picture>
-            </span>
-            <div class="sidebar-user-info">
-                <span class="sidebar-user__title">Nafisa Sh.</span>
-                <span class="sidebar-user__subtitle">Support manager</span>
+    <script type="text/javascript" src="{{ asset('') }}assets/scripts/main.js"></script>
+    {{-- logout modal --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Pilih tombol logout untuk melanjutkan.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
             </div>
-        </a>
-    </div> --}}
-  </aside>
-  <div class="main-wrapper">
-    <!-- ! Main nav -->
-    <nav class="main-nav--bg">
-      <div class="container main-nav">
-        <div class="main-nav-start">
         </div>
-        <div class="main-nav-end">
-          <button class="sidebar-toggle transparent-btn" title="Menu" type="button">
-            <span class="sr-only">Toggle menu</span>
-            <span class="icon menu-toggle--gray" aria-hidden="true"></span>
-          </button>
-
-          <button class="theme-switcher gray-circle-btn" type="button" title="Switch theme">
-            <span class="sr-only">Switch theme</span>
-            <i class="sun-icon" data-feather="sun" aria-hidden="true"></i>
-            <i class="moon-icon" data-feather="moon" aria-hidden="true"></i>
-          </button>
-
-          <div class="nav-user-wrapper">
-            <button href="##" class="nav-user-btn dropdown-btn" title="My profile" type="button">
-              <span class="sr-only">My profile</span>
-              <span class="nav-user-img">
-                <picture><source srcset="{{ asset('') }}img/avatar/avatar-illustrated-02.webp" type="image/webp"><img src="{{ asset('') }}img/avatar/avatar-illustrated-02.png" alt="User name"></picture>
-              </span>
-            </button>
-            <ul class="users-item-dropdown nav-user-dropdown dropdown">
-              {{-- <li><a href="##">
-                  <i data-feather="user" aria-hidden="true"></i>
-                  <span>Profile</span>
-                </a></li> --}}
-              <li><a href="##">
-                  <i data-feather="key" aria-hidden="true"></i>
-                  <span>Ubah Password</span>
-                </a></li>
-              <li>
-                <form method="POST" action="{{ route('logout') }}">
-                  @csrf
-                  {{-- <x-dropdown-link :href="route('logout')"
-                          onclick="event.preventDefault();
-                                      this.closest('form').submit();">
-                      {{ __('Log Out') }}
-                    </x-dropdown-link> --}}
-                    <a class="danger" :href="route('logout')" onclick="event.preventDefault();
-                    this.closest('form').submit();">
-                      <i data-feather="log-out" aria-hidden="true"></i>
-                      <span>Log out</span>
-                    </a>
-                </form>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <!-- ! Main -->
-    <main class="main users chart-page" id="skip-target">
-      @yield('content')
-    </main>
-    <!-- ! Footer -->
-    <footer class="footer">
-      <div class="container footer--flex">
-        <div class="footer-start">
-          <p>2021 © Bank BPR Jawa Timur - <a href="bank-bpr-jatim.com" target="_blank"
-              rel="noopener noreferrer">bank-bpr-jatim.com</a></p>
-        </div>
-        <ul class="footer-end">
-          <li><a href="##">About</a></li>
-          <li><a href="##">Support</a></li>
-          <li><a href="##">Puchase</a></li>
-        </ul>
-      </div>
-    </footer>
-  </div>
-</div>
-<!-- Chart library -->
-<script src="{{ asset('plugins/chart.min.js') }}"></script>
-<!-- Icons library -->
-<script src="{{ asset('plugins/feather.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<!-- Custom scripts -->
-<script src="{{ asset('js/script.js') }}"></script>
+    </div>
 </body>
 
 </html>

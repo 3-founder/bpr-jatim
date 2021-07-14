@@ -1,406 +1,366 @@
 @extends('backend.template')
-@section('title')
-    {{$title}}
-@endsection
 @section('content')
-  <div class="container">
-    <h2 class="main-title">{{$pageTitle}}</h2>
-    <div class="row stat-cards">
-      <div class="col-md-6 col-xl-3">
-        <article class="stat-cards-item">
-          <div class="stat-cards-icon primary">
-            <i data-feather="bar-chart-2" aria-hidden="true"></i>
-          </div>
-          <div class="stat-cards-info">
-            <p class="stat-cards-info__num">1478 286</p>
-            <p class="stat-cards-info__title">Total visits</p>
-            <p class="stat-cards-info__progress">
-              <span class="stat-cards-info__profit success">
-                <i data-feather="trending-up" aria-hidden="true"></i>4.07%
-              </span>
-              Last month
-            </p>
-          </div>
-        </article>
-      </div>
-      <div class="col-md-6 col-xl-3">
-        <article class="stat-cards-item">
-          <div class="stat-cards-icon warning">
-            <i data-feather="file" aria-hidden="true"></i>
-          </div>
-          <div class="stat-cards-info">
-            <p class="stat-cards-info__num">1478 286</p>
-            <p class="stat-cards-info__title">Total visits</p>
-            <p class="stat-cards-info__progress">
-              <span class="stat-cards-info__profit success">
-                <i data-feather="trending-up" aria-hidden="true"></i>0.24%
-              </span>
-              Last month
-            </p>
-          </div>
-        </article>
-      </div>
-      <div class="col-md-6 col-xl-3">
-        <article class="stat-cards-item">
-          <div class="stat-cards-icon purple">
-            <i data-feather="file" aria-hidden="true"></i>
-          </div>
-          <div class="stat-cards-info">
-            <p class="stat-cards-info__num">1478 286</p>
-            <p class="stat-cards-info__title">Total visits</p>
-            <p class="stat-cards-info__progress">
-              <span class="stat-cards-info__profit danger">
-                <i data-feather="trending-down" aria-hidden="true"></i>1.64%
-              </span>
-              Last month
-            </p>
-          </div>
-        </article>
-      </div>
-      <div class="col-md-6 col-xl-3">
-        <article class="stat-cards-item">
-          <div class="stat-cards-icon success">
-            <i data-feather="feather" aria-hidden="true"></i>
-          </div>
-          <div class="stat-cards-info">
-            <p class="stat-cards-info__num">1478 286</p>
-            <p class="stat-cards-info__title">Total visits</p>
-            <p class="stat-cards-info__progress">
-              <span class="stat-cards-info__profit warning">
-                <i data-feather="trending-up" aria-hidden="true"></i>0.00%
-              </span>
-              Last month
-            </p>
-          </div>
-        </article>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-9">
-        <div class="chart">
-          <canvas id="myChart" aria-label="Site statistics" role="img"></canvas>
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        <i class="metismenu-icon fa fa-{{$pageIcon}} icon-gradient bg-arielle-smile">
+                        </i>
+                    </div>
+                    <div>
+                        {{$pageTitle}}
+                    </div>
+                </div>
+                
+            </div>
         </div>
-        <div class="users-table table-wrapper">
-          <table class="posts-table">
-            <thead>
-              <tr class="users-table-info">
-                <th>
-                  <label class="users-table__checkbox ms-20">
-                    <input type="checkbox" class="check-all">Thumbnail
-                  </label>
-                </th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <label class="users-table__checkbox">
-                    <input type="checkbox" class="check">
-                    <div class="categories-table-img">
-                      <picture><source srcset="{{ asset('') }}img/categories/01.webp" type="image/webp"><img src="{{ asset('') }}img/categories/01.jpg" alt="category"></picture>
+        <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-midnight-bloom">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Total Orders</div>
+                            <div class="widget-subheading">Last year expenses</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>1896</span></div>
+                        </div>
                     </div>
-                  </label>
-                </td>
-                <td>
-                  Starting your traveling blog with Vasco
-                </td>
-                <td>
-                  <div class="pages-table-img">
-                    <picture><source srcset="{{ asset('') }}img/avatar/avatar-face-04.webp" type="image/webp"><img src="{{ asset('') }}img/avatar/avatar-face-04.png" alt="User Name"></picture>
-                    Jenny Wilson
-                  </div>
-                </td>
-                <td><span class="badge-pending">Pending</span></td>
-                <td>17.04.2021</td>
-                <td>
-                  <span class="p-relative">
-                    <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                      <div class="sr-only">More info</div>
-                      <i data-feather="more-horizontal" aria-hidden="true"></i>
-                    </button>
-                    <ul class="users-item-dropdown dropdown">
-                      <li><a href="##">Edit</a></li>
-                      <li><a href="##">Quick edit</a></li>
-                      <li><a href="##">Trash</a></li>
-                    </ul>
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="users-table__checkbox">
-                    <input type="checkbox" class="check">
-                    <div class="categories-table-img">
-                      <picture><source srcset="{{ asset('') }}img/categories/02.webp" type="image/webp"><img src="{{ asset('') }}img/categories/02.jpg" alt="category"></picture>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-arielle-smile">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Clients</div>
+                            <div class="widget-subheading">Total Clients Profit</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>$ 568</span></div>
+                        </div>
                     </div>
-                  </label>
-                </td>
-                <td>
-                  Start a blog to reach your creative peak
-                </td>
-                <td>
-                  <div class="pages-table-img">
-                    <picture><source srcset="{{ asset('') }}img/avatar/avatar-face-03.webp" type="image/webp"><img src="{{ asset('') }}img/avatar/avatar-face-03.png" alt="User Name"></picture>
-                    Annette Black
-                  </div>
-                </td>
-                <td><span class="badge-pending">Pending</span></td>
-                <td>23.04.2021</td>
-                <td>
-                  <span class="p-relative">
-                    <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                      <div class="sr-only">More info</div>
-                      <i data-feather="more-horizontal" aria-hidden="true"></i>
-                    </button>
-                    <ul class="users-item-dropdown dropdown">
-                      <li><a href="##">Edit</a></li>
-                      <li><a href="##">Quick edit</a></li>
-                      <li><a href="##">Trash</a></li>
-                    </ul>
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="users-table__checkbox">
-                    <input type="checkbox" class="check">
-                    <div class="categories-table-img">
-                      <picture><source srcset="{{ asset('') }}img/categories/03.webp" type="image/webp"><img src="{{ asset('') }}img/categories/03.jpg" alt="category"></picture>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-grow-early">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Followers</div>
+                            <div class="widget-subheading">People Interested</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>46%</span></div>
+                        </div>
                     </div>
-                  </label>
-                </td>
-                <td>
-                  Helping a local business reinvent itself
-                </td>
-                <td>
-                  <div class="pages-table-img">
-                    <picture><source srcset="{{ asset('') }}img/avatar/avatar-face-02.webp" type="image/webp"><img src="{{ asset('') }}img/avatar/avatar-face-02.png" alt="User Name"></picture>
-                    Kathryn Murphy
-                  </div>
-                </td>
-                <td><span class="badge-active">Active</span></td>
-                <td>17.04.2021</td>
-                <td>
-                  <span class="p-relative">
-                    <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                      <div class="sr-only">More info</div>
-                      <i data-feather="more-horizontal" aria-hidden="true"></i>
-                    </button>
-                    <ul class="users-item-dropdown dropdown">
-                      <li><a href="##">Edit</a></li>
-                      <li><a href="##">Quick edit</a></li>
-                      <li><a href="##">Trash</a></li>
-                    </ul>
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="users-table__checkbox">
-                    <input type="checkbox" class="check">
-                    <div class="categories-table-img">
-                      <picture><source srcset="{{ asset('') }}img/categories/04.webp" type="image/webp"><img src="{{ asset('') }}img/categories/04.jpg" alt="category"></picture>
+                </div>
+            </div>
+            <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-premium-dark">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Products Sold</div>
+                            <div class="widget-subheading">Revenue streams</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-warning"><span>$14M</span></div>
+                        </div>
                     </div>
-                  </label>
-                </td>
-                <td>
-                  Caring is the new marketing
-                </td>
-                <td>
-                  <div class="pages-table-img">
-                    <picture><source srcset="{{ asset('') }}img/avatar/avatar-face-05.webp" type="image/webp"><img src="{{ asset('') }}img/avatar/avatar-face-05.png" alt="User Name"></picture>
-                    Guy Hawkins
-                  </div>
-                </td>
-                <td><span class="badge-active">Active</span></td>
-                <td>17.04.2021</td>
-                <td>
-                  <span class="p-relative">
-                    <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                      <div class="sr-only">More info</div>
-                      <i data-feather="more-horizontal" aria-hidden="true"></i>
-                    </button>
-                    <ul class="users-item-dropdown dropdown">
-                      <li><a href="##">Edit</a></li>
-                      <li><a href="##">Quick edit</a></li>
-                      <li><a href="##">Trash</a></li>
-                    </ul>
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="users-table__checkbox">
-                    <input type="checkbox" class="check">
-                    <div class="categories-table-img">
-                      <picture><source srcset="{{ asset('') }}img/categories/01.webp" type="image/webp"><img src="{{ asset('') }}img/categories/01.jpg" alt="category"></picture>
-                    </div>
-                  </label>
-                </td>
-                <td>
-                  How to build a loyal community online and offline
-                </td>
-                <td>
-                  <div class="pages-table-img">
-                    <picture><source srcset="{{ asset('') }}img/avatar/avatar-face-03.webp" type="image/webp"><img src="{{ asset('') }}img/avatar/avatar-face-03.png" alt="User Name"></picture>
-                    Robert Fox
-                  </div>
-                </td>
-                <td><span class="badge-active">Active</span></td>
-                <td>17.04.2021</td>
-                <td>
-                  <span class="p-relative">
-                    <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                      <div class="sr-only">More info</div>
-                      <i data-feather="more-horizontal" aria-hidden="true"></i>
-                    </button>
-                    <ul class="users-item-dropdown dropdown">
-                      <li><a href="##">Edit</a></li>
-                      <li><a href="##">Quick edit</a></li>
-                      <li><a href="##">Trash</a></li>
-                    </ul>
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="users-table__checkbox">
-                    <input type="checkbox" class="check">
-                    <div class="categories-table-img">
-                      <picture><source srcset="{{ asset('') }}img/categories/03.webp" type="image/webp"><img src="{{ asset('') }}img/categories/03.jpg" alt="category"></picture>
-                    </div>
-                  </label>
-                </td>
-                <td>
-                  How to build a loyal community online and offline
-                </td>
-                <td>
-                  <div class="pages-table-img">
-                    <picture><source srcset="{{ asset('') }}img/avatar/avatar-face-03.webp" type="image/webp"><img src="{{ asset('') }}img/avatar/avatar-face-03.png" alt="User Name"></picture>
-                    Robert Fox
-                  </div>
-                </td>
-                <td><span class="badge-active">Active</span></td>
-                <td>17.04.2021</td>
-                <td>
-                  <span class="p-relative">
-                    <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                      <div class="sr-only">More info</div>
-                      <i data-feather="more-horizontal" aria-hidden="true"></i>
-                    </button>
-                    <ul class="users-item-dropdown dropdown">
-                      <li><a href="##">Edit</a></li>
-                      <li><a href="##">Quick edit</a></li>
-                      <li><a href="##">Trash</a></li>
-                    </ul>
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-lg-3">
-        <article class="customers-wrapper">
-          <canvas id="customersChart" aria-label="Customers statistics" role="img"></canvas>
-          <!--              <p class="customers__title">New Customers <span>+958</span></p>
-          <p class="customers__date">28 Daily Avg.</p>
-          <picture><source srcset="{{ asset('') }}img/svg/customers.svg" type="image/webp"><img src="{{ asset('') }}img/svg/customers.svg" alt=""></picture> -->
-        </article>
-        <article class="white-block">
-          <div class="top-cat-title">
-            <h3>Top categories</h3>
-            <p>28 Categories, 1400 Posts</p>
-          </div>
-          <ul class="top-cat-list">
-            <li>
-              <a href="##">
-                <div class="top-cat-list__title">
-                  Lifestyle <span>8.2k</span>
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
+                <div class="mb-3 card">
+                    <div class="card-header-tab card-header-tab-animation card-header">
+                        <div class="card-header-title">
+                            <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                            Sales Report
+                        </div>
+                        <ul class="nav">
+                            <li class="nav-item"><a href="javascript:void(0);" class="active nav-link">Last</a></li>
+                            <li class="nav-item"><a href="javascript:void(0);"
+                                    class="nav-link second-tab-toggle">Current</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="tabs-eg-77">
+                                <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                    <div class="widget-chat-wrapper-outer">
+                                        <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                                            <canvas id="canvas"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">
+                                    Top Authors</h6>
+                                <div class="scroll-area-sm">
+                                    <div class="scrollbar-container">
+                                        <ul class="rm-list-borders rm-list-borders-scroll list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left mr-3">
+                                                            <img width="42" class="rounded-circle"
+                                                                src="assets/images/avatars/9.jpg" alt="">
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Ella-Rose Henry
+                                                            </div>
+                                                            <div class="widget-subheading">Web Developer
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="font-size-xlg text-muted">
+                                                                <small class="opacity-5 pr-1">$</small>
+                                                                <span>129</span>
+                                                                <small class="text-danger pl-2">
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left mr-3">
+                                                            <img width="42" class="rounded-circle"
+                                                                src="assets/images/avatars/5.jpg" alt="">
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Ruben Tillman</div>
+                                                            <div class="widget-subheading">UI Designer</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="font-size-xlg text-muted">
+                                                                <small class="opacity-5 pr-1">$</small>
+                                                                <span>54</span>
+                                                                <small class="text-success pl-2">
+                                                                    <i class="fa fa-angle-up"></i>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left mr-3">
+                                                            <img width="42" class="rounded-circle"
+                                                                src="assets/images/avatars/4.jpg" alt="">
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Vinnie Wagstaff
+                                                            </div>
+                                                            <div class="widget-subheading">Java Programmer
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="font-size-xlg text-muted">
+                                                                <small class="opacity-5 pr-1">$</small>
+                                                                <span>429</span>
+                                                                <small class="text-warning pl-2">
+                                                                    <i class="fa fa-dot-circle"></i>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left mr-3">
+                                                            <img width="42" class="rounded-circle"
+                                                                src="assets/images/avatars/3.jpg" alt="">
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Ella-Rose Henry
+                                                            </div>
+                                                            <div class="widget-subheading">Web Developer
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="font-size-xlg text-muted">
+                                                                <small class="opacity-5 pr-1">$</small>
+                                                                <span>129</span>
+                                                                <small class="text-danger pl-2">
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left mr-3">
+                                                            <img width="42" class="rounded-circle"
+                                                                src="assets/images/avatars/2.jpg" alt="">
+                                                        </div>
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">Ruben Tillman</div>
+                                                            <div class="widget-subheading">UI Designer</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="font-size-xlg text-muted">
+                                                                <small class="opacity-5 pr-1">$</small>
+                                                                <span>54</span>
+                                                                <small class="text-success pl-2">
+                                                                    <i class="fa fa-angle-up"></i>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="top-cat-list__subtitle">
-                  Dailiy lifestyle articles <span class="purple">+472</span>
+            </div>
+            <div class="col-md-12 col-lg-6">
+                <div class="mb-3 card">
+                    <div class="card-header-tab card-header">
+                        <div class="card-header-title">
+                            <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
+                            Bandwidth Reports
+                        </div>
+                        <div class="btn-actions-pane-right">
+                            <div class="nav">
+                                <a href="javascript:void(0);"
+                                    class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-alternate">Tab
+                                    1</a>
+                                <a href="javascript:void(0);"
+                                    class="ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-alternate second-tab-toggle-alt">Tab
+                                    2</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="tab-eg-55">
+                            <div class="widget-chart p-3">
+                                <div style="height: 350px">
+                                    <canvas id="line-chart"></canvas>
+                                </div>
+                                <div class="widget-chart-content text-center mt-5">
+                                    <div class="widget-description mt-0 text-warning">
+                                        <i class="fa fa-arrow-left"></i>
+                                        <span class="pl-1">175.5%</span>
+                                        <span class="text-muted opacity-8 pl-1">increased server
+                                            resources</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-2 card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="widget-content">
+                                            <div class="widget-content-outer">
+                                                <div class="widget-content-wrapper">
+                                                    <div class="widget-content-left">
+                                                        <div class="widget-numbers fsize-3 text-muted">63%
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-content-right">
+                                                        <div class="text-muted opacity-6">Generated Leads
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-progress-wrapper mt-1">
+                                                    <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                        <div class="progress-bar bg-danger" role="progressbar"
+                                                            aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"
+                                                            style="width: 63%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="widget-content">
+                                            <div class="widget-content-outer">
+                                                <div class="widget-content-wrapper">
+                                                    <div class="widget-content-left">
+                                                        <div class="widget-numbers fsize-3 text-muted">32%
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-content-right">
+                                                        <div class="text-muted opacity-6">Submitted Tickers
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-progress-wrapper mt-1">
+                                                    <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                            aria-valuenow="32" aria-valuemin="0" aria-valuemax="100"
+                                                            style="width: 32%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="widget-content">
+                                            <div class="widget-content-outer">
+                                                <div class="widget-content-wrapper">
+                                                    <div class="widget-content-left">
+                                                        <div class="widget-numbers fsize-3 text-muted">71%
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-content-right">
+                                                        <div class="text-muted opacity-6">Server Allocation
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-progress-wrapper mt-1">
+                                                    <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                        <div class="progress-bar bg-primary" role="progressbar"
+                                                            aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"
+                                                            style="width: 71%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="widget-content">
+                                            <div class="widget-content-outer">
+                                                <div class="widget-content-wrapper">
+                                                    <div class="widget-content-left">
+                                                        <div class="widget-numbers fsize-3 text-muted">41%
+                                                        </div>
+                                                    </div>
+                                                    <div class="widget-content-right">
+                                                        <div class="text-muted opacity-6">Generated Leads
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-progress-wrapper mt-1">
+                                                    <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                        <div class="progress-bar bg-warning" role="progressbar"
+                                                            aria-valuenow="41" aria-valuemin="0" aria-valuemax="100"
+                                                            style="width: 41%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </a>
-            </li>
-            <li>
-              <a href="##">
-                <div class="top-cat-list__title">
-                  Tutorials <span>8.2k</span>
-                </div>
-                <div class="top-cat-list__subtitle">
-                  Coding tutorials <span class="blue">+472</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="##">
-                <div class="top-cat-list__title">
-                  Technology <span>8.2k</span>
-                </div>
-                <div class="top-cat-list__subtitle">
-                  Dailiy technology articles <span class="danger">+472</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="##">
-                <div class="top-cat-list__title">
-                  UX design <span>8.2k</span>
-                </div>
-                <div class="top-cat-list__subtitle">
-                  UX design tips <span class="success">+472</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="##">
-                <div class="top-cat-list__title">
-                  Interaction tips <span>8.2k</span>
-                </div>
-                <div class="top-cat-list__subtitle">
-                  Interaction articles <span class="warning">+472</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="##">
-                <div class="top-cat-list__title">
-                  App development <span>8.2k</span>
-                </div>
-                <div class="top-cat-list__subtitle">
-                  Mobile development articles <span class="warning">+472</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="##">
-                <div class="top-cat-list__title">
-                  Nature <span>8.2k</span>
-                </div>
-                <div class="top-cat-list__subtitle">
-                  Wildlife animal articles <span class="warning">+472</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="##">
-                <div class="top-cat-list__title">
-                  Geography <span>8.2k</span>
-                </div>
-                <div class="top-cat-list__subtitle">
-                  Geography articles <span class="primary">+472</span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </article>
-      </div>
+            </div>
+        </div>
+        
     </div>
-  </div>
 @endsection
