@@ -27,6 +27,8 @@
     <link href="{{ asset('') }}custom.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
         integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+    @yield('extraCSS')
 </head>
 
 <body>
@@ -243,6 +245,30 @@
                                 </ul>
                             </li>
 
+                            <li class="app-sidebar__heading">Produk & Layanan</li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon fa fa-landmark icon-gradient bg-arielle-smile"></i>
+                                    Produk & Layanan
+                                    <i class="metismenu-state-icon
+                                            pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('jenis-produk-layanan.index') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Master Jenis
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('item-produk-layanan.index') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Master Konten
+                                        </a>
+                                    </li>
+                                    <li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -297,6 +323,7 @@
             </div>
         </div>
     </div>
+    @yield('extraJS')
     <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor

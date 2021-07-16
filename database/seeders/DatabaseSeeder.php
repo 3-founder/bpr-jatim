@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             // ProfilSeeder::class,
             // KebijakanPrivasiSeeder::class,
             // SyaratDanKetentuanSeeder::class,
-            AboutSeeder::class,
+            // AboutSeeder::class,
         ]);
     }
 }
