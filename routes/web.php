@@ -31,7 +31,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('profil', 'Backend\ProfilController');
         Route::resource('kebijakan-privasi', 'Backend\KebijakanPrivasiController');
         Route::resource('sk', 'Backend\SyaratDanKetentuanController');
-        Route::resource('about', 'Backend\AboutController');
+        Route::resource('about', 'Backend\AboutController')->except([
+            'show',
+            'store',
+            'create',
+            'edit',
+            'destroy'
+        ]);
     });
 
 });

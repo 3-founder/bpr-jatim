@@ -9,4 +9,10 @@ class About extends Model
 {
     use HasFactory;
     protected $table = 'about';
+
+    protected $fillable = [
+        'text_top',
+        'judul',
+        'konten'
+    ];
 }
