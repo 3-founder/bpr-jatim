@@ -34,6 +34,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('about', 'Backend\AboutController');
         Route::resource('jenis-produk-layanan', 'Backend\JenisProdukLayananController');
         Route::resource('item-produk-layanan', 'Backend\ItemProdukLayananController');
+        Route::resource('about', 'Backend\AboutController')->except([
+            'show',
+            'store',
+            'create',
+            'edit',
+            'destroy'
+        ]);
     });
 
 });
