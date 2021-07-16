@@ -4,39 +4,32 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use \App\Models\User;
+use \App\Models\About;
 
-class UserController extends Controller
+class AboutController extends Controller
 {
     private $param;
     
     public function __construct()
     {
-        $this->param['title'] = 'User';
-        $this->param['pageTitle'] = 'User';
-        $this->param['pageIcon'] = 'users';
+        $this->param['title'] = 'Tentang BPR';
+        $this->param['pageTitle'] = 'Tentang BPR';
+        $this->param['pageIcon'] = 'landmark';
     }
     
     public function index(Request $request)
     {
-        
-        $this->param['btnRight']['text'] = 'Tambah User';
-        $this->param['btnRight']['link'] = route('user.create');
-
+        $tipe = $request->get('t');
         try {
-            $keyword = $request->get('keyword');
-            $getUsers = User::orderBy('name', 'ASC');
-
-            if ($keyword) {
-                $getUsers->where('name', 'LIKE', "%$keyword%")->orWhere('email', 'LIKE', "%$keyword%");
+            if (!$tipe) {
+                return redirect()->route('about.index')->withError('Terjadi Kesalahan');
             }
-
-            $this->param['user'] = $getUsers->paginate(10);
+            $this->param['about'] = About::where('tipe', $tipe)->get();
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->back()->withStatus('Terjadi Kesalahan');
+            return redirect()->route('about.index')->withError('Terjadi Kesalahan');
         }
 
-        return \view('backend.user.list-user', $this->param);
+        return \view('backend.about.list-about', $this->param);
     }
 
     public function create()

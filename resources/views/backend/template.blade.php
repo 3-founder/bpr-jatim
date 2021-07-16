@@ -24,6 +24,7 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
     <link href="{{ asset('') }}main.css" rel="stylesheet">
+    <link href="{{ asset('') }}custom.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
         integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 </head>
@@ -109,7 +110,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="app-main">
             <div class="app-sidebar sidebar-shadow">
                 <div class="app-header__logo">
@@ -149,76 +150,94 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">Dashboards</li>
                             <li>
-                                <a href="{{ url('administrator/dashboard') }}" class="{{Request::segment(2) == 'dashboard' ? 'mm-active' : ''}}">
+                                <a href="{{ url('administrator/dashboard') }}"
+                                    class="{{ Request::segment(2) == 'dashboard' ? 'mm-active' : '' }}">
                                     {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                     <i class="metismenu-icon fa fa-tachometer-alt icon-gradient bg-arielle-smile"></i>
                                     Dashboard
                                 </a>
                             </li>
-                            
+
                             <li class="app-sidebar__heading">Master</li>
                             <li>
-                                <a href="{{ url('administrator/user') }}" class="{{Request::segment(2) == 'user' ? 'mm-active' : ''}}">
+                                <a href="{{ url('administrator/user') }}"
+                                    class="{{ Request::segment(2) == 'user' ? 'mm-active' : '' }}">
                                     {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                     <i class="metismenu-icon fa fa-users icon-gradient bg-arielle-smile"></i>
                                     User
                                 </a>
                             </li>
 
-                            <li class="app-sidebar__heading">General</li>
+                            <li>
+                                <a href="{{ url('administrator/profil') }}"
+                                    class="{{ Request::segment(2) == 'profil' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-address-card icon-gradient bg-arielle-smile"></i>
+                                    Profil Perusahaan
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ url('administrator/kebijakan-privasi') }}"
+                                    class="{{ Request::segment(2) == 'kebijakan-privasi' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-user-shield icon-gradient bg-arielle-smile"></i>
+                                    Kebijakan Privasi
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ url('administrator/sk') }}"
+                                    class="{{ Request::segment(2) == 'sk' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-handshake icon-gradient bg-arielle-smile"></i>
+                                    Syarat dan Ketentuan
+                                </a>
+                            </li>
+
+                            <li class="app-sidebar__heading">Tentang BPR</li>
                             <li>
                                 <a href="#">
-                                    <i class="metismenu-icon fa fa-globe-asia icon-gradient bg-arielle-smile"></i>
-                                    General
-                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    <i class="metismenu-icon fa fa-landmark icon-gradient bg-arielle-smile"></i>
+                                    Tentang BPR
+                                    <i class="metismenu-state-icon
+                                            pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="elements-buttons-standard.html">
-                                            <i class="metismenu-icon"></i>
-                                            Buttons
+                                        <a href="{{ url('administrator/about?t=sejarah') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Sejarah
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="elements-dropdowns.html">
+                                        <a href="{{ url('administrator/about?t=visi-misi') }}">
                                             <i class="metismenu-icon">
-                                            </i>Dropdowns
+                                            </i>Visi Misi
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="elements-icons.html">
+                                        <a href="{{ url('administrator/about?t=peranan') }}">
                                             <i class="metismenu-icon">
-                                            </i>Icons
+                                            </i>Peranan
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="elements-badges-labels.html">
+                                        <a href="{{ url('administrator/about?t=struktur') }}">
                                             <i class="metismenu-icon">
-                                            </i>Badges
+                                            </i>Struktur Organisasi
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="elements-cards.html">
+                                        <a href="{{ url('administrator/about?t=manajemen') }}">
                                             <i class="metismenu-icon">
-                                            </i>Cards
+                                            </i>Manajemen
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="elements-list-group.html">
+                                        <a href="{{ url('administrator/about?t=identitas') }}">
                                             <i class="metismenu-icon">
-                                            </i>List Groups
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="elements-navigation.html">
-                                            <i class="metismenu-icon">
-                                            </i>Navigation Menus
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="elements-utilities.html">
-                                            <i class="metismenu-icon">
-                                            </i>Utilities
+                                            </i>Identitas Perusahaan
                                         </a>
                                     </li>
                                 </ul>
@@ -278,6 +297,14 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('.ck-editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 </body>
 
 </html>

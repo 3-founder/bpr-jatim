@@ -28,18 +28,10 @@ Route::group(['middleware' => ['auth']], function () {
             return view('backend.dashboard', ['pageTitle' => 'Dashboard', 'pageIcon' => 'tachometer-alt', 'title' => 'Dashboard']);
         })->name('dashboard');
         Route::resource('user', 'Backend\UserController');
-        Route::resource('slider', 'Backend\SliderController');
-        Route::resource('partner', 'Backend\PartnerController');
-        Route::resource('galeri', 'Backend\GaleriController');
-        Route::resource('informasi', 'Backend\InformasiController');
-        Route::resource('contact', 'Backend\ContactController');
-        Route::resource('blog', 'Backend\BlogController');
-        Route::resource('package', 'Backend\PackageController');
-        Route::resource('package-item', 'Backend\PackageItemController');
+        Route::resource('profil', 'Backend\ProfilController');
+        Route::resource('kebijakan-privasi', 'Backend\KebijakanPrivasiController');
+        Route::resource('sk', 'Backend\SyaratDanKetentuanController');
         Route::resource('about', 'Backend\AboutController');
-        Route::get('timeline', 'Backend\TimelineController@index');
-        Route::put('timeline/{timeline}', 'Backend\TimelineController@updateTimelineTitle')->name('updateTimelineTitle');
-        Route::resource('detail-timeline', 'Backend\TimelineController');
     });
 
 });
