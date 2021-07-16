@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ItemProdukLayanan;
 use App\Models\JenisProdukLayanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ItemProdukLayananController extends Controller
 {
@@ -34,7 +35,9 @@ class ItemProdukLayananController extends Controller
                                         ->orderBy('judul', 'ASC');
 
             if ($keyword) {
-                $getKonten->where('item_produk_layanan.judul', 'LIKE', "%$keyword%")->orWhere('jenis_produk_layanan.nama_jenis', 'LIKE', "%$keyword%");
+                $getKonten->where('item_produk_layanan.judul', 'LIKE', "%$keyword%")
+                        ->orWhere('item_produk_layanan.text_top', 'LIKE', "%$keyword%")
+                        ->orWhere('jenis_produk_layanan.nama_jenis', 'LIKE', "%$keyword%");
             }
 
             $this->param['konten'] = $getKonten->paginate(10);
@@ -67,7 +70,56 @@ class ItemProdukLayananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $isUnique = '';
+        if($request->get('jenis')) {
+            $konten = ItemProdukLayanan::where('id_jenis', $request->get('jenis'))->get();
+
+            if(count($konten) > 0) {
+                foreach ($konten as $key => $value) {
+                    $isUnique = $value->judul != $request->judul ? '' : '|unique:item_produk_layanan,judul';
+                }
+            }
+        }
+
+        $validatedData = $request->validate(
+            [
+                'jenis' => 'required|not_in:0',
+                'judul' => 'required'.$isUnique,
+                'deskripsi' => 'required',
+                'konten' => 'required'
+            ],
+            [
+                'required' => ':attribute tidak boleh kosong.',
+                'unique' => ':attribute telah terdaftar',
+                'not_in' => ':attribute harus dipilih',
+            ],
+            [
+                'jenis' => 'Jenis Produk & Layanan',
+                'judul' => 'Judul',
+                'deskripsi' => 'Deskripsi',
+                'konten' => 'Konten'
+            ]
+        );
+        try {
+            $newKonten = new ItemProdukLayanan;
+
+            $newKonten->id_jenis = $request->get('jenis');
+            $newKonten->judul = $request->get('judul');
+            $newKonten->slug = Str::slug($request->get('judul'));
+            $newKonten->text_top = $request->get('deskripsi');
+            $newKonten->konten = $request->get('konten');
+
+            $newKonten->save();
+
+            return redirect()->route('item-produk-layanan.index')->withStatus('Data berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            return redirect()->route('item-produk-layanan.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return $e->getMessage();
+
+            return redirect()->route('item-produk-layanan.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
     }
 
     /**
@@ -78,7 +130,23 @@ class ItemProdukLayananController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $this->param['title'] = 'Detail Konten Produk & Layanan';
+            $this->param['pageTitle'] = 'Detail Konten Produk & Layanan';
+            $this->param['pageIcon'] = 'store';
+            $this->param['btnRight']['text'] = 'Lihat Data';
+            $this->param['btnRight']['link'] = route('item-produk-layanan.index');
+            $this->param['konten'] = ItemProdukLayanan::select('item_produk_layanan.*', 'jenis_produk_layanan.nama_jenis')
+                                                        ->join('jenis_produk_layanan', 'jenis_produk_layanan.id', 'item_produk_layanan.id_jenis')
+                                                        ->where('item_produk_layanan.id', $id)
+                                                        ->first();
+
+            return \view('backend.item-produk-layanan.detail-item-produk-layanan', $this->param);
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
     }
 
     /**
@@ -89,7 +157,21 @@ class ItemProdukLayananController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $this->param['title'] = 'Edit Konten Produk & Layanan';
+            $this->param['pageTitle'] = 'Edit Konten Produk & Layanan';
+            $this->param['pageIcon'] = 'store';
+            $this->param['btnRight']['text'] = 'Lihat Data';
+            $this->param['btnRight']['link'] = route('item-produk-layanan.index');
+            $this->param['jenis'] = JenisProdukLayanan::orderBy('nama_jenis', 'ASC')->get();
+            $this->param['konten'] = ItemProdukLayanan::find($id);
+
+            return \view('backend.item-produk-layanan.edit-item-produk-layanan', $this->param);
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
     }
 
     /**
@@ -101,7 +183,49 @@ class ItemProdukLayananController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $konten = ItemProdukLayanan::find($id);
+
+        $isUnique = $konten->judul == $request->judul ? '' : '|unique:item_produk_layanan,judul';
+        $validatedData = $request->validate(
+            [
+                'jenis' => 'required|not_in:0',
+                'judul' => 'required'.$isUnique,
+                'deskripsi' => 'required',
+                'konten' => 'required'
+            ],
+            [
+                'required' => ':attribute tidak boleh kosong.',
+                'unique' => ':attribute telah terdaftar',
+                'not_in' => ':attribute harus dipilih',
+            ],
+            [
+                'jenis' => 'Jenis Produk & Layanan',
+                'judul' => 'Judul',
+                'deskripsi' => 'Deskripsi',
+                'konten' => 'Konten'
+            ]
+        );
+        try {
+            $konten->id_jenis = $request->get('jenis');
+            $konten->judul = $request->get('judul');
+            $konten->slug = Str::slug($request->get('judul'));
+            $konten->text_top = $request->get('deskripsi');
+            $konten->konten = $request->get('konten');
+            
+            $konten->save();
+
+            if($isUnique != '')
+                return redirect()->route('item-produk-layanan.index')->withStatus('Data berhasil diperbarui.');
+            else
+                return redirect()->route('item-produk-layanan.index');
+
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return $e->getMessage();
+            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
     }
 
     /**
@@ -112,6 +236,16 @@ class ItemProdukLayananController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $konten = ItemProdukLayanan::findOrFail($id);
+
+            $konten->delete();
+
+            return redirect()->route('item-produk-layanan.index')->withStatus('Data berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('item-produk-layanan.index')->withError('Terjadi kesalahan : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('item-produk-layanan.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
     }
 }

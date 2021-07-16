@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
-                    <div class="card-header">List Konten Produk & Layanan
+                    <div class="card-header">List Wilayah
                         <div class="btn-actions-pane-right">
                             <form action="" method="get">
                                 <div class="input-group">
@@ -56,9 +56,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th>Judul Konten</th>
-                                    <th>Deskripsi Konten</th>
-                                    <th>Jenis</th>
+                                    <th>Wilayah</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -67,21 +65,16 @@
                                     $page = Request::get('page');
                                     $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
                                 @endphp
-                                @foreach ($konten as $item)
+                                @foreach ($kota as $item)
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
-                                        <td>{{ ucwords($item->judul) }}</td>
-                                        <td>{{ strlen($item->text_top) > 100 ? substr($item->text_top, 0, 100).'...' : $item->text_top }}</td>
-                                        <td>{{ ucwords($item->nama_jenis) }}</td>
+                                        <td>{{ $item->nama_kota }}</td>
                                         <td>
                                             <div class="form-inline">
-                                                <a href="{{ route('item-produk-layanan.show', $item->id) }}" class="mr-2">
-                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Detail" data-placement="top"><span class="fa fa-eye"></span></button>
-                                                </a>
-                                                <a href="{{ route('item-produk-layanan.edit', $item->id) }}" class="mr-2">
+                                                <a href="{{ route('kota.edit', $item->id) }}" class="mr-2">
                                                     <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-pen"></span></button>
                                                 </a>
-                                                <form action="{{ route('item-produk-layanan.destroy', $item->id) }}" method="post">
+                                                <form action="{{ route('kota.destroy', $item->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
@@ -102,7 +95,7 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        {{$konten->appends(Request::all())->links('vendor.pagination.custom')}}
+                        {{$kota->appends(Request::all())->links('vendor.pagination.custom')}}
                     </div>
                 </div>
             </div>

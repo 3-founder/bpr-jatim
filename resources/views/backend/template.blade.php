@@ -248,7 +248,7 @@
                             <li class="app-sidebar__heading">Produk & Layanan</li>
                             <li>
                                 <a href="#">
-                                    <i class="metismenu-icon fa fa-landmark icon-gradient bg-arielle-smile"></i>
+                                    <i class="metismenu-icon fa fa-store icon-gradient bg-arielle-smile"></i>
                                     Produk & Layanan
                                     <i class="metismenu-state-icon
                                             pe-7s-angle-down caret-left"></i>
@@ -262,6 +262,31 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('item-produk-layanan.index') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Master Konten
+                                        </a>
+                                    </li>
+                                    <li>
+                                </ul>
+                            </li>
+
+                            <li class="app-sidebar__heading">UMKM Binaan</li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon fa fa-user-friends icon-gradient bg-arielle-smile"></i>
+                                    UMKM Binaan
+                                    <i class="metismenu-state-icon
+                                            pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('kota.index') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Master Kota
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('umkm-binaan.index') }}">
                                             <i class="metismenu-icon">
                                             </i>Master Konten
                                         </a>

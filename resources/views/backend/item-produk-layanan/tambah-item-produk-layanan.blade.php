@@ -34,7 +34,7 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Tambah Jenis Produk & Layanan</h5>
-                        <form action="{{ route('jenis-produk-layanan.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('item-produk-layanan.store') }}" method="post" >
                             @csrf
                             <div class="position-relative form-group">
                                 <label for="jenis" class="">Jenis Produk & Layanan</label>

@@ -1,5 +1,14 @@
 @extends('backend.template')
 
+@section('extraCSS')
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- include summernote css -->
+<link href="{{ asset('') }}summernote-0.8.18-dist/summernote.min.css" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -24,14 +33,46 @@
                 </div>
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <h5 class="card-title">Edit Jenis Produk & Layanan</h5>
-                        <form action="{{ route('jenis-produk-layanan.update', $jenis->id) }}" method="post">
+                        <h5 class="card-title">Tambah Jenis Produk & Layanan</h5>
+                        <form action="{{ route('item-produk-layanan.update', $konten->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="position-relative form-group">
-                                <label for="name" class="">Nama Jenis</label>
-                                <input name="name" id="name" placeholder="Nama Jenis" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name', $jenis->nama_jenis)}}">
-                                @error('name')
+                                <label for="jenis" class="">Jenis Produk & Layanan</label>
+                                <select name="jenis" id="jenis" class="form-control @error('jenis') is-invalid @enderror">
+                                    <option value="0">Pilih Jenis</option>
+                                    @foreach ($jenis as $item)
+                                        <option value="{{ $item->id }}" {{ $item->id == $konten->id_jenis ? ' selected' : ''}}>{{ ucwords($item->nama_jenis) }}</option>
+                                    @endforeach
+                                </select>
+                                @error('jenis')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="judul" class="">Judul</label>
+                                <input name="judul" id="judul" placeholder="Nama Jenis Produk & Layanan" type="text" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul', $konten->judul) }}">
+                                @error('judul')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="deskripsi" class="">Deskripsi</label>
+                                <textarea name="deskripsi" id="deskripsi" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5">{{ old('deskripsi', $konten->text_top) }}</textarea>
+                                @error('deskripsi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="konten" class="">Konten</label>
+                                <textarea name="konten" id="konten" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5">{{ old('konten', $konten->konten) }}</textarea>
+                                @error('konten')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -44,4 +85,19 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('extraJS')
+<!-- include summernote js -->
+<script src="{{ asset('') }}summernote-0.8.18-dist/summernote.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#konten').summernote({
+            height: 500,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true                  // set focus to editable area after initializing summernote
+        });
+    });
+</script>
 @endsection

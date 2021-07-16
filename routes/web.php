@@ -41,6 +41,9 @@ Route::group(['middleware' => ['auth']], function () {
             'edit',
             'destroy'
         ]);
+        Route::resource('kota', 'Backend\KotaController');
+        Route::resource('umkm-binaan', 'Backend\UmkmBinaanController');
+
     });
 
 });
