@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('profil', 'Backend\ProfilController');
         Route::resource('kebijakan-privasi', 'Backend\KebijakanPrivasiController');
         Route::resource('sk', 'Backend\SyaratDanKetentuanController');
+        Route::resource('bunga', 'Backend\BungaController');
         Route::resource('about', 'Backend\AboutController');
         Route::resource('jenis-produk-layanan', 'Backend\JenisProdukLayananController');
         Route::resource('item-produk-layanan', 'Backend\ItemProdukLayananController');

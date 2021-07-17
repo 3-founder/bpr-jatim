@@ -28,9 +28,9 @@
                 <form action="{{ route('umkm-binaan.store') }}" method="POST" enctype="multipart/form-data">
                        @csrf
                         <div class="position-relative form-group">
-                            <label for="name" class="">Nama</label>
-                            <input name="nama" id="nama" placeholder="Nama" type="text" class="form-control @error('name') is-invalid @enderror">
-                            @error('name')
+                            <label for="nama" class="">Nama</label>
+                            <input name="nama" id="nama" placeholder="Nama" type="text" class="form-control @error('nama') is-invalid @enderror">
+                            @error('nama')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -38,7 +38,8 @@
                         </div>
                         <div class="position-relative form-group">
                             <label for="id_kota" class="">Nama Kota</label>
-                            <select name="id_kota" id="id_kota" class="form-control">
+                            <select name="id_kota" id="id_kota" class="form-control @error('id_kota') is-invalid @enderror">
+                                <option value="0">Pilih Wilayah</option>
                                 @foreach ($kota as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama_kota}} </option>
                                 @endforeach
@@ -60,7 +61,7 @@
                         </div>
                         <div class="position-relative form-group">
                             <label for="alamat" class="">Alamat</label>
-                            <textarea name="alamat" id="" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea name="alamat" id="" cols="30" rows="10" class="form-control @error('alamat') is-invalid @enderror"></textarea>
                             @error('alamat')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -78,7 +79,7 @@
                         </div>
                         <div class="position-relative form-group">
                             <label for="deskripsi" class="">Deskripsi</label>
-                            <textarea name="deskripsi" id="" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea name="deskripsi" id="" cols="30" rows="10" class="form-control @error('deskripsi') is-invalid @enderror"></textarea>
                             @error('deskripsi')
                                 <div class="invalid-feedback">
                                     {{ $message }}

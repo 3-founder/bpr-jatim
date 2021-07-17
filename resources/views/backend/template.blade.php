@@ -197,6 +197,15 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{ url('administrator/bunga') }}"
+                                    class="{{ Request::segment(2) == 'bunga' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-file-invoice-dollar icon-gradient bg-arielle-smile"></i>
+                                    Bunga
+                                </a>
+                            </li>
+
                             <li class="app-sidebar__heading">Tentang BPR</li>
                             <li>
                                 <a href="#">

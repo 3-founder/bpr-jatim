@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kota;
 use Illuminate\Http\Request;
 use App\Models\UmkmBinaan;
+use App\Http\Requests\UmkmBinaanRequest;
 
 class UmkmBinaanController extends Controller
 {
@@ -37,11 +38,13 @@ class UmkmBinaanController extends Controller
                 }
     
                 $this->param['UmkmBinaan'] = $getUmkmBinaan->paginate(10);
+            } catch (\Exception $e) {
+                return redirect()->back()->withStatus('Terjadi Kesalahan');
             } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->back()->withStatus('Terjadi Kesalahan');
             }
     
-            return \view('backend.umkm-binaan.index', $this->param);
+            return \view('backend.umkm-binaan.index', $this->param);    
         }
     
         /**
@@ -64,20 +67,26 @@ class UmkmBinaanController extends Controller
          * @param  \Illuminate\Http\Request  $request
          * @return \Illuminate\Http\Response
          */
-        public function store(Request $request)
+        public function store(UmkmBinaanRequest $request)
         {
-            if ($request->hasFile('foto')) {
-                $resource = $request->file('foto');
-                $name = $resource->getClientOriginalName();
-                $resource->move(\base_path(). "/public/images", $name);
-                
-                $attr = $request->all();
-                $attr['foto'] = $name;
-
-                UmkmBinaan::create($attr);
-
-                return back()
-                        ->withStatus('berhasil ditambah');
+            try {
+                if ($request->hasFile('foto')) {
+                    $resource = $request->file('foto');
+                    $name = $resource->getClientOriginalName();
+                    $resource->move(\base_path(). "/public/images", $name);
+                    
+                    $attr = $request->all();
+                    $attr['foto'] = $name;
+    
+                    UmkmBinaan::create($attr);
+    
+                    return back()
+                            ->withStatus('berhasil ditambah');
+                }
+            } catch (\Exception $e) {
+                return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
             }
         }
     
@@ -126,36 +135,35 @@ class UmkmBinaanController extends Controller
          */
         public function update(Request $request, $id)
         {
-            $UmkmBinaan = UmkmBinaan::find($id);
+            try {
+                $UmkmBinaan = UmkmBinaan::find($id);
 
-            if ($request->hasFile('foto') != null) {
-                $path = public_path(). '/images/';
+                if ($request->hasFile('foto') != null) {
+                    $path = public_path(). '/images/';
 
-                // remove old image
-                if ($UmkmBinaan->foto != '' && $UmkmBinaan->foto != null) {
-                    $images_old = $path.$UmkmBinaan->foto;
-                    unlink($images_old);
-                    // updload new images
-                    $file = $request->file('foto');
-                    $image_name = $file->getClientOriginalName();
-                    $file->move($path, $image_name);
+                    // remove old image
+                    if ($UmkmBinaan->foto != '' && $UmkmBinaan->foto != null) {
+                        $images_old = $path.$UmkmBinaan->foto;
+                        unlink($images_old);
+                        // updload new images
+                        $file = $request->file('foto');
+                        $image_name = $file->getClientOriginalName();
+                        $file->move($path, $image_name);
+                        $attr['foto'] = $image_name;
+                    }
                 }
-                if ($UmkmBinaan->foto == null) {
-                    $file = $request->file('foto');
-                    $image_name = $file->getClientOriginalName();
-                }
-
+                
                 $attr = $request->all();
-                $attr['foto'] = $image_name;
                 $UmkmBinaan->update($attr);
 
                 return redirect()
                             ->route('umkm-binaan.index')
                             ->withStatus('Berhasil di update'); 
-              
-
-            }
-            
+            } catch (\Exception $e) {
+                return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+            }            
         }
     
         /**
@@ -166,12 +174,18 @@ class UmkmBinaanController extends Controller
          */
         public function destroy(Request $request, $id)
         {
-            $data = UmkmBinaan::findOrFail($id);
-            $image_path = public_path(). '/images/'. $data->foto;
-            unlink($image_path);
-            $data->delete();
+            try {
+                $data = UmkmBinaan::findOrFail($id);
+                $image_path = public_path(). '/images/'. $data->foto;
+                unlink($image_path);
+                $data->delete();
 
-            return back();
+                return redirect()->route('umkm-binaan.index')->withStatus('Data berhasil dihapus.');
+            } catch (\Exception $e) {
+                return redirect()->route('umkm-binaan.index')->withError('Terjadi kesalahan : ' . $e->getMessage());
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->route('umkm-binaan.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            }
         }
     
     
