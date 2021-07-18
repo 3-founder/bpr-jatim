@@ -263,6 +263,35 @@
                                 </ul>
                             </li>
 
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon fa fa-eye icon-gradient bg-arielle-smile"></i>
+                                    Transparansi
+                                    <i class="metismenu-state-icon
+                                            pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="{{ url('administrator/about?t=hukum') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Hukum Perusahaan
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/about?t=komposisi') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Komposisi Saham
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/about?t=tata_kelola') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Tata Kelola Perusahaan
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                             <li class="app-sidebar__heading">Produk & Layanan</li>
                             <li>
                                 <a href="#">

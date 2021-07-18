@@ -70,5 +70,29 @@ class AboutSeeder extends Seeder
         $identitas->konten = '<h3>Identitas Perusahaan</h3>';
         $identitas->tipe = 'identitas';
         $identitas->save();
+
+        // hukum perusahaan
+        $hukum = new \App\Models\About;
+        $hukum->text_top = '<p style="margin-left:5%;margin-right:5%;">Bank BPR Jatim Bank UMKM Jawa Timur sebagai perusahaan terbuka memiliki kewajiban untuk melakukan keterbukaan dan transparansi informasi laporan kinerja kepada pihak investor, masyarakat pasar modal, dan pemegang saham.</p>';
+        $hukum->judul = 'Hukum Perusahaan';
+        $hukum->konten = '<h3>Hukum Perusahaan</h3>';
+        $hukum->tipe = 'hukum';
+        $hukum->save();
+
+        // komposisi saham
+        $komposisi = new \App\Models\About;
+        $komposisi->text_top = '<p style="margin-left:5%;margin-right:5%;">Bank BPR Jatim Bank UMKM Jawa Timur sebagai perusahaan terbuka memiliki kewajiban untuk melakukan keterbukaan dan transparansi informasi laporan kinerja kepada pihak investor, masyarakat pasar modal, dan pemegang saham.</p>';
+        $komposisi->judul = 'Komposisi Saham';
+        $komposisi->konten = '<h3>Komposisi Saham</h3>';
+        $komposisi->tipe = 'komposisi';
+        $komposisi->save();
+
+        // tata kelola perusahaan
+        $tata_kelola = new \App\Models\About;
+        $tata_kelola->text_top = '<p style="margin-left:5%;margin-right:5%;">Bank BPR Jatim Bank UMKM Jawa Timur sebagai perusahaan terbuka memiliki kewajiban untuk melakukan keterbukaan dan transparansi informasi laporan kinerja kepada pihak investor, masyarakat pasar modal, dan pemegang saham.</p>';
+        $tata_kelola->judul = 'Tata Kelola Perusahaan';
+        $tata_kelola->konten = '<h3>Tata Kelola Perusahaan</h3>';
+        $tata_kelola->tipe = 'tata_kelola';
+        $tata_kelola->save();
     }
 }
