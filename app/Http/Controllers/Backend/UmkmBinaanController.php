@@ -7,6 +7,7 @@ use App\Models\Kota;
 use Illuminate\Http\Request;
 use App\Models\UmkmBinaan;
 use App\Http\Requests\UmkmBinaanRequest;
+use Illuminate\Support\Str;
 
 class UmkmBinaanController extends Controller
 {
@@ -77,6 +78,7 @@ class UmkmBinaanController extends Controller
                     
                     $attr = $request->all();
                     $attr['foto'] = $name;
+                    $attr['slug'] = Str::slug($request->get('nama'));
     
                     UmkmBinaan::create($attr);
     
@@ -154,6 +156,7 @@ class UmkmBinaanController extends Controller
                 }
                 
                 $attr = $request->all();
+                $attr['slug'] = $request->get('nama');
                 $UmkmBinaan->update($attr);
 
                 return redirect()

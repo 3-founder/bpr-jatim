@@ -11,7 +11,7 @@
                 </div>
                 <div>
                     @foreach ($about as $item)
-                    {{ ucwords(str_replace('-', ' ', $item->tipe)) }}
+                        {{ $item->tipe}}
                     
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     @csrf
                     @method('PUT')
                         @include('backend.about.partials.form-control')
-                        <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
+                        <button type="submit" class="mt-1 btn btn-primary">Update</button>
                     </form>
                 </div>
                 @endforeach

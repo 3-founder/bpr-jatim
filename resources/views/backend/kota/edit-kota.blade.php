@@ -37,6 +37,24 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="position-relative form-group">
+                                <label for="alamat" class="">Alamat</label>
+                                <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control @error('alamat') is-invalid @enderror">{{old('alamat', $kota->alamat)}}</textarea>
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="telp" class="">Telp.</label>
+                                <input name="telp" id="telp" placeholder="Nomor Telepon" type="number" class="form-control @error('telp') is-invalid @enderror" value="{{old('telp', $kota->telp)}}">
+                                @error('telp')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
                         </form>
                     </div>

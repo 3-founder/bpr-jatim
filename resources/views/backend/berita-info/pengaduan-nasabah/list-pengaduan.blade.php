@@ -32,13 +32,8 @@
                     <i class="fa fa-times-circle"></i> {{session('error')}}
                 </div>
                 @endif
-                <div class="row">
-                    <div class="col-md-2 mb-3">
-                        <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-user-plus mr-2"></i>{{$btnRight['text']}}</button></a>
-                    </div>
-                </div>
                 <div class="main-card mb-3 card">
-                    <div class="card-header">List Cabang
+                    <div class="card-header">List Pengaduan Nasabah
                         <div class="btn-actions-pane-right">
                             <form action="" method="get">
                                 <div class="input-group">
@@ -57,8 +52,10 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th>Cabang</th>
+                                    <th>Nomor Identitas</th>
+                                    <th>Nama Nasabah</th>
+                                    <th>Jenis Kelamin</th>
                                     <th>Alamat</th>
-                                    <th>Telp.</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -67,24 +64,19 @@
                                     $page = Request::get('page');
                                     $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
                                 @endphp
-                                @foreach ($kota as $item)
+                                @foreach ($data as $item)
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
-                                        <td>{{ $item->nama_kota }}</td>
-                                        <td>{{ $item->alamat != null ? $item->alamat : '-' }}</td>
-                                        <td>{{ $item->telp != null ? $item->telp : '-' }}</td>
+                                        <td>{{ ucwords($item->nama_kota) }}</td>
+                                        <td>{{ $item->nomor_identitas }}</td>
+                                        <td>{{ ucwords($item->nama) }}</td>
+                                        <td>{{ $item->jenis_kelamin }}</td>
+                                        <td>{{ $item->alamat }}</td>
                                         <td>
                                             <div class="form-inline">
-                                                <a href="{{ route('kota.edit', $item->id) }}" class="mr-2">
-                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-pen"></span></button>
+                                                <a href="{{ route('detail-pengaduan-nasabah', $item->id) }}" class="mr-2">
+                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Detail" data-placement="top"><span class="fa fa-eye"></span></button>
                                                 </a>
-                                                <form action="{{ route('kota.destroy', $item->id) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
-                                                        <span class="fa fa-trash"></span>
-                                                    </button>
-                                                </form>
                                             </div>
                                         </td>
                                     </tr>
@@ -99,7 +91,7 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        {{$kota->appends(Request::all())->links('vendor.pagination.custom')}}
+                        {{$data->appends(Request::all())->links('vendor.pagination.custom')}}
                     </div>
                 </div>
             </div>

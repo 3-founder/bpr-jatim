@@ -33,8 +33,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('sk', 'Backend\SyaratDanKetentuanController');
         Route::resource('bunga', 'Backend\BungaController');
         Route::resource('tenor', 'Backend\TenorController');
+        Route::resource('kota', 'Backend\KotaController');
         Route::resource('about', 'Backend\AboutController');
         Route::resource('jenis-produk-layanan', 'Backend\JenisProdukLayananController');
+        Route::resource('berita-info', 'Backend\JenisProdukLayananController');
+        Route::get('pengaduan-nasabah', 'Backend\BeritaInfoController@listPengaduanNasabah')->name('pengaduan-nasabah');
+        Route::get('pengaduan-nasabah/{id}', 'Backend\BeritaInfoController@detailPengaduanNasabah')->name('detail-pengaduan-nasabah');
         Route::resource('item-produk-layanan', 'Backend\ItemProdukLayananController');
         Route::resource('about', 'Backend\AboutController')->except([
             'show',
@@ -43,7 +47,6 @@ Route::group(['middleware' => ['auth']], function () {
             'edit',
             'destroy'
         ]);
-        Route::resource('kota', 'Backend\KotaController');
         Route::resource('umkm-binaan', 'Backend\UmkmBinaanController');
 
     });

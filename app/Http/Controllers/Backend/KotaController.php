@@ -12,8 +12,8 @@ class KotaController extends Controller
     
     public function __construct()
     {
-        $this->param['title'] = 'Master Wilayah';
-        $this->param['pageTitle'] = 'Master Wilayah';
+        $this->param['title'] = 'Master Cabang';
+        $this->param['pageTitle'] = 'Master Cabang';
         $this->param['pageIcon'] = 'city';
     }
     /**
@@ -23,7 +23,7 @@ class KotaController extends Controller
      */
     public function index(Request $request)
     {
-        $this->param['btnRight']['text'] = 'Tambah Wilayah';
+        $this->param['btnRight']['text'] = 'Tambah Cabang';
         $this->param['btnRight']['link'] = route('kota.create');
 
         try {
@@ -79,6 +79,8 @@ class KotaController extends Controller
             $newCity = new Kota;
 
             $newCity->nama_kota = $request->get('name');
+            $newCity->alamat = $request->get('alamat');
+            $newCity->telp = $request->get('telp');
 
             $newCity->save();
 
@@ -110,8 +112,8 @@ class KotaController extends Controller
     public function edit($id)
     {
         try {
-            $this->param['title'] = 'Edit Wilayah';
-            $this->param['pageTitle'] = 'Edit Wilayah';
+            $this->param['title'] = 'Edit Cabang';
+            $this->param['pageTitle'] = 'Edit Cabang';
             $this->param['pageIcon'] = 'boxes';
             $this->param['btnRight']['text'] = 'Lihat Data';
             $this->param['btnRight']['link'] = route('kota.index');

@@ -26,8 +26,10 @@ class ChangeTipeOnAboutTable extends Migration
      */
     public function down()
     {
-        Schema::table('about', function (Blueprint $table) {
-            $table->enum('tipe', ['sejarah', 'visi-misi', 'peranan', 'stuktur', 'manajemen', 'identitas'])->change();
-        });
+        // Schema::table('about', function (Blueprint $table) {
+        //     $table->enum('tipe', ['sejarah', 'visi-misi', 'peranan', 'stuktur', 'manajemen', 'identitas'])->change();
+        // });
+        \DB::unprepared("ALTER TABLE about MODIFY COLUMN tipe ENUM('sejarah', 'visi-misi', 'peranan', 'stuktur', 'manajemen', 'identitas')");
+
     }
 }

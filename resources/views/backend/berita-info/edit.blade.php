@@ -11,7 +11,7 @@
                 </div>
                 <div>
                     @foreach ($about as $item)
-                    {{ ucwords(str_replace('-', ' ', $item->tipe)) }}
+                        {{ $item->tipe}}
                     
                 </div>
             </div>
@@ -35,10 +35,10 @@
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <h5 class="card-title">{{ $item->tipe }}</h5>
-                    <form action="{{route('about.update', $item->id)}}" method="POST" autocomplete="off">
+                    <form action="{{route('berita-info.update', $item->id)}}" method="POST" autocomplete="off">
                     @csrf
                     @method('PUT')
-                        @include('backend.about.partials.form-control')
+                        @include('backend.berita-info.partials.form-control')
                         <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
                     </form>
                 </div>

@@ -215,6 +215,15 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{ url('administrator/kota') }}"
+                                    class="{{ Request::segment(2) == 'kota' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-home icon-gradient bg-arielle-smile"></i>
+                                    Cabang
+                                </a>
+                            </li>
+
                             <li class="app-sidebar__heading">Tentang BPR</li>
                             <li>
                                 <a href="#">
@@ -319,28 +328,93 @@
 
                             <li class="app-sidebar__heading">UMKM Binaan</li>
                             <li>
-                                <a href="#">
+                                <a href="{{ url('administrator/umkm-binaan') }}"
+                                    class="{{ Request::segment(2) == 'umkm-binaan' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                     <i class="metismenu-icon fa fa-user-friends icon-gradient bg-arielle-smile"></i>
                                     UMKM Binaan
+                                </a>
+                            </li>
+
+                            <li class="app-sidebar__heading">Berita & Info</li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon fa fa-store icon-gradient bg-arielle-smile"></i>
+                                    Berita & Info
                                     <i class="metismenu-state-icon
                                             pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="{{ route('kota.index') }}">
+                                        <a href="{{ url('administrator/berita-info?t=berita') }}">
                                             <i class="metismenu-icon">
-                                            </i>Master Kota
+                                            </i>Berita
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('umkm-binaan.index') }}">
+                                        <a href="{{ url('administrator/berita-info?t=promo') }}">
                                             <i class="metismenu-icon">
-                                            </i>Master Konten
+                                            </i>Promo
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/berita-info?t=epaper') }}">
+                                            <i class="metismenu-icon">
+                                            </i>ePaper UMKM
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/berita-info?t=penghargaan') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Penghargaan
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/berita-info?t=peta-cabang') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Peta Cabang
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/berita-info?t=karier') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Karier
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('pengaduan-nasabah') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Data Pengaduan Nasabah
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/berita-info?t=tips-keamanan') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Tips Keamanan
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/berita-info?t=jaringan-kantor') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Jaringan Kantor
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/berita-info?t=pengumuman-lelang-jaminan') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Pengumuman Lelang Jaminan
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('administrator/berita-info?t=info-terkini') }}">
+                                            <i class="metismenu-icon">
+                                            </i>Info Terkini
                                         </a>
                                     </li>
                                     <li>
                                 </ul>
                             </li>
+
                         </ul>
                     </div>
                 </div>
