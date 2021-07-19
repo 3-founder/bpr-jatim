@@ -37,8 +37,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('about', 'Backend\AboutController');
         Route::resource('jenis-produk-layanan', 'Backend\JenisProdukLayananController');
         Route::resource('berita-info', 'Backend\JenisProdukLayananController');
-        Route::get('pengaduan-nasabah', 'Backend\BeritaInfoController@listPengaduanNasabah')->name('pengaduan-nasabah');
-        Route::get('pengaduan-nasabah/{id}', 'Backend\BeritaInfoController@detailPengaduanNasabah')->name('detail-pengaduan-nasabah');
+        Route::get('pengaduan-nasabah', 'Backend\PengaduanNasabahController@index')->name('pengaduan-nasabah');
+        Route::get('pengaduan-nasabah/{id}', 'Backend\PengaduanNasabahController@show')->name('detail-pengaduan-nasabah');
+        Route::resource('peta-cabang', 'Backend\PetaCabangController');
+        Route::resource('karier', 'Backend\KarierController');
+        Route::resource('pengumuman-lelang-jaminan', 'Backend\PengumumanLelangJaminanController');
         Route::resource('item-produk-layanan', 'Backend\ItemProdukLayananController');
         Route::resource('about', 'Backend\AboutController')->except([
             'show',

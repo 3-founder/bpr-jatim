@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
             // SyaratDanKetentuanSeeder::class,
             // AboutSeeder::class,
             // TenorSeeder::class,
+            // PetaCabangSeeder::class,
+            // KarierSeeder::class,
+            // PengumumanLelangSeeder::class,
         ]);
     }
 }

@@ -3,48 +3,33 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\BeritaInfo;
-use App\Models\PengaduanNasabah;
+use App\Models\PengumumanLelangJaminan;
 use Illuminate\Http\Request;
 
-class BeritaInfoController extends Controller
+class PengumumanLelangJaminanController extends Controller
 {
     private $param;
     
     public function __construct()
     {
-        $this->param['title'] = 'Berita & Info';
-        $this->param['pageTitle'] = 'Berita & Info';
-        $this->param['pageIcon'] = 'landmark';
+        $this->param['title'] = 'Pengumuman Lelang Jaminan';
+        $this->param['pageTitle'] = 'Pengumuman Lelang Jaminan';
+        $this->param['pageIcon'] = 'info';
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $tipe = $request->get('t');
         try {
-            if (!$tipe) {
-                return redirect()->route('berita-info.index')->withError('Terjadi Kesalahan');
-            }
-            $this->param['data'] = BeritaInfo::where('tipe', $tipe)->get();
+            $this->param['data'] = PengumumanLelangJaminan::first();
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('berita-info.index')->withError('Terjadi Kesalahan');
+            return redirect()->route('pengumuman-lelang-jaminan.index')->withError('Terjadi Kesalahan');
         }
 
-        return \view('backend.berita-info.list-about', $this->param);
-    }
-
-    public function listPengaduanNasabah(Request $request)
-    {
-        
-    }
-
-    public function detailPengaduanNasabah($id)
-    {
-        
+        return \view('backend.pengumuman-lelang-jaminan.index', $this->param);
     }
 
     /**
@@ -99,7 +84,28 @@ class BeritaInfoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'judul' => 'required',
+            'konten' => 'required'
+        ], [
+            'required' => ':attribute tidak boleh kosong.'
+        ], [
+            'judul' => 'Judul',
+            'konten' => 'Konten'
+        ]);
+
+        try {
+            $newData = PengumumanLelangJaminan::findOrFail($id);
+            $newData->judul = $request->get('judul');
+            $newData->konten = $request->get('konten');
+            $newData->save();
+
+            return back()->withStatus('updated Successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('pengumuman-lelang-jaminan.index')->withError('Terjadi Kesalahan');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('pengumuman-lelang-jaminan.index')->withError('Terjadi Kesalahan');
+        }
     }
 
     /**
