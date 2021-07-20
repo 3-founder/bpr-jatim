@@ -388,9 +388,9 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('administrator/berita-info?t=tips-keamanan') }}">
+                                        <a href="{{ url('administrator/tips-info-terkini') }}">
                                             <i class="metismenu-icon">
-                                            </i>Tips Keamanan
+                                            </i>Tips Keamanan & Info Terkini
                                         </a>
                                     </li>
                                     <li>
@@ -405,13 +405,6 @@
                                             </i>Pengumuman Lelang Jaminan
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ url('administrator/berita-info?t=info-terkini') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Info Terkini
-                                        </a>
-                                    </li>
-                                    <li>
                                 </ul>
                             </li>
 

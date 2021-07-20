@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             // PetaCabangSeeder::class,
             // KarierSeeder::class,
             // PengumumanLelangSeeder::class,
+            // BungaSeeder::class
+            // TipsKeamananInfoTerkiniSeeder::class
         ]);
     }
 }

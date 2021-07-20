@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('peta-cabang', 'Backend\PetaCabangController');
         Route::resource('karier', 'Backend\KarierController');
         Route::resource('pengumuman-lelang-jaminan', 'Backend\PengumumanLelangJaminanController');
+        Route::resource('tips-info-terkini', 'Backend\TipsInfoTerkiniController');
         Route::resource('item-produk-layanan', 'Backend\ItemProdukLayananController');
         Route::resource('about', 'Backend\AboutController')->except([
             'show',
