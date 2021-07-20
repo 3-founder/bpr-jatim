@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
                 <div class="logo-src"></div>
@@ -338,6 +338,14 @@
 
                             <li class="app-sidebar__heading">Berita & Info</li>
                             <li>
+                                <a href="{{ url('administrator/berita') }}"
+                                    class="{{ Request::segment(2) == 'berita' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon far fa-newspaper icon-gradient bg-arielle-smile"></i>
+                                    Berita
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#">
                                     <i class="metismenu-icon fa fa-store icon-gradient bg-arielle-smile"></i>
                                     Berita & Info
@@ -474,6 +482,12 @@
     <script>
         ClassicEditor
             .create(document.querySelector('.ck-editor'))
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('.ck-editor2'))
             .catch(error => {
                 console.error(error);
             });
