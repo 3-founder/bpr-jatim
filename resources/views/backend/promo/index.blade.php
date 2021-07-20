@@ -8,7 +8,7 @@
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
                     <div class="page-title-icon">
-                        <i class="metismenu-icon far fa-{{$pageIcon}} icon-gradient bg-arielle-smile">
+                        <i class="metismenu-icon fa fa-{{$pageIcon}} icon-gradient bg-arielle-smile">
                         </i>
                     </div>
                     <div>
@@ -56,10 +56,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
+                                    <th>Sampul</th>
                                     <th>Judul</th>
-                                    <th>Tanggal</th>
-                                    <th>Cover</th>
-                                    <th>Konten</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -68,20 +66,22 @@
                                     $page = Request::get('page');
                                     $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
                                 @endphp
-                                @foreach ($berita as $item)
+                                @foreach ($data as $item)
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
-                                        <td>{{ $item->judul }}</td>
-                                        <td>{{ date('d-m-Y',strtotime($item->created_at)) }}</td>
-                                        <td>{{ $item->cover }}</td>
-                                        <td>{{ $item->konten }}</td>
-                                        <td>{{ $item->email }}</td>
+                                        <td>
+                                            <img src="{{ asset('../'.$item->cover) }}" alt="{{ $item->judul }}" width="150px" height="150px">
+                                        </td>
+                                        <td>{{ ucwords($item->judul) }}</td>
                                         <td>
                                             <div class="form-inline">
-                                                <a href="{{ route('user.edit', $item->id) }}" class="mr-2">
+                                                <a href="{{ route('promo.show', $item->id) }}" class="mr-2">
+                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Detail" data-placement="top"><span class="fa fa-eye"></span></button>
+                                                </a>
+                                                <a href="{{ route('promo.edit', $item->id) }}" class="mr-2">
                                                     <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-pen"></span></button>
                                                 </a>
-                                                <form action="{{ route('user.destroy', $item->id) }}" method="post">
+                                                <form action="{{ route('promo.destroy', $item->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
@@ -102,7 +102,7 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        {{$berita->appends(Request::all())->links('vendor.pagination.custom')}}
+                        {{$data->appends(Request::all())->links('vendor.pagination.custom')}}
                     </div>
                 </div>
             </div>

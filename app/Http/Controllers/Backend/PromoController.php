@@ -4,61 +4,62 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use \App\Models\Berita;
-use App\Models\User;
+use App\Models\Promo;
 use Illuminate\Support\Str;
 
-class BeritaController extends Controller
+class PromoController extends Controller
 {
     private $param;
     
     public function __construct()
     {
-        $this->param['title'] = 'Berita';
-        $this->param['pageTitle'] = 'Berita';
+        $this->param['title'] = 'Promo';
+        $this->param['pageTitle'] = 'Promo';
         $this->param['pageIcon'] = 'newspaper';
     }
     
     public function index(Request $request)
     {
         
-        $this->param['btnRight']['text'] = 'Tambah Berita';
-        $this->param['btnRight']['link'] = route('berita.create');
+        $this->param['btnRight']['text'] = 'Tambah Promo';
+        $this->param['btnRight']['link'] = route('promo.create');
 
         try {
             $keyword = $request->get('keyword');
-            $getBerita = Berita::orderBy('judul', 'ASC');
+            $getPromo = Promo::orderBy('judul', 'ASC');
 
             if ($keyword) {
-                $getBerita->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
+                $getPromo->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
             }
 
-            $this->param['data'] = $getBerita->paginate(10);
+            $this->param['data'] = $getPromo->paginate(10);
+        } catch (\Exception $e) {
+            return redirect()->back()->withStatus('Terjadi Kesalahan');
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->back()->withStatus('Terjadi Kesalahan');
         }
 
-        return \view('backend.berita.index', $this->param);
+        return \view('backend.promo.index', $this->param);
     }
 
     public function create()
     {
         
         $this->param['btnRight']['text'] = 'Lihat Data';
-        $this->param['btnRight']['link'] = route('berita.index');
+        $this->param['btnRight']['link'] = route('promo.index');
 
-        return \view('backend.berita.create', $this->param);
+        return \view('backend.promo.create', $this->param);
     }
 
     public function show($id)
     {
         try {
             $this->param['btnRight']['text'] = 'Lihat Data';
-            $this->param['btnRight']['link'] = route('berita.index');
+            $this->param['btnRight']['link'] = route('promo.index');
 
-            $this->param['konten'] = Berita::find($id);
+            $this->param['konten'] = Promo::find($id);
             
-            return \view('backend.berita.detail', $this->param);
+            return \view('backend.promo.detail', $this->param);
         }
         catch (\Exception $e) {
             return redirect()->back()->withError('Terjadi kesalahan');
@@ -87,7 +88,7 @@ class BeritaController extends Controller
         );
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/berita/';
+                $folder = 'upload/promo/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
@@ -100,22 +101,22 @@ class BeritaController extends Controller
                     mkdir($folder, 0755, true);
                 }
                 if($file->move($folder, $filename)) {
-                    $newBerita = new Berita;
+                    $newPromo = new Promo;
 
-                    $newBerita->judul = $request->get('judul');
-                    $newBerita->slug = Str::slug($request->get('judul'));
-                    $newBerita->cover = $folder.'/'.$filename;
-                    $newBerita->konten = $request->get('konten');
+                    $newPromo->judul = $request->get('judul');
+                    $newPromo->slug = Str::slug($request->get('judul'));
+                    $newPromo->cover = $folder.'/'.$filename;
+                    $newPromo->konten = $request->get('konten');
 
-                    $newBerita->save();       
+                    $newPromo->save();       
                 }
             }
 
-            return redirect()->route('berita.index')->withStatus('Data berhasil ditambahkan.');
+            return redirect()->route('promo.index')->withStatus('Data berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->route('berita.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
+            return redirect()->route('promo.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('berita.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            return redirect()->route('promo.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
 
@@ -123,11 +124,11 @@ class BeritaController extends Controller
     {
         try {
             $this->param['btnRight']['text'] = 'Lihat Data';
-            $this->param['btnRight']['link'] = route('berita.index');
+            $this->param['btnRight']['link'] = route('promo.index');
 
-            $this->param['konten'] = Berita::find($id);
+            $this->param['konten'] = Promo::find($id);
             
-            return \view('backend.berita.edit', $this->param);
+            return \view('backend.promo.edit', $this->param);
         }
         catch (\Exception $e) {
             return redirect()->back()->withError('Terjadi kesalahan');
@@ -139,9 +140,9 @@ class BeritaController extends Controller
 
     public function update(Request $request, $id)
     {
-        $berita = Berita::find($id);
+        $promo = Promo::find($id);
 
-        $isUnique = $berita->judul == $request->get('judul') ? '' : '|unique:berita,judul';
+        $isUnique = $promo->judul == $request->get('judul') ? '' : '|unique:promo,judul';
 
         $validatedData = $request->validate(
             [
@@ -156,9 +157,10 @@ class BeritaController extends Controller
                 'konten' => 'Konten',
             ]
         );
+
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/berita/';
+                $folder = 'upload/promo/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
@@ -171,34 +173,34 @@ class BeritaController extends Controller
                     mkdir($folder, 0755, true);
                 }
                 if($file->move($folder, $filename)) {
-                    $berita->cover = $folder.'/'.$filename;
+                    $promo->cover = $folder.'/'.$filename;
                 }
             }
 
-            $berita->judul = $request->get('judul');
-            $berita->slug = Str::slug($request->get('judul'));
-            $berita->konten = $request->get('konten');
+            $promo->judul = $request->get('judul');
+            $promo->slug = Str::slug($request->get('judul'));
+            $promo->konten = $request->get('konten');
 
-            $berita->save();   
+            $promo->save();   
 
-            return redirect()->route('berita.index')->withStatus('Data berhasil disimpan.');
+            return redirect()->route('promo.index')->withStatus('Data berhasil disimpan.');
         } catch (\Exception $e) {
-            return redirect()->route('berita.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
+            return redirect()->route('promo.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('berita.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            return redirect()->route('promo.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
 
     public function destroy($id)
     {
         try{
-            $berita = Berita::find($id);
+            $promo = Promo::find($id);
 
-            $cover = $berita->cover;
+            $cover = $promo->cover;
             if($cover != null){
                 if(file_exists($cover)){
                     if(File::delete($cover)){
-                        $berita->delete();
+                        $promo->delete();
                     }
                 }
             }

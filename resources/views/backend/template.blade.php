@@ -340,82 +340,64 @@
                             <li>
                                 <a href="{{ url('administrator/berita') }}"
                                     class="{{ Request::segment(2) == 'berita' ? 'mm-active' : '' }}">
-                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                     <i class="metismenu-icon far fa-newspaper icon-gradient bg-arielle-smile"></i>
                                     Berita
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <i class="metismenu-icon fa fa-store icon-gradient bg-arielle-smile"></i>
-                                    Berita & Info
-                                    <i class="metismenu-state-icon
-                                            pe-7s-angle-down caret-left"></i>
+                                <a href="{{ url('administrator/promo') }}" class="{{ Request::segment(2) == 'promo' ? 'mm-active' : '' }}">
+                                    <i class="metismenu-icon far fa-newspaper icon-gradient bg-arielle-smile">
+                                    </i>Promo
                                 </a>
-                                <ul>
-                                    <li>
-                                        <a href="{{ url('administrator/berita-info?t=berita') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Berita
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('administrator/berita-info?t=promo') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Promo
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('administrator/berita-info?t=epaper') }}">
-                                            <i class="metismenu-icon">
-                                            </i>ePaper UMKM
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('administrator/berita-info?t=penghargaan') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Penghargaan
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('administrator/peta-cabang') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Peta Cabang
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('administrator/karier') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Karier
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('pengaduan-nasabah') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Data Pengaduan Nasabah
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('administrator/tips-info-terkini') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Tips Keamanan & Info Terkini
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('administrator/berita-info?t=jaringan-kantor') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Jaringan Kantor
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('administrator/pengumuman-lelang-jaminan') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Pengumuman Lelang Jaminan
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
-
+                            <li>
+                                <a href="{{ url('administrator/epaper') }}">
+                                    <i class="metismenu-icon far fa-newspaper icon-gradient bg-arielle-smile">
+                                    </i>ePaper UMKM
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('administrator/penghargaan') }}">
+                                    <i class="metismenu-icon far fa-newspaper icon-gradient bg-arielle-smile">
+                                    </i>Penghargaan
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('administrator/peta-cabang') }}" class="{{ Request::segment(2) == 'peta-cabang' ? 'mm-active' : '' }}">
+                                    <i class="metismenu-icon far fa-maps icon-gradient bg-arielle-smile">
+                                    </i>Peta Cabang
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('administrator/karier') }}" class="{{ Request::segment(2) == 'karier' ? 'mm-active' : '' }}">
+                                    <i class="metismenu-icon far fa-walking icon-gradient bg-arielle-smile">
+                                    </i>Karier
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('pengaduan-nasabah') }}" class="{{ Request::segment(2) == 'pengaduan-nasabah' ? 'mm-active' : '' }}">
+                                    <i class="metismenu-icon far fa-pep icon-gradient bg-arielle-smile">
+                                    </i>Data Pengaduan Nasabah
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('administrator/tips-info-terkini') }}" class="{{ Request::segment(2) == 'tips-info-terkini' ? 'mm-active' : '' }}">
+                                    <i class="metismenu-icon far fa-newspaper icon-gradient bg-arielle-smile">
+                                    </i>Tips Keamanan & Info Terkini
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('administrator/berita-info?t=jaringan-kantor') }}">
+                                    <i class="metismenu-icon far fa-newspaper icon-gradient bg-arielle-smile">
+                                    </i>Jaringan Kantor
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('administrator/pengumuman-lelang-jaminan') }}" class="{{ Request::segment(2) == 'pengumuman-lelang-jaminan' ? 'mm-active' : '' }}">
+                                    <i class="metismenu-icon far fa-newspaper icon-gradient bg-arielle-smile">
+                                    </i>Pengumuman Lelang Jaminan
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

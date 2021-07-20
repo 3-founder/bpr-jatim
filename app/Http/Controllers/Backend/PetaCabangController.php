@@ -96,14 +96,18 @@ class PetaCabangController extends Controller
 
         try {
             $attr = $request->all();
-            $petaUpdate = PetaCabang::findOrFail($id);
-
-            $petaUpdate->update($attr);
+            $petaUpdate = PetaCabang::find($id);
+            $petaUpdate->judul = $request->get('judul');
+            $petaUpdate->konten = $request->get('konten');
+            $petaUpdate->save();
+            // $petaUpdate->update($attr);
 
             return back()->withStatus('updated Successfully!');
-        } catch (\Exception $th) {
+        } catch (\Exception $e) {
+            return $e->getMessage();
             return redirect()->route('peta-cabang.index')->withError('Terjadi Kesalahan');
-        } catch (\Illuminate\Database\QueryException $th) {
+        } catch (\Illuminate\Database\QueryException $e) {
+            return $e->getMessage();
             return redirect()->route('peta-cabang.index')->withError('Terjadi Kesalahan');
         }
     }

@@ -37,7 +37,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('about', 'Backend\AboutController');
         Route::resource('jenis-produk-layanan', 'Backend\JenisProdukLayananController');
         Route::resource('berita', 'Backend\BeritaController');
-        Route::resource('berita-info', 'Backend\JenisProdukLayananController');
+        Route::resource('promo', 'Backend\PromoController');
+        Route::resource('penghargaan', 'Backend\PenghargaanController');
+        Route::resource('epaper', 'Backend\EpaperController');
         Route::get('pengaduan-nasabah', 'Backend\PengaduanNasabahController@index')->name('pengaduan-nasabah');
         Route::get('pengaduan-nasabah/{id}', 'Backend\PengaduanNasabahController@show')->name('detail-pengaduan-nasabah');
         Route::resource('peta-cabang', 'Backend\PetaCabangController');

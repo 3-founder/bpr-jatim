@@ -4,62 +4,66 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use \App\Models\Berita;
-use App\Models\User;
+use App\Models\Epaper;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
-class BeritaController extends Controller
+class EpaperController extends Controller
 {
     private $param;
     
     public function __construct()
     {
-        $this->param['title'] = 'Berita';
-        $this->param['pageTitle'] = 'Berita';
+        $this->param['title'] = 'Epaper';
+        $this->param['pageTitle'] = 'Epaper';
         $this->param['pageIcon'] = 'newspaper';
     }
     
     public function index(Request $request)
     {
         
-        $this->param['btnRight']['text'] = 'Tambah Berita';
-        $this->param['btnRight']['link'] = route('berita.create');
+        $this->param['btnRight']['text'] = 'Tambah Epaper';
+        $this->param['btnRight']['link'] = route('epaper.create');
 
         try {
             $keyword = $request->get('keyword');
-            $getBerita = Berita::orderBy('judul', 'ASC');
+            $getEpaper = Epaper::orderBy('judul', 'ASC');
 
             if ($keyword) {
-                $getBerita->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
+                $getEpaper->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
             }
 
-            $this->param['data'] = $getBerita->paginate(10);
+            $this->param['data'] = $getEpaper->paginate(10);
+        } catch (\Exception $e) {
+            return redirect()->back()->withStatus('Terjadi Kesalahan');
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->back()->withStatus('Terjadi Kesalahan');
         }
 
-        return \view('backend.berita.index', $this->param);
+        return \view('backend.epaper.index', $this->param);
     }
 
     public function create()
     {
         
         $this->param['btnRight']['text'] = 'Lihat Data';
-        $this->param['btnRight']['link'] = route('berita.index');
+        $this->param['btnRight']['link'] = route('epaper.index');
 
-        return \view('backend.berita.create', $this->param);
+        return \view('backend.epaper.create', $this->param);
     }
 
     public function show($id)
     {
         try {
-            $this->param['btnRight']['text'] = 'Lihat Data';
-            $this->param['btnRight']['link'] = route('berita.index');
-
-            $this->param['konten'] = Berita::find($id);
-            
-            return \view('backend.berita.detail', $this->param);
-        }
+            $data = Epaper::find($id);
+            $pdfUrl = asset('../'.$data->konten);
+            // $pdfUrl = 
+            // return response()->file(storage_path($pdfUrl));
+            // return redirect($pdfUrl);
+            // return view('backend.epaper.detail', $pdfUrl);
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadHTML('<h1>Test</h1>');
+            return $pdf->stream();        }
         catch (\Exception $e) {
             return redirect()->back()->withError('Terjadi kesalahan');
         }
@@ -86,10 +90,12 @@ class BeritaController extends Controller
             ]
         );
         try {
-            if($request->file('cover') != null) {
-                $folder = 'upload/berita/';
+            if($request->file('cover') != null || $request->file('konten') != null) {
+                $folder = 'upload/epaper/';
                 $file = $request->file('cover');
+                $filePdf = $request->file('konten');
                 $filename = date('YmdHis').$file->getClientOriginalName();
+                $filenamePdf = date('YmdHis').$filePdf->getClientOriginalName();
                 // Get canonicalized absolute pathname
                 $path = realpath($folder);
 
@@ -99,23 +105,23 @@ class BeritaController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                if($file->move($folder, $filename)) {
-                    $newBerita = new Berita;
+                if($file->move($folder, $filename) && $filePdf->move($folder, $filenamePdf)) {
+                    $newEpaper = new Epaper;
 
-                    $newBerita->judul = $request->get('judul');
-                    $newBerita->slug = Str::slug($request->get('judul'));
-                    $newBerita->cover = $folder.'/'.$filename;
-                    $newBerita->konten = $request->get('konten');
+                    $newEpaper->judul = $request->get('judul');
+                    $newEpaper->slug = Str::slug($request->get('judul'));
+                    $newEpaper->cover = $folder.'/'.$filename;
+                    $newEpaper->konten = $folder.'/'.$filenamePdf;
 
-                    $newBerita->save();       
+                    $newEpaper->save();       
                 }
             }
 
-            return redirect()->route('berita.index')->withStatus('Data berhasil ditambahkan.');
+            return redirect()->route('epaper.index')->withStatus('Data berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->route('berita.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
+            return redirect()->route('epaper.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('berita.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            return redirect()->route('epaper.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
 
@@ -123,11 +129,11 @@ class BeritaController extends Controller
     {
         try {
             $this->param['btnRight']['text'] = 'Lihat Data';
-            $this->param['btnRight']['link'] = route('berita.index');
+            $this->param['btnRight']['link'] = route('promo.index');
 
-            $this->param['konten'] = Berita::find($id);
+            $this->param['konten'] = Epaper::find($id);
             
-            return \view('backend.berita.edit', $this->param);
+            return \view('backend.epaper.edit', $this->param);
         }
         catch (\Exception $e) {
             return redirect()->back()->withError('Terjadi kesalahan');
@@ -139,28 +145,29 @@ class BeritaController extends Controller
 
     public function update(Request $request, $id)
     {
-        $berita = Berita::find($id);
+        $epaper = Epaper::find($id);
 
-        $isUnique = $berita->judul == $request->get('judul') ? '' : '|unique:berita,judul';
+        $isUnique = $epaper->judul == $request->get('judul') ? '' : '|unique:epaper,judul';
 
         $validatedData = $request->validate(
             [
                 'judul' => 'required',
-                'konten' => 'required',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
             ],
             [
                 'judul' => 'Judul',
-                'konten' => 'Konten',
             ]
         );
+
         try {
-            if($request->file('cover') != null) {
-                $folder = 'upload/berita/';
+            if($request->file('cover') != null && $request->file('konten') != null) {
+                $folder = 'upload/epaper/';
                 $file = $request->file('cover');
+                $filePdf = $request->file('konten');
                 $filename = date('YmdHis').$file->getClientOriginalName();
+                $filenamePdf = date('YmdHis').$filePdf->getClientOriginalName();
                 // Get canonicalized absolute pathname
                 $path = realpath($folder);
 
@@ -170,35 +177,36 @@ class BeritaController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                if($file->move($folder, $filename)) {
-                    $berita->cover = $folder.'/'.$filename;
+                if($file->move($folder, $filename) && $filePdf->move($folder, $filenamePdf)) {
+                    $epaper->cover = $folder.'/'.$filename;
+                    $epaper->konten = $folder.'/'.$filenamePdf;
                 }
             }
 
-            $berita->judul = $request->get('judul');
-            $berita->slug = Str::slug($request->get('judul'));
-            $berita->konten = $request->get('konten');
+            $epaper->judul = $request->get('judul');
+            $epaper->slug = Str::slug($request->get('judul'));
 
-            $berita->save();   
+            $epaper->save();   
 
-            return redirect()->route('berita.index')->withStatus('Data berhasil disimpan.');
+            return redirect()->route('epaper.index')->withStatus('Data berhasil disimpan.');
         } catch (\Exception $e) {
-            return redirect()->route('berita.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
+            return redirect()->route('epaper.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('berita.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            return redirect()->route('epaper.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
 
     public function destroy($id)
     {
         try{
-            $berita = Berita::find($id);
+            $epaper = Epaper::find($id);
 
-            $cover = $berita->cover;
-            if($cover != null){
-                if(file_exists($cover)){
-                    if(File::delete($cover)){
-                        $berita->delete();
+            $cover = $epaper->cover;
+            $pdf = $epaper->konten;
+            if($cover != null && $pdf != null) {
+                if(file_exists($cover) && file_exists($pdf)){
+                    if(File::delete($cover) && File::delete($pdf)){
+                        $epaper->delete();
                     }
                 }
             }

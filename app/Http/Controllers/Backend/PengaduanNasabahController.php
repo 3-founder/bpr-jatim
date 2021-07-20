@@ -15,8 +15,8 @@ class PengaduanNasabahController extends Controller
      */
     public function index(Request $request)
     {
-        $this->param['title'] = 'Berita & Info';
-        $this->param['pageTitle'] = 'Berita & Info';
+        $this->param['title'] = 'Data Pengaduan Nasabah';
+        $this->param['pageTitle'] = 'Data Pengaduan Nasabah';
         $this->param['pageIcon'] = 'landmark';
 
         try {

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\UmkmBinaan;
 use App\Http\Requests\UmkmBinaanRequest;
 use Illuminate\Support\Str;
+use File;
 
 class UmkmBinaanController extends Controller
 {
@@ -16,9 +17,9 @@ class UmkmBinaanController extends Controller
         
         public function __construct()
         {
-            $this->param['title'] = 'Master Wilayah';
-            $this->param['pageTitle'] = 'Master Wilayah';
-            $this->param['pageIcon'] = 'city';
+            $this->param['title'] = 'UMKM Binaan';
+            $this->param['pageTitle'] = 'UMKM Binaan';
+            $this->param['pageIcon'] = 'user-friends';
         }
         /**
          * Display a listing of the resource.
@@ -71,23 +72,43 @@ class UmkmBinaanController extends Controller
         public function store(UmkmBinaanRequest $request)
         {
             try {
-                if ($request->hasFile('foto')) {
-                    $resource = $request->file('foto');
-                    $name = $resource->getClientOriginalName();
-                    $resource->move(\base_path(). "/public/images", $name);
-                    
-                    $attr = $request->all();
-                    $attr['foto'] = $name;
-                    $attr['slug'] = Str::slug($request->get('nama'));
+                if($request->file('foto') != null) {
+                    $folder = 'upload/umkm-binaan/';
+                    $file = $request->file('foto');
+                    $filename = date('YmdHis').$file->getClientOriginalName();
+                    // Get canonicalized absolute pathname
+                    $path = realpath($folder);
     
-                    UmkmBinaan::create($attr);
-    
-                    return back()
-                            ->withStatus('berhasil ditambah');
+                    // If it exist, check if it's a directory
+                    if(!($path !== true AND is_dir($path)))
+                    {
+                        // Path/folder does not exist then create a new folder
+                        mkdir($folder, 0755, true);
+                    }
+                    if($file->move($folder, $filename)) {
+                        $newUmkm = new UmkmBinaan;
+                        $newUmkm->nama = $request->get('nama');
+                        $newUmkm->slug = Str::slug($request->get('nama'));
+                        $newUmkm->id_kota = $request->get('id_kota');
+                        $newUmkm->jenis_usaha = $request->get('jenis_usaha');
+                        $newUmkm->alamat = $request->get('alamat');
+                        $newUmkm->no_telp = $request->get('no_telp');
+                        $newUmkm->deskripsi = $request->get('deskripsi');
+                        $newUmkm->foto = $folder.'/'.$filename;
+
+                        $newUmkm->save();
+        
+                        // UmkmBinaan::create($attr);
+        
+                        return redirect()->route('umkm-binaan.index')
+                                ->withStatus('Berhasil menyimpan data');
+                    }
                 }
             } catch (\Exception $e) {
+                return $e->getMessage();
                 return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
             } catch (\Illuminate\Database\QueryException $e) {
+                return $e->getMessage();
                 return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
             }
         }
@@ -138,33 +159,55 @@ class UmkmBinaanController extends Controller
         public function update(Request $request, $id)
         {
             try {
-                $UmkmBinaan = UmkmBinaan::find($id);
+                $updateUmkm = UmkmBinaan::find($id);
+                $currentFoto = $updateUmkm->foto;
 
-                if ($request->hasFile('foto') != null) {
-                    $path = public_path(). '/images/';
+                if($request->file('foto') != null) {
+                    $folder = 'upload/umkm-binaan/';
+                    $file = $request->file('foto');
+                    $filename = date('YmdHis').$file->getClientOriginalName();
+                    // Get canonicalized absolute pathname
+                    $path = realpath($folder);
 
-                    // remove old image
-                    if ($UmkmBinaan->foto != '' && $UmkmBinaan->foto != null) {
-                        $images_old = $path.$UmkmBinaan->foto;
-                        unlink($images_old);
-                        // updload new images
-                        $file = $request->file('foto');
-                        $image_name = $file->getClientOriginalName();
-                        $file->move($path, $image_name);
-                        $attr['foto'] = $image_name;
+                    // If it exist, check if it's a directory
+                    if(!($path !== true AND is_dir($path)))
+                    {
+                        // Path/folder does not exist then create a new folder
+                        mkdir($folder, 0755, true);
+                    }
+                    if($currentFoto != null){
+                        if(file_exists($currentFoto)){
+                            if(File::delete($currentFoto)){
+                                if($file->move($folder, $filename)) {
+                                    $updateUmkm->foto = $folder.'/'.$filename;
+                                }
+                            }
+                        }
                     }
                 }
                 
-                $attr = $request->all();
-                $attr['slug'] = $request->get('nama');
-                $UmkmBinaan->update($attr);
+                $updateUmkm->nama = $request->get('nama');
+                $updateUmkm->slug = Str::slug($request->get('nama'));
+                $updateUmkm->id_kota = $request->get('id_kota');
+                $updateUmkm->jenis_usaha = $request->get('jenis_usaha');
+                $updateUmkm->alamat = $request->get('alamat');
+                $updateUmkm->no_telp = $request->get('no_telp');
+                $updateUmkm->deskripsi = $request->get('deskripsi');
+
+                $updateUmkm->save();
+
+                // $attr = $request->all();
+                // $attr['slug'] = $request->get('nama');
+                // $UmkmBinaan->update($attr);
 
                 return redirect()
                             ->route('umkm-binaan.index')
-                            ->withStatus('Berhasil di update'); 
+                            ->withStatus('Berhasil menyimpan data'); 
             } catch (\Exception $e) {
+                return $e->getMessage();
                 return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
             } catch (\Illuminate\Database\QueryException $e) {
+                return $e->getMessage();
                 return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
             }            
         }
@@ -178,12 +221,18 @@ class UmkmBinaanController extends Controller
         public function destroy(Request $request, $id)
         {
             try {
-                $data = UmkmBinaan::findOrFail($id);
-                $image_path = public_path(). '/images/'. $data->foto;
-                unlink($image_path);
-                $data->delete();
+                $umkm = UmkmBinaan::findOrFail($id);
 
-                return redirect()->route('umkm-binaan.index')->withStatus('Data berhasil dihapus.');
+                $foto = $umkm->foto;
+
+                if($umkm->delete()){
+                    File::delete($foto);
+                    return redirect()->route('umkm-binaan.index')->withStatus('Data berhasil dihapus.');
+                }
+                else {
+                    return redirect()->route('umkm-binaan.index')->withError('Data gagal dihapus.');
+                }
+
             } catch (\Exception $e) {
                 return redirect()->route('umkm-binaan.index')->withError('Terjadi kesalahan : ' . $e->getMessage());
             } catch (\Illuminate\Database\QueryException $e) {

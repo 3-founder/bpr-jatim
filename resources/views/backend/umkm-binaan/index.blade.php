@@ -78,7 +78,9 @@
                                     <td>{{ $item->alamat }}</td>
                                     <td>{{ $item->no_telp }}</td>
                                     <td>{{ $item->deskripsi }}</td>
-                                    <td>{{ $item->foto }}</td>
+                                    <td>
+                                        <img src="{{ asset('../'.$item->foto) }}" alt="{{ $item->nama }}" width="150px" height="150px">
+                                    </td>
                                     <td>
                                         <div class="form-inline">
                                             <a href="{{ route('umkm-binaan.edit', $item->id) }}" class="mr-2">
