@@ -2,10 +2,9 @@
 
 @section('extraCSS')
 <!-- include libraries(jQuery, bootstrap) -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> --}}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- include summernote css -->
 <link href="{{ asset('') }}summernote-0.8.18-dist/summernote.min.css" rel="stylesheet">
 @endsection
@@ -20,9 +19,7 @@
                     </i>
                 </div>
                 <div>
-                    @foreach ($about as $item)
-                    {{ ucwords(str_replace('-', ' ', $item->tipe)) }}
-                    
+                    Tips Keamanan & Info Terkini
                 </div>
             </div>
         </div>
@@ -44,15 +41,14 @@
             @endif
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $item->tipe }}</h5>
-                    <form action="{{route('about.update', $item->id)}}" method="POST" autocomplete="off">
+                    {{-- <h5 class="card-title">Karier</h5> --}}
+                    <form action="{{route('tips-info-terkini.update', $data->id)}}" method="POST" autocomplete="off">
                     @csrf
                     @method('PUT')
-                        @include('backend.about.partials.form-control')
+                        @include('backend.tips-info-terkini.partials.form-control')
                         <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
                     </form>
                 </div>
-                @endforeach
             </div>
         </div>
     </div>
@@ -65,6 +61,14 @@
 <script>
     $(document).ready(function() {
         $('#konten').summernote({
+            height: 400,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true                  // set focus to editable area after initializing summernote
+        });
+    });
+    $(document).ready(function() {
+        $('#konten_info').summernote({
             height: 500,                 // set editor height
             minHeight: null,             // set minimum height of editor
             maxHeight: null,             // set maximum height of editor

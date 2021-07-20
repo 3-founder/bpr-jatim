@@ -20,9 +20,7 @@
                     </i>
                 </div>
                 <div>
-                    @foreach ($about as $item)
-                    {{ ucwords(str_replace('-', ' ', $item->tipe)) }}
-                    
+                    Karier
                 </div>
             </div>
         </div>
@@ -44,15 +42,14 @@
             @endif
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $item->tipe }}</h5>
-                    <form action="{{route('about.update', $item->id)}}" method="POST" autocomplete="off">
+                    <h5 class="card-title">Karier</h5>
+                    <form action="{{route('karier.update', $data->id)}}" method="POST" autocomplete="off">
                     @csrf
                     @method('PUT')
-                        @include('backend.about.partials.form-control')
+                        @include('backend.karier.partials.form-control')
                         <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
                     </form>
                 </div>
-                @endforeach
             </div>
         </div>
     </div>

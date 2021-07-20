@@ -378,13 +378,13 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('administrator/berita-info?t=peta-cabang') }}">
+                                        <a href="{{ url('administrator/peta-cabang') }}">
                                             <i class="metismenu-icon">
                                             </i>Peta Cabang
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('administrator/berita-info?t=karier') }}">
+                                        <a href="{{ url('administrator/karier') }}">
                                             <i class="metismenu-icon">
                                             </i>Karier
                                         </a>
@@ -396,9 +396,9 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('administrator/berita-info?t=tips-keamanan') }}">
+                                        <a href="{{ url('administrator/tips-info-terkini') }}">
                                             <i class="metismenu-icon">
-                                            </i>Tips Keamanan
+                                            </i>Tips Keamanan & Info Terkini
                                         </a>
                                     </li>
                                     <li>
@@ -408,18 +408,11 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('administrator/berita-info?t=pengumuman-lelang-jaminan') }}">
+                                        <a href="{{ url('administrator/pengumuman-lelang-jaminan') }}">
                                             <i class="metismenu-icon">
                                             </i>Pengumuman Lelang Jaminan
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ url('administrator/berita-info?t=info-terkini') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Info Terkini
-                                        </a>
-                                    </li>
-                                    <li>
                                 </ul>
                             </li>
 

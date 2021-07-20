@@ -11,7 +11,7 @@
 </div>
 <div class="position-relative form-group">
     <label for="Text Top" class="">Text Top</label>
-    <textarea name="text_top" class="form-control ck-editor @error('text_top') is-invalid @enderror">{{ old('text_top', $item->text_top) }}</textarea>
+    <textarea name="text_top" class="form-control @error('text_top') is-invalid @enderror">{{ old('text_top', $item->text_top) }}</textarea>
     @error('text_top')
         <div class="invalid-feedback">
             {{ $message }}
@@ -21,7 +21,7 @@
 
 <div class="position-relative form-group">
     <label for="konten" class="">Konten</label>
-    <textarea name="konten" class="form-control ck-editor2 @error('konten') is-invalid @enderror">{{ old('konten', $item->konten) }}</textarea>
+    <textarea name="konten" id="konten" class="form-control @error('konten') is-invalid @enderror">{{ old('konten', $item->konten) }}</textarea>
     @error('konten')
         <div class="invalid-feedback">
             {{ $message }}

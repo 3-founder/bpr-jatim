@@ -3,48 +3,33 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\BeritaInfo;
-use App\Models\PengaduanNasabah;
+use App\Models\Karier;
 use Illuminate\Http\Request;
 
-class BeritaInfoController extends Controller
+class KarierController extends Controller
 {
     private $param;
     
     public function __construct()
     {
-        $this->param['title'] = 'Berita & Info';
-        $this->param['pageTitle'] = 'Berita & Info';
-        $this->param['pageIcon'] = 'landmark';
+        $this->param['title'] = 'Karier';
+        $this->param['pageTitle'] = 'Karier';
+        $this->param['pageIcon'] = 'walking';
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $tipe = $request->get('t');
         try {
-            if (!$tipe) {
-                return redirect()->route('berita-info.index')->withError('Terjadi Kesalahan');
-            }
-            $this->param['data'] = BeritaInfo::where('tipe', $tipe)->get();
+            $this->param['data'] = Karier::first();
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('berita-info.index')->withError('Terjadi Kesalahan');
+            return redirect()->route('karier.index')->withError('Terjadi Kesalahan');
         }
 
-        return \view('backend.berita-info.list-about', $this->param);
-    }
-
-    public function listPengaduanNasabah(Request $request)
-    {
-        
-    }
-
-    public function detailPengaduanNasabah($id)
-    {
-        
+        return \view('backend.karier.index', $this->param);
     }
 
     /**
@@ -99,7 +84,28 @@ class BeritaInfoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'judul' => 'required',
+            'konten' => 'required'
+        ], [
+            'required' => ':attribute tidak boleh kosong.'
+        ], [
+            'judul' => 'Judul',
+            'konten' => 'Konten'
+        ]);
+
+        try {
+            $karierUpdate = Karier::findOrFail($id);
+            $karierUpdate->judul = $request->get('judul');
+            $karierUpdate->konten = $request->get('konten');
+            $karierUpdate->save();
+
+            return back()->withStatus('updated Successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('karier.index')->withError('Terjadi Kesalahan');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('karier.index')->withError('Terjadi Kesalahan');
+        }
     }
 
     /**
