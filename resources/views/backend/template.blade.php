@@ -179,6 +179,15 @@
                                     Profil Perusahaan
                                 </a>
                             </li>
+                            
+                            <li>
+                                <a href="{{ url('administrator/intro-vidio') }}"
+                                    class="{{ Request::segment(2) == 'intro-vidio' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-film icon-gradient bg-arielle-smile"></i>
+                                    Vidio Intro
+                                </a>
+                            </li>
 
                             <li>
                                 <a href="{{ url('administrator/kebijakan-privasi') }}"

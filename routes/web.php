@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
         })->name('dashboard');
         Route::get('ganti-password/{id}', 'Backend\UserController@gantiPassword');
         Route::put('save-password/{id}', 'Backend\UserController@savePassword')->name('save-password');
+        Route::resource('intro-vidio', 'Backend\IntroVidioController');
         Route::resource('user', 'Backend\UserController');
         Route::resource('profil', 'Backend\ProfilController');
         Route::resource('kebijakan-privasi', 'Backend\KebijakanPrivasiController');
