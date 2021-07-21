@@ -39,16 +39,34 @@
                             <div class="position-relative form-group">
                                 <label for="alamat" class="">Alamat</label>
                                 <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control @error('alamat') is-invalid @enderror"></textarea>
-                                @error('name')
+                                @error('alamat')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
-                                <label for="telp" class="">Telp.</label>
+                                <label for="kode_area" class="">Kode Area</label>
+                                <input name="kode_area" id="kode_area" placeholder="Kode Area" type="number" class="form-control @error('kode_area') is-invalid @enderror">
+                                @error('kode_area')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="telp" class="">Telepon</label>
                                 <input name="telp" id="telp" placeholder="Nomor Telepon" type="number" class="form-control @error('telp') is-invalid @enderror">
                                 @error('telp')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="telp" class="">Faksimile</label>
+                                <input name="fax" id="fax" placeholder="Faksimile" type="number" class="form-control @error('fax') is-invalid @enderror">
+                                @error('fax')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

@@ -81,6 +81,8 @@ class KotaController extends Controller
             $newCity->nama_kota = $request->get('name');
             $newCity->alamat = $request->get('alamat');
             $newCity->telp = $request->get('telp');
+            $newCity->kode_area = $request->get('kode_area');
+            $newCity->fax = $request->get('fax');
 
             $newCity->save();
 
@@ -152,6 +154,10 @@ class KotaController extends Controller
         );
         try {
             $kota->nama_kota = $request->get('name');
+            $kota->alamat = $request->get('alamat');
+            $kota->telp = $request->get('telp');
+            $kota->kode_area = $request->get('kode_area');
+            $kota->fax = $request->get('fax');
             
             $kota->save();
 

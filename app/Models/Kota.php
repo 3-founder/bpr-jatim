@@ -9,4 +9,9 @@ class Kota extends Model
 {
     use HasFactory;
     protected $table = 'kota';
+
+    public function jaringanKantor()
+    {
+        return $this->hasMany('\App\Models\JaringanKantor', 'id_kota');
+    }
 }

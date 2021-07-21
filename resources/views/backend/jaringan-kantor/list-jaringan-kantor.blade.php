@@ -57,6 +57,8 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th>Cabang</th>
+                                    <th>Jaringan Kantor</th>
+                                    <th>Jenis</th>
                                     <th>Alamat</th>
                                     <th>Kode Area</th>
                                     <th>Telepon</th>
@@ -69,20 +71,22 @@
                                     $page = Request::get('page');
                                     $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
                                 @endphp
-                                @foreach ($kota as $item)
+                                @foreach ($jaringanKantor as $item)
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
-                                        <td>{{ $item->nama_kota }}</td>
+                                        <td>{{ $item->kota->nama_kota }}</td>
+                                        <td>{{ $item->jaringan_kantor }}</td>
+                                        <td>{{ $item->jenis }}</td>
                                         <td>{{ $item->alamat != null ? $item->alamat : '-' }}</td>
                                         <td>{{ $item->kode_area != null ? $item->kode_area : '-' }}</td>
-                                        <td>{{ $item->telp != null ? $item->telp : '-' }}</td>
+                                        <td>{{ $item->telepon != null ? $item->telepon : '-' }}</td>
                                         <td>{{ $item->fax != null ? $item->fax : '-' }}</td>
                                         <td>
                                             <div class="form-inline">
-                                                <a href="{{ route('kota.edit', $item->id) }}" class="mr-2">
+                                                <a href="{{ route('jaringan-kantor.edit', $item->id) }}" class="mr-2">
                                                     <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-pen"></span></button>
                                                 </a>
-                                                <form action="{{ route('kota.destroy', $item->id) }}" method="post">
+                                                <form action="{{ route('jaringan-kantor.destroy', $item->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
@@ -103,7 +107,7 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        {{$kota->appends(Request::all())->links('vendor.pagination.custom')}}
+                        {{$jaringanKantor->appends(Request::all())->links('vendor.pagination.custom')}}
                     </div>
                 </div>
             </div>

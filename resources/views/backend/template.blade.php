@@ -25,6 +25,7 @@
     -->
     <link href="{{ asset('') }}main.css" rel="stylesheet">
     <link href="{{ asset('') }}custom.css" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/select2-develop/dist/css/select2.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
         integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 
@@ -90,7 +91,7 @@
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true"
                                             class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="{{ url('administrator/ganti-password', auth()->user()->id) }}">
                                                 <i
                                                     class="metismenu-icon fa fa-fingerprint icon-gradient bg-arielle-smile mr-1"></i>
                                                 Ganti Password
@@ -387,8 +388,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ url('administrator/berita-info?t=jaringan-kantor') }}">
-                                    <i class="metismenu-icon far fa-newspaper icon-gradient bg-arielle-smile">
+                                <a href="{{ url('administrator/jaringan-kantor') }}">
+                                    <i class="metismenu-icon fa fa-code-branch icon-gradient bg-arielle-smile">
                                     </i>Jaringan Kantor
                                 </a>
                             </li>
@@ -453,6 +454,8 @@
         </div>
     </div>
     @yield('extraJS')
+    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/select2-develop/dist/js/select2.min.js') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
@@ -466,6 +469,7 @@
             .catch(error => {
                 console.error(error);
             });
+        $(".select2").select2();
     </script>
 </body>
 
