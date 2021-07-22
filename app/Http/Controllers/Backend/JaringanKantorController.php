@@ -13,15 +13,15 @@ class JaringanKantorController extends Controller
     
     public function __construct()
     {
-        $this->param['title'] = 'Jaringan Kantor';
-        $this->param['pageTitle'] = 'Jaringan Kantor';
+        $this->param['title'] = 'Jaringan Kantor Kas';
+        $this->param['pageTitle'] = 'Jaringan Kantor Kas';
         $this->param['pageIcon'] = 'code-branch';
     }
     
     public function index(Request $request)
     {
         
-        $this->param['btnRight']['text'] = 'Tambah Jaringan Kantor';
+        $this->param['btnRight']['text'] = 'Tambah Jaringan Kantor Kas';
         $this->param['btnRight']['link'] = route('jaringan-kantor.create');
 
         try {
@@ -63,7 +63,7 @@ class JaringanKantorController extends Controller
             ],
             [
                 'id_kota' => 'Cabang',
-                'jaringan_kantor' => 'Jaringan Kantor',
+                'jaringan_kantor' => 'Jaringan Kantor Kas',
                 'jenis' => 'Jenis',
             ]
         );
@@ -118,7 +118,7 @@ class JaringanKantorController extends Controller
             ],
             [
                 'id_kota' => 'Cabang',
-                'jaringan_kantor' => 'Jaringan Kantor',
+                'jaringan_kantor' => 'Jaringan Kantor Kas',
                 'jenis' => 'Jenis',
             ]
         );

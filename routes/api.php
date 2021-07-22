@@ -64,9 +64,9 @@ Route::get('get-detail-penghargaan/{slug}', 'API\PenghargaanController@detailPen
 Route::get('get-karier', 'API\KarierController@getKarier');
 /** END Karier*/
 
-/** Karier */
-Route::get('get-tips-info', 'API\TipsInfoController@getTipsInfo');
-/** END Karier */
+/** Jaringan Kantor Kas*/
+Route::get('get-jaringan-kantor', 'API\JaringanKantorController@getJaringanKantor');
+/** END Jaringan Kantor Kas*/
 
 /** Pengumuman Lelang Jaminan */
 Route::get('get-pengumuman-lelang-jaminan', 'API\PengumumanLelangJaminanController@getPengumumanLelangJaminan');

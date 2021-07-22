@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
-                    <div class="card-header">List Cabang
+                    <div class="card-header">List Jaringan Kantor Kas
                         <div class="btn-actions-pane-right">
                             <form action="" method="get">
                                 <div class="input-group">
@@ -57,7 +57,7 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th>Cabang</th>
-                                    <th>Jaringan Kantor</th>
+                                    <th>Jaringan Kantor Kas</th>
                                     <th>Jenis</th>
                                     <th>Alamat</th>
                                     <th>Kode Area</th>
