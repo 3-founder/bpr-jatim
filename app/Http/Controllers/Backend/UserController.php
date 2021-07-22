@@ -9,17 +9,17 @@ use \App\Models\User;
 class UserController extends Controller
 {
     private $param;
-    
+
     public function __construct()
     {
         $this->param['title'] = 'User';
         $this->param['pageTitle'] = 'User';
         $this->param['pageIcon'] = 'users';
     }
-    
+
     public function index(Request $request)
     {
-        
+
         $this->param['btnRight']['text'] = 'Tambah User';
         $this->param['btnRight']['link'] = route('user.create');
 
@@ -41,7 +41,7 @@ class UserController extends Controller
 
     public function create()
     {
-        
+
         $this->param['btnRight']['text'] = 'Lihat Data';
         $this->param['btnRight']['link'] = route('user.index');
 
@@ -85,9 +85,7 @@ class UserController extends Controller
     public function edit($id)
     {
         try {
-            $this->param['title'] = 'User';
-            $this->param['pageTitle'] = 'User';
-            $this->param['pageIcon'] = 'users';
+
             $this->param['btnRight']['text'] = 'Lihat Data';
             $this->param['btnRight']['link'] = route('user.index');
             $this->param['user'] = User::find($id);
@@ -145,6 +143,61 @@ class UserController extends Controller
             return redirect()->route('user.index')->withError('Terjadi kesalahan : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->route('user.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
+    }
+
+    public function gantiPassword($id)
+    {
+        try {
+
+            // $this->param['btnRight']['text'] = 'Lihat Data';
+            // $this->param['btnRight']['link'] = route('user.index');
+            $this->param['user'] = User::find($id);
+
+            return \view('backend.user.ganti-password', $this->param);
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+        }
+    }
+
+    public function savePassword(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        $validatedData = $request->validate(
+            [
+                'old_password' => 'required',
+                'new_password' => 'required',
+                'confirm_password' => 'required|same:new_password',
+            ],
+            [
+                'old_password.required' => ':attribute tidak boleh kosong.',
+                'new_password.required' => ':attribute tidak boleh kosong.',
+                'confirm_password.required' => ':attribute tidak boleh kosong.',
+                'confirm_password.same' => ':attribute tidak sesuai dengan password baru.',
+            ],
+            [
+                'old_password' => 'Password lama',
+                'new_password' => 'Password baru',
+                'confirm_password' => 'Konfirmasi password baru',
+            ]
+        );
+        try {
+
+            if (\Hash::check($request->get('old_password'), $user->password)) {
+                $user->password = \Hash::make($request->get('new_password'));
+                $user->save();
+            } else {
+                return redirect()->back()->withError('Password lama tidak sesuai.');
+            }
+
+            return redirect()->back()->withStatus('Password berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
 }

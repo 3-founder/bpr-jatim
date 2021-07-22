@@ -47,9 +47,27 @@
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
+                                <label for="kode_area" class="">Kode Area</label>
+                                <input name="kode_area" id="kode_area" placeholder="Kode Area" type="number" class="form-control @error('kode_area') is-invalid @enderror" value="{{old('kode_area', $kota->kode_area)}}">
+                                @error('kode_area')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
                                 <label for="telp" class="">Telp.</label>
                                 <input name="telp" id="telp" placeholder="Nomor Telepon" type="number" class="form-control @error('telp') is-invalid @enderror" value="{{old('telp', $kota->telp)}}">
                                 @error('telp')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="fax" class="">Faksimile</label>
+                                <input name="fax" id="fax" placeholder="Faksimile" type="number" class="form-control @error('fax') is-invalid @enderror" value="{{old('fax', $kota->fax)}}">
+                                @error('fax')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
