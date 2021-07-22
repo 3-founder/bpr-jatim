@@ -173,7 +173,9 @@ class PenghargaanController extends Controller
                     mkdir($folder, 0755, true);
                 }
                 if($file->move($folder, $filename)) {
-                    $penghargaan->cover = $folder.'/'.$filename;
+                    if(File::delete($penghargaan->cover)) {
+                        $penghargaan->cover = $folder.'/'.$filename;
+                    }
                 }
             }
 
