@@ -58,6 +58,7 @@
                                     <th class="text-center">#</th>
                                     <th>Nama</th>
                                     <th>Email</th>
+                                    <th>Role</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -71,6 +72,7 @@
                                         <td class="text-center text-muted">{{ $no }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
+                                        <td>{{ $item->role }}</td>
                                         <td>
                                             <div class="form-inline">
                                                 <a href="{{ route('user.edit', $item->id) }}" class="mr-2">

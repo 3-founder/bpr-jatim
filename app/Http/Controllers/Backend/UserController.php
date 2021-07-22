@@ -28,7 +28,7 @@ class UserController extends Controller
             $getUsers = User::orderBy('name', 'ASC');
 
             if ($keyword) {
-                $getUsers->where('name', 'LIKE', "%$keyword%")->orWhere('email', 'LIKE', "%$keyword%");
+                $getUsers->where('name', 'LIKE', "%$keyword%")->orWhere('email', 'LIKE', "%$keyword%")->orWhere('role', 'LIKE', "%$keyword%");
             }
 
             $this->param['user'] = $getUsers->paginate(10);
@@ -54,15 +54,18 @@ class UserController extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
+                'role' => 'not_in:0',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
                 'email' => 'Masukan email yang valid.',
-                'unique' => ':attribute telah terdaftar'
+                'unique' => ':attribute telah terdaftar',
+                'not_in' => ':attribute harus dipilih'
             ],
             [
                 'name' => 'Nama',
                 'email' => 'Email',
+                'role' => 'Role'
             ]
         );
         try {
@@ -71,6 +74,7 @@ class UserController extends Controller
             $newUser->name = $request->get('name');
             $newUser->email = $request->get('email');
             $newUser->password = \Hash::make($request->get('email'));
+            $newUser->role = $request->get('role');
 
             $newUser->save();
 
@@ -107,20 +111,24 @@ class UserController extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|email' . $isUnique,
+                'role' => 'not_in:0',
             ],
             [
                 'name.required' => ':attribute tidak boleh kosong.',
-                'email.required' => ':attribute tidak boleh kosong.'
+                'email.required' => ':attribute tidak boleh kosong.',
+                'not_in' => ':attribute harus dipilih',
             ],
             [
                 'name' => 'Nama',
-                'email' => 'Email'
+                'email' => 'Email',
+                'role' => 'Role'
             ]
         );
         try {
 
             $user->name = $request->get('name');
             $user->email = $request->get('email');
+            $user->role = $request->get('role');
             $user->save();
 
             return redirect()->route('user.index')->withStatus('Data berhasil diperbarui.');

@@ -46,6 +46,21 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="position-relative form-group">
+                                <label for="role" class="">Role</label>
+                                <select name="role" id="role" class="form-control @error('role') is-invalid @enderror">
+                                    <option value="0">Pilih Role</option>
+                                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="produklayanan" {{ $user->role == 'produklayanan' ? 'selected' : '' }}>Produk & Layanan</option>
+                                    <option value="berita" {{ $user->role == 'berita' ? 'selected' : '' }}>Berita</option>
+                                    <option value="umkmbinaan" {{ $user->role == 'umkmbinaan' ? 'selected' : '' }}>Umkm Binaan</option>
+                                </select>
+                                @error('role')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
                         </form>
                     </div>

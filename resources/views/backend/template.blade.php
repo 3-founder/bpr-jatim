@@ -162,7 +162,8 @@
                                     Dashboard
                                 </a>
                             </li>
-
+                            
+                            @if (auth()->user()->role == 'admin')
                             <li class="app-sidebar__heading">Master</li>
                             <li>
                                 <a href="{{ url('administrator/user') }}"
@@ -313,7 +314,9 @@
                                     </li>
                                 </ul>
                             </li>
+                            @endif
 
+                            @if (auth()->user()->role == 'produklayanan' || auth()->user()->role == 'admin')
                             <li class="app-sidebar__heading">Produk & Layanan</li>
                             <li>
                                 <a href="#">
@@ -338,7 +341,9 @@
                                     <li>
                                 </ul>
                             </li>
+                            @endif
 
+                            @if (auth()->user()->role == 'umkmbinaan' || auth()->user()->role == 'admin')
                             <li class="app-sidebar__heading">UMKM Binaan</li>
                             <li>
                                 <a href="{{ url('administrator/umkm-binaan') }}"
@@ -348,7 +353,9 @@
                                     UMKM Binaan
                                 </a>
                             </li>
+                            @endif
 
+                            @if (auth()->user()->role == 'berita' || auth()->user()->role == 'admin')
                             <li class="app-sidebar__heading">Berita & Info</li>
                             <li>
                                 <a href="#" class="{{ Request::segment(2) == 'berita-info' ? 'mm-active' : '' }}" {{ Request::segment(2) == 'berita-info' ? 'aria-expanded="true"' : '' }}>
@@ -430,6 +437,7 @@
                                     </li>
                                 </ul>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
