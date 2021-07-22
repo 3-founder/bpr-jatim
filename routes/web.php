@@ -37,28 +37,32 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('bunga', 'Backend\BungaController');
         Route::resource('tenor', 'Backend\TenorController');
         Route::resource('kota', 'Backend\KotaController');
-        Route::resource('jaringan-kantor', 'Backend\JaringanKantorController');
+        
         Route::resource('about', 'Backend\AboutController');
         Route::resource('jenis-produk-layanan', 'Backend\JenisProdukLayananController');
-        Route::resource('berita', 'Backend\BeritaController');
-        Route::resource('promo', 'Backend\PromoController');
-        Route::resource('penghargaan', 'Backend\PenghargaanController');
-        Route::resource('epaper', 'Backend\EpaperController');
-        Route::get('pengaduan-nasabah', 'Backend\PengaduanNasabahController@index')->name('pengaduan-nasabah');
-        Route::get('pengaduan-nasabah/{id}', 'Backend\PengaduanNasabahController@show')->name('detail-pengaduan-nasabah');
-        Route::resource('peta-cabang', 'Backend\PetaCabangController');
-        Route::resource('karier', 'Backend\KarierController');
-        Route::resource('pengumuman-lelang-jaminan', 'Backend\PengumumanLelangJaminanController');
-        Route::resource('tips-info-terkini', 'Backend\TipsInfoTerkiniController');
-        Route::resource('item-produk-layanan', 'Backend\ItemProdukLayananController');
-        Route::resource('about', 'Backend\AboutController')->except([
-            'show',
-            'store',
-            'create',
-            'edit',
-            'destroy'
-        ]);
         Route::resource('umkm-binaan', 'Backend\UmkmBinaanController');
+        Route::prefix('berita-info')->group(function () {
+            Route::resource('jaringan-kantor', 'Backend\JaringanKantorController');
+            Route::resource('berita', 'Backend\BeritaController');
+            Route::resource('promo', 'Backend\PromoController');
+            Route::resource('penghargaan', 'Backend\PenghargaanController');
+            Route::resource('epaper', 'Backend\EpaperController');
+            Route::get('pengaduan-nasabah', 'Backend\PengaduanNasabahController@index')->name('pengaduan-nasabah');
+            Route::get('pengaduan-nasabah/{id}', 'Backend\PengaduanNasabahController@show')->name('detail-pengaduan-nasabah');
+            Route::resource('peta-cabang', 'Backend\PetaCabangController');
+            Route::resource('karier', 'Backend\KarierController');
+            Route::resource('pengumuman-lelang-jaminan', 'Backend\PengumumanLelangJaminanController');
+            Route::resource('tips-info-terkini', 'Backend\TipsInfoTerkiniController');
+            Route::resource('item-produk-layanan', 'Backend\ItemProdukLayananController');
+            Route::resource('about', 'Backend\AboutController')->except([
+                'show',
+                'store',
+                'create',
+                'edit',
+                'destroy'
+            ]);
+        });
+        
 
     });
 
