@@ -33,7 +33,9 @@ class UmkmBinaanController extends Controller
     
             try {
                 $keyword = $request->get('keyword');
-                $getUmkmBinaan = UmkmBinaan::orderBy('nama', 'ASC');
+                $getUmkmBinaan = UmkmBinaan::select('umkm_binaan.*', 'kota.nama_kota')
+                                            ->join('kota', 'kota.id', 'umkm_binaan.id_kota')
+                                            ->orderBy('nama', 'ASC');
     
                 if ($keyword) {
                     $getUmkmBinaan->where('nama', 'LIKE', "%$keyword%");

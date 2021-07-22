@@ -47,7 +47,7 @@
                             </div>
                             <div class="position-relative form-group">
                                 <label for="konten" class="">File PDF</label>
-                                <input name="konten" id="konten" type="file" class="form-control @error('konten') is-invalid @enderror">
+                                <input name="konten" type="file" class="form-control @error('konten') is-invalid @enderror">
                                 @error('konten')
                                     <div class="invalid-feedback">
                                         {{ $message }}

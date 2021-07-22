@@ -72,9 +72,9 @@
                             @foreach ($UmkmBinaan as $item)
                                 <tr>
                                     <td class="text-center text-muted">{{ $no }}</td>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->id_kota }}</td>
-                                    <td>{{ $item->jenis_usaha }}</td>
+                                    <td>{{ ucwords($item->nama) }}</td>
+                                    <td>{{ ucwords($item->nama_kota) }}</td>
+                                    <td>{{ ucwords($item->jenis_usaha) }}</td>
                                     <td>{{ $item->alamat }}</td>
                                     <td>{{ $item->no_telp }}</td>
                                     <td>{{ $item->deskripsi }}</td>

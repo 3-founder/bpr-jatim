@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Epaper;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
+use File;
 
 class EpaperController extends Controller
 {
@@ -129,7 +130,7 @@ class EpaperController extends Controller
     {
         try {
             $this->param['btnRight']['text'] = 'Lihat Data';
-            $this->param['btnRight']['link'] = route('promo.index');
+            $this->param['btnRight']['link'] = route('epaper.index');
 
             $this->param['konten'] = Epaper::find($id);
             
@@ -162,11 +163,28 @@ class EpaperController extends Controller
         );
 
         try {
-            if($request->file('cover') != null && $request->file('konten') != null) {
-                $folder = 'upload/epaper/';
+            $folder = 'upload/epaper/';
+            if($request->file('cover') != null) {
                 $file = $request->file('cover');
-                $filePdf = $request->file('konten');
                 $filename = date('YmdHis').$file->getClientOriginalName();
+                // Get canonicalized absolute pathname
+                $path = realpath($folder);
+
+                // If it exist, check if it's a directory
+                if(!($path !== true AND is_dir($path)))
+                {
+                    // Path/folder does not exist then create a new folder
+                    mkdir($folder, 0755, true);
+                }
+                if($file->move($folder, $filename)) {
+                    if(File::delete($epaper->cover)) {
+                        $epaper->cover = $folder.$filename;
+                    }
+                }
+            }
+
+            if($request->file('konten') != null) {
+                $filePdf = $request->file('konten');
                 $filenamePdf = date('YmdHis').$filePdf->getClientOriginalName();
                 // Get canonicalized absolute pathname
                 $path = realpath($folder);
@@ -177,9 +195,11 @@ class EpaperController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                if($file->move($folder, $filename) && $filePdf->move($folder, $filenamePdf)) {
-                    $epaper->cover = $folder.'/'.$filename;
-                    $epaper->konten = $folder.'/'.$filenamePdf;
+                if(File::delete($epaper->konten)) {
+                    if($filePdf->move($folder, $filenamePdf)) 
+                    {
+                        $epaper->konten = $folder.$filenamePdf;
+                    }
                 }
             }
 

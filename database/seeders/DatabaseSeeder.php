@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             // KarierSeeder::class,
             // PengumumanLelangSeeder::class,
             // BungaSeeder::class
-            // TipsKeamananInfoTerkiniSeeder::class
+            // TipsKeamananInfoTerkiniSeeder::class,
+            // JenisProdukLayananSeeder::class,
         ]);
     }
 }

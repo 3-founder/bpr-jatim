@@ -3,7 +3,7 @@
 @section('extraCSS')
 <!-- include libraries(jQuery, bootstrap) -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!-- include summernote css -->
@@ -48,9 +48,8 @@
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
-                                <label for="cover" class="">Cover</label>
-                                <br>
-                                <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" width="150" height="150">
+                                <label for="cover" class="">Cover</label><br>
+                                <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" width="150px" height="150px">
                                 <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror">
                                 @error('cover')
                                     <div class="invalid-feedback">
@@ -59,8 +58,9 @@
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
-                                <label for="konten" class="">Konten</label>
-                                <textarea name="konten" id="konten" class="form-control @error('konten') is-invalid @enderror" cols="30" rows="5">{{ old('konten', $konten->konten) }}</textarea>
+                                <label for="konten" class="">File PDF</label><br>
+                                <a href="{{ asset('../'.$konten->konten) }}" target="_blank">{{ $konten->konten }}</a>
+                                <input name="konten" type="file" class="form-control @error('konten') is-invalid @enderror">
                                 @error('konten')
                                     <div class="invalid-feedback">
                                         {{ $message }}

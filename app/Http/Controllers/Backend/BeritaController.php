@@ -104,7 +104,7 @@ class BeritaController extends Controller
 
                     $newBerita->judul = $request->get('judul');
                     $newBerita->slug = Str::slug($request->get('judul'));
-                    $newBerita->cover = $folder.'/'.$filename;
+                    $newBerita->cover = $folder.$filename;
                     $newBerita->konten = $request->get('konten');
 
                     $newBerita->save();       
@@ -171,7 +171,7 @@ class BeritaController extends Controller
                     mkdir($folder, 0755, true);
                 }
                 if($file->move($folder, $filename)) {
-                    $berita->cover = $folder.'/'.$filename;
+                    $berita->cover = $folder.$filename;
                 }
             }
 

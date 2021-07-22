@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Berita;
-use App\Models\Bunga;
-use App\Models\Profil;
-use App\Models\Tenor;
+use App\Models\ItemProdukLayanan;
+use App\Models\JenisProdukLayanan;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ProdukLayananController extends Controller
 {
-    public function getBunga()
+    public function getMenuProdukLayanan()
     {
         $status = null;
         $message = null;
         $data = null;
 
         try {
-            $data = Bunga::first()->bunga;
+            $data = JenisProdukLayanan::orderBy('nama_jenis', 'ASC')->get();
             
             $status = 200;
             $message = 'berhasil';
@@ -42,14 +40,14 @@ class HomeController extends Controller
         }
     }
 
-    public function getTenor()
+    public function getItemProdukLayananByJenis($id_jenis)
     {
         $status = null;
         $message = null;
         $data = null;
 
         try {
-            $data = Tenor::orderBy('tenor', 'ASC')->get();
+            $data = ItemProdukLayanan::select('judul', 'slug', 'updated_at')->where('id_jenis', $id_jenis)->orderBy('judul', 'ASC')->get();
             
             $status = 200;
             $message = 'berhasil';
@@ -73,15 +71,20 @@ class HomeController extends Controller
         }
     }
 
-    public function getBerita()
+    public function getKontenProdukLayananBySlug($slug)
     {
         $status = null;
         $message = null;
         $data = null;
-
+        $sidemenu = null;
+        
         try {
-            $data = Berita::orderBy('updated_at', 'ASC')->take(4)->get();
-            
+            $data = ItemProdukLayanan::where('slug', $slug)->first();
+            $sidemenu = ItemProdukLayanan::select('judul', 'slug')
+                                        ->where('id_jenis', $data->id_jenis)
+                                        ->orderBy('judul', 'ASC')
+                                        ->get();
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -97,38 +100,8 @@ class HomeController extends Controller
             $response = array(
                 'status' => $status,
                 'message' => $message,
-                'data' => $data
-            );
-
-            return response($response, $status);
-        }
-    }
-
-    public function getProfil()
-    {
-        $status = null;
-        $message = null;
-        $data = null;
-
-        try {
-            $data = Profil::first();
-            
-            $status = 200;
-            $message = 'berhasil';
-        }
-        catch (\Exception $e) {
-            $status = 400;
-            $message = 'gagal.'.$e->getMessage();
-        }
-        catch (\Illuminate\Database\QueryException $e) {
-            $status = 400;
-            $message = 'gagal.'.$e->getMessage();
-        }
-        finally {
-            $response = array(
-                'status' => $status,
-                'message' => $message,
-                'data' => $data
+                'sidemenu' => $sidemenu,
+                'data' => $data,
             );
 
             return response($response, $status);
