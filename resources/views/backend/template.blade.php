@@ -238,6 +238,15 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{ url('administrator/kurs') }}"
+                                    class="{{ Request::segment(2) == 'kurs' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-dollar-sign icon-gradient bg-arielle-smile"></i>
+                                    Kurs
+                                </a>
+                            </li>
+
                             <li class="app-sidebar__heading">Tentang BPR</li>
                             <li>
                                 <a href="#">

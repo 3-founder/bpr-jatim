@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\Bunga;
 use App\Models\IntroVidio;
+use App\Models\Kurs;
 use App\Models\Profil;
 use App\Models\Promo;
 use App\Models\Tenor;
@@ -52,6 +53,39 @@ class HomeController extends Controller
 
         try {
             $data = Tenor::orderBy('tenor', 'ASC')->get();
+            
+            $status = 200;
+            $message = 'berhasil';
+        }
+        catch (\Exception $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        catch (\Illuminate\Database\QueryException $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        finally {
+            $response = array(
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            );
+
+            return response($response, $status);
+        }
+    }
+
+    public function getKurs()
+    {
+        $status = null;
+        $message = null;
+        $data = null;
+
+        try {
+            $data = Kurs::select('nama', 'harga_beli', 'ket_beli', 'harga_jual', 'ket_jual')
+                        ->orderBy('nama', 'ASC')
+                        ->get();
             
             $status = 200;
             $message = 'berhasil';
