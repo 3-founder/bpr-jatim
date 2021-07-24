@@ -24,7 +24,7 @@
                 </div>
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <h5 class="card-title">Edit Wilaya</h5>
+                        <h5 class="card-title">Edit Kurs</h5>
                         <form action="{{ route('kurs.update', $kurs->id) }}" method="post">
                             @csrf
                             @method('PUT')
