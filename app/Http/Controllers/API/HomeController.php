@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\Bunga;
+use App\Models\IntroVidio;
 use App\Models\Profil;
+use App\Models\Promo;
 use App\Models\Tenor;
 use Illuminate\Http\Request;
 
@@ -80,7 +82,7 @@ class HomeController extends Controller
         $data = null;
 
         try {
-            $data = Berita::orderBy('updated_at', 'ASC')->take(4)->get();
+            $data = Berita::select('judul', 'slug', 'cover', 'updated_at')->orderBy('updated_at', 'ASC')->take(10)->get();
             
             $status = 200;
             $message = 'berhasil';
@@ -112,6 +114,68 @@ class HomeController extends Controller
 
         try {
             $data = Profil::first();
+            
+            $status = 200;
+            $message = 'berhasil';
+        }
+        catch (\Exception $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        catch (\Illuminate\Database\QueryException $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        finally {
+            $response = array(
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            );
+
+            return response($response, $status);
+        }
+    }
+
+    public function getVideo()
+    {
+        $status = null;
+        $message = null;
+        $data = null;
+
+        try {
+            $data = IntroVidio::first();
+            
+            $status = 200;
+            $message = 'berhasil';
+        }
+        catch (\Exception $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        catch (\Illuminate\Database\QueryException $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        finally {
+            $response = array(
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            );
+
+            return response($response, $status);
+        }
+    }
+
+    public function getPromo()
+    {
+        $status = null;
+        $message = null;
+        $data = null;
+
+        try {
+            $data = Promo::select('judul', 'slug', 'cover')->take(8)->get();
             
             $status = 200;
             $message = 'berhasil';

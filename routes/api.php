@@ -18,10 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 /** Home */
-Route::get('get-bunga', 'API\HomeController@getBunga');
-Route::get('get-tenor', 'API\HomeController@getTenor');
+Route::get('get-bunga-home', 'API\HomeController@getBunga');
+Route::get('get-tenor-home', 'API\HomeController@getTenor');
 Route::get('get-berita-home', 'API\HomeController@getBerita');
 Route::get('get-profil-home', 'API\HomeController@getProfil');
+Route::get('get-video-home', 'API\HomeController@getVideo');
+Route::get('get-promo-home', 'API\HomeController@getPromo');
 /** END Home */
 
 /** Tentang */
