@@ -62,6 +62,17 @@
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
+                                <label for="cover" class="">Cover</label>
+                                <br>
+                                <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" width="250">
+                                <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror">
+                                @error('cover')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
                                 <label for="deskripsi" class="">Deskripsi</label>
                                 <textarea name="deskripsi" id="deskripsi" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5">{{ old('deskripsi', $konten->text_top) }}</textarea>
                                 @error('deskripsi')

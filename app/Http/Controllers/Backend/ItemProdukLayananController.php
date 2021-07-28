@@ -85,6 +85,7 @@ class ItemProdukLayananController extends Controller
             [
                 'jenis' => 'required|not_in:0',
                 'judul' => 'required'.$isUnique,
+                'cover' => 'required',
                 'deskripsi' => 'required',
                 'konten' => 'required'
             ],
@@ -97,19 +98,38 @@ class ItemProdukLayananController extends Controller
                 'jenis' => 'Jenis Produk & Layanan',
                 'judul' => 'Judul',
                 'deskripsi' => 'Deskripsi',
-                'konten' => 'Konten'
+                'konten' => 'Konten',
+                'cover' => 'Cover',
             ]
         );
         try {
-            $newKonten = new ItemProdukLayanan;
 
-            $newKonten->id_jenis = $request->get('jenis');
-            $newKonten->judul = $request->get('judul');
-            $newKonten->slug = Str::slug($request->get('judul'));
-            $newKonten->text_top = $request->get('deskripsi');
-            $newKonten->konten = $request->get('konten');
+            if($request->file('cover') != null) {
+                $folder = 'upload/produk-layanan/';
+                $file = $request->file('cover');
+                $filename = date('YmdHis').$file->getClientOriginalName();
+                // Get canonicalized absolute pathname
+                $path = realpath($folder);
 
-            $newKonten->save();
+                // If it exist, check if it's a directory
+                if(!($path !== true AND is_dir($path)))
+                {
+                    // Path/folder does not exist then create a new folder
+                    mkdir($folder, 0755, true);
+                }
+                if($file->move($folder, $filename)) {
+                    $newKonten = new ItemProdukLayanan;
+                    
+                    $newKonten->id_jenis = $request->get('jenis');
+                    $newKonten->judul = $request->get('judul');
+                    $newKonten->cover = $folder.$filename;
+                    $newKonten->slug = Str::slug($request->get('judul'));
+                    $newKonten->text_top = $request->get('deskripsi');
+                    $newKonten->konten = $request->get('konten');
+        
+                    $newKonten->save();
+                }
+            }
 
             return redirect()->route('item-produk-layanan.index')->withStatus('Data berhasil ditambahkan.');
         } catch (\Exception $e) {
@@ -206,6 +226,23 @@ class ItemProdukLayananController extends Controller
             ]
         );
         try {
+            if($request->file('cover') != null) {
+                $folder = 'upload/produk-layanan/';
+                $file = $request->file('cover');
+                $filename = date('YmdHis').$file->getClientOriginalName();
+                // Get canonicalized absolute pathname
+                $path = realpath($folder);
+
+                // If it exist, check if it's a directory
+                if(!($path !== true AND is_dir($path)))
+                {
+                    // Path/folder does not exist then create a new folder
+                    mkdir($folder, 0755, true);
+                }
+                if($file->move($folder, $filename)) {
+                    $konten->cover = $folder.$filename;
+                }
+            }
             $konten->id_jenis = $request->get('jenis');
             $konten->judul = $request->get('judul');
             $konten->slug = Str::slug($request->get('judul'));

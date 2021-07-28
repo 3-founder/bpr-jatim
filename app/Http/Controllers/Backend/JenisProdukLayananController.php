@@ -79,6 +79,7 @@ class JenisProdukLayananController extends Controller
             $newJenis = new JenisProdukLayanan;
 
             $newJenis->nama_jenis = $request->get('name');
+            $newJenis->keterangan = $request->get('keterangan');
 
             $newJenis->save();
 
@@ -150,6 +151,7 @@ class JenisProdukLayananController extends Controller
         );
         try {
             $jenis->nama_jenis = $request->get('name');
+            $jenis->keterangan = $request->get('keterangan');
             
             $jenis->save();
 
