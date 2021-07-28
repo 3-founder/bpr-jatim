@@ -15,14 +15,32 @@ class BeritaController extends Controller
         $data = null;
 
         try {
-            $keyword = $request->get('keyword');
-            $data = Berita::select('judul', 'slug', 'cover', 'updated_at')->orderBy('judul', 'ASC');
+            // $keyword = $request->get('keyword');
+            $berita = Berita::orderBy('updated_at', 'ASC')->get();
 
-            if ($keyword) {
-                $data->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
+            $data['slide'] = [];
+            $data['right'] = [];
+            $data['box'] = [];
+            foreach ($berita as $key => $value) {
+                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+                $value->judul = substr($value->judul,0,60);
+                $value->konten = substr($value->konten,0,100);
+                if($key<=3){
+                    array_push($data['slide'],$value);
+                }
+                else if($key>=4 && $key<=6){
+                    array_push($data['right'],$value);
+                }
+                else{
+                    array_push($data['box'],$value);
+                }
             }
+
+            // if ($keyword) {
+            //     $data->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
+            // }
             
-            $data = $data->paginate(5);
+            // $data = $data->paginate(5);
             
             $status = 200;
             $message = 'berhasil';
@@ -46,7 +64,7 @@ class BeritaController extends Controller
         }
     }
 
-    public function detailBerita($slug)
+    public function detailBerita(Request $request,$slug)
     {
         $status = null;
         $message = null;
@@ -54,7 +72,7 @@ class BeritaController extends Controller
 
         try {
             $data = Berita::where('slug', $slug)->first();
-            
+            $data->cover = $request->getSchemeAndHttpHost()."/".$data->cover;
             $status = 200;
             $message = 'berhasil';
         }

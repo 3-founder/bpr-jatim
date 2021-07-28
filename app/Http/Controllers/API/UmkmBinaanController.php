@@ -40,14 +40,53 @@ class UmkmBinaanController extends Controller
         }
     }
 
-    public function getUmkmBinaanByKota($id_kota)
+    public function getUmkmBinaanByKota(Request $request,$id_kota)
     {
         $status = null;
         $message = null;
         $data = null;
 
         try {
-            $data = UmkmBinaan::where('id_kota', $id_kota)->orderBy('nama', 'ASC')->get();
+            // $data = UmkmBinaan::where('id_kota', $id_kota)->orderBy('nama', 'ASC')->get();
+
+            $data = \DB::table('umkm_binaan as ub')->select('ub.*','k.nama_kota')->join('kota as k','ub.id_kota','k.id')->where('ub.id_kota', $id_kota)->orderBy('ub.nama', 'ASC')->get();
+            foreach ($data as $key => $value) {
+                $value->foto =  $request->getSchemeAndHttpHost()."/".$value->foto;
+            }
+
+            
+            $status = 200;
+            $message = 'berhasil';
+        }
+        catch (\Exception $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        catch (\Illuminate\Database\QueryException $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        finally {
+            $response = array(
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            );
+
+            return response($response, $status);
+        }
+    }
+    public function getUmkmBinaan(Request $request)
+    {
+        $status = null;
+        $message = null;
+        $data = null;
+
+        try {
+            $data = \DB::table('umkm_binaan as ub')->select('ub.*','k.nama_kota')->join('kota as k','ub.id_kota','k.id')->orderBy('ub.nama', 'ASC')->get();
+            foreach ($data as $key => $value) {
+                $value->foto =  $request->getSchemeAndHttpHost()."/".$value->foto;
+            }
             
             $status = 200;
             $message = 'berhasil';

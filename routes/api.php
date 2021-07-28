@@ -39,6 +39,7 @@ Route::get('get-konten-produk-layanan/{slug}', 'API\ProdukLayananController@getK
 
 /** Produk & Layanan */
 Route::get('get-cabang', 'API\UmkmBinaanController@getCabang');
+Route::get('get-umkm-binaan', 'API\UmkmBinaanController@getUmkmBinaan');
 Route::get('get-umkm-binaan/{id_kota}', 'API\UmkmBinaanController@getUmkmBinaanByKota');
 Route::get('get-detail-umkm-binaan/{slug}', 'API\UmkmBinaanController@getUmkmBinaanBySlug');
 /** END Produk & Layanan */
