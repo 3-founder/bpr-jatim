@@ -109,14 +109,28 @@ class HomeController extends Controller
         }
     }
 
-    public function getBerita()
+    public function getBerita(Request $request)
     {
         $status = null;
         $message = null;
         $data = null;
 
         try {
-            $data = Berita::select('judul', 'slug', 'cover', 'updated_at')->orderBy('updated_at', 'ASC')->take(10)->get();
+            $berita = Berita::select('id','judul', 'slug', 'cover', 'updated_at','konten')->orderBy('updated_at', 'ASC')->take(8)->get();
+
+            $data['slide'] = [];
+            $data['box'] = [];
+            foreach ($berita as $key => $value) {
+                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+                $value->judul = substr($value->judul,0,60);
+                $value->konten = substr($value->konten,0,100);
+                if($key<=3){
+                    array_push($data['slide'],$value);
+                }
+                else{
+                    array_push($data['box'],$value);
+                }
+            }
             
             $status = 200;
             $message = 'berhasil';
@@ -202,15 +216,20 @@ class HomeController extends Controller
         }
     }
 
-    public function getPromo()
+    public function getPromo(Request $request)
     {
         $status = null;
         $message = null;
         $data = null;
 
         try {
-            $data = Promo::select('judul', 'slug', 'cover')->take(8)->get();
-            
+            $data = Promo::select('id','judul', 'slug', 'cover')->take(8)->get();
+
+            foreach ($data as $key => $value) {
+                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+                $value->judul = substr($value->judul,0,15);
+            }
+
             $status = 200;
             $message = 'berhasil';
         }
