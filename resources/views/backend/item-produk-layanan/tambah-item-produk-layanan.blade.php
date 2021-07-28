@@ -2,7 +2,7 @@
 
 @section('extraCSS')
 <!-- include libraries(jQuery, bootstrap) -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -35,7 +35,7 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Tambah Jenis Produk & Layanan</h5>
-                        <form action="{{ route('item-produk-layanan.store') }}" method="post" >
+                        <form action="{{ route('item-produk-layanan.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="position-relative form-group">
                                 <label for="jenis" class="">Jenis Produk & Layanan</label>
@@ -61,8 +61,17 @@
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
+                                <label for="cover" class="">Cover</label>
+                                <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror">
+                                @error('cover')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
                                 <label for="deskripsi" class="">Deskripsi</label>
-                                <textarea name="deskripsi" id="deskripsi" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5"></textarea>
+                                <textarea name="deskripsi" id="deskripsi" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5">{{old('deskripsi')}}</textarea>
                                 @error('deskripsi')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -71,7 +80,7 @@
                             </div>
                             <div class="position-relative form-group">
                                 <label for="konten" class="">Konten</label>
-                                <textarea name="konten" id="konten" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5"></textarea>
+                                <textarea name="konten" id="konten" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5">{{old('konten')}}</textarea>
                                 @error('konten')
                                     <div class="invalid-feedback">
                                         {{ $message }}
