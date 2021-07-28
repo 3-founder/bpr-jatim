@@ -83,7 +83,7 @@ class HomeController extends Controller
         $data = null;
 
         try {
-            $data = Kurs::select('nama', 'harga_beli', 'ket_beli', 'harga_jual', 'ket_jual', 'updated_at')
+            $data = Kurs::select('id','nama', 'harga_beli', 'ket_beli', 'harga_jual', 'ket_jual', 'updated_at')
                         ->orderBy('nama', 'ASC')
                         ->get();
             

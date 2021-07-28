@@ -40,14 +40,18 @@ class ProdukLayananController extends Controller
         }
     }
 
-    public function getItemProdukLayananByJenis($id_jenis)
+    public function getItemProdukLayananByJenis(Request $request, $id_jenis)
     {
         $status = null;
         $message = null;
         $data = null;
 
         try {
-            $data = ItemProdukLayanan::select('judul', 'slug', 'updated_at')->where('id_jenis', $id_jenis)->orderBy('judul', 'ASC')->get();
+            $data = ItemProdukLayanan::select('id','judul', 'slug','cover', 'updated_at')->where('id_jenis', $id_jenis)->orderBy('judul', 'ASC')->get();
+
+            foreach ($data as $key => $value) {
+                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+            }
             
             $status = 200;
             $message = 'berhasil';
@@ -71,7 +75,7 @@ class ProdukLayananController extends Controller
         }
     }
 
-    public function getKontenProdukLayananBySlug($slug)
+    public function getKontenProdukLayananBySlug(Request $request,$slug)
     {
         $status = null;
         $message = null;
@@ -80,7 +84,8 @@ class ProdukLayananController extends Controller
         
         try {
             $data = ItemProdukLayanan::where('slug', $slug)->first();
-            $sidemenu = ItemProdukLayanan::select('judul', 'slug')
+            $data->cover =  $request->getSchemeAndHttpHost()."/".$data->cover;
+            $sidemenu = ItemProdukLayanan::select('id','judul', 'slug')
                                         ->where('id_jenis', $data->id_jenis)
                                         ->orderBy('judul', 'ASC')
                                         ->get();
