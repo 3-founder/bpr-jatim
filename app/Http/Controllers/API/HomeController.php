@@ -116,7 +116,7 @@ class HomeController extends Controller
         $data = null;
 
         try {
-            $berita = Berita::select('id','judul', 'slug', 'cover', 'updated_at','konten')->orderBy('updated_at', 'ASC')->take(8)->get();
+            $berita = Berita::select('id','judul', 'slug', 'cover', 'updated_at','konten','created_at')->orderBy('updated_at', 'ASC')->take(8)->get();
 
             $data['slide'] = [];
             $data['box'] = [];
@@ -124,6 +124,7 @@ class HomeController extends Controller
                 $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
+                $value->tgl = date('d M Y H:i',strtotime($value->created_at));
                 if($key<=3){
                     array_push($data['slide'],$value);
                 }

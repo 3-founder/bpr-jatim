@@ -16,7 +16,7 @@ class PenghargaanController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $data = Penghargaan::select('judul', 'slug', 'cover', 'updated_at')->orderBy('judul', 'ASC');
+            $data = Penghargaan::select('id','konten','judul', 'slug', 'cover', 'updated_at')->orderBy('judul', 'ASC');
 
             if ($keyword) {
                 $data->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
@@ -24,6 +24,9 @@ class PenghargaanController extends Controller
             
             $data = $data->paginate(5);
             
+            foreach ($data as $key => $value) {
+                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+            }
             $status = 200;
             $message = 'berhasil';
         }

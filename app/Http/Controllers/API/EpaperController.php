@@ -16,13 +16,18 @@ class EpaperController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $data = Epaper::select('judul', 'slug', 'cover', 'updated_at')->orderBy('judul', 'ASC');
+            $data = Epaper::select('id','judul', 'slug', 'cover', 'updated_at')->orderBy('judul', 'ASC');
 
             if ($keyword) {
                 $data->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
             }
             
             $data = $data->paginate(5);
+
+            foreach ($data as $key => $value) {
+                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+                $value->tgl = date('d M Y',strtotime($value->updated_at));
+            }
             
             $status = 200;
             $message = 'berhasil';

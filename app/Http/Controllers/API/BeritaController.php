@@ -15,16 +15,24 @@ class BeritaController extends Controller
         $data = null;
 
         try {
-            // $keyword = $request->get('keyword');
+            $keyword = $request->get('keyword');
             $berita = Berita::orderBy('updated_at', 'ASC')->get();
 
             $data['slide'] = [];
             $data['right'] = [];
             $data['box'] = [];
+
+            if ($keyword) {
+                $berita->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
+            }
+            
+            // $berita = $berita->paginate(5);
+
             foreach ($berita as $key => $value) {
                 $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
+                $value->tgl = date('d M Y H:i',strtotime($value->created_at));
                 if($key<=3){
                     array_push($data['slide'],$value);
                 }
@@ -36,12 +44,6 @@ class BeritaController extends Controller
                 }
             }
 
-            // if ($keyword) {
-            //     $data->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
-            // }
-            
-            // $data = $data->paginate(5);
-            
             $status = 200;
             $message = 'berhasil';
         }
