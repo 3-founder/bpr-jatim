@@ -25,7 +25,7 @@ class PenghargaanController extends Controller
             $data = $data->paginate(5);
             
             foreach ($data as $key => $value) {
-                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+                $value->cover =  url($value->cover);
             }
             $status = 200;
             $message = 'berhasil';

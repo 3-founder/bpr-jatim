@@ -25,7 +25,7 @@ class EpaperController extends Controller
             $data = $data->paginate(5);
 
             foreach ($data as $key => $value) {
-                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+                $value->cover =  url($value->cover);
                 $value->tgl = date('d M Y',strtotime($value->updated_at));
             }
             

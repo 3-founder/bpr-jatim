@@ -121,7 +121,7 @@ class HomeController extends Controller
             $data['slide'] = [];
             $data['box'] = [];
             foreach ($berita as $key => $value) {
-                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+                $value->cover =  url($value->cover);
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
                 $value->tgl = date('d M Y H:i',strtotime($value->created_at));
@@ -227,7 +227,7 @@ class HomeController extends Controller
             $data = Promo::select('id','judul', 'slug', 'cover')->take(8)->get();
 
             foreach ($data as $key => $value) {
-                $value->cover =  $request->getSchemeAndHttpHost()."/".$value->cover;
+                $value->cover =  url($value->cover);
                 $value->judul = substr($value->judul,0,15);
             }
 
