@@ -1,5 +1,13 @@
 @extends('backend.template')
+@section('extraCSS')
+<!-- include libraries(jQuery, bootstrap) -->
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- include summernote css -->
+<link href="{{ asset('') }}summernote-0.8.18-dist/summernote.min.css" rel="stylesheet">
+@endsection
 @section('content')
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -25,13 +33,22 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Edit Jenis Produk & Layanan</h5>
-                        <form action="{{ route('jenis-produk-layanan.update', $jenis->id) }}" method="post">
+                        <form action="{{ route('jenis-produk-layanan.update', $jenis->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="position-relative form-group">
                                 <label for="name" class="">Nama Jenis</label>
                                 <input name="name" id="name" placeholder="Nama Jenis" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name', $jenis->nama_jenis)}}">
                                 @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="keterangan" class="">Keterangan</label>
+                                <textarea name="keterangan" id="keterangan" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5">{{ old('keterangan', $jenis->keterangan) }}</textarea>
+                                @error('keterangan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -44,4 +61,19 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('extraJS')
+<!-- include summernote js -->
+<script src="{{ asset('') }}summernote-0.8.18-dist/summernote.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#keterangan').summernote({
+            height: 500,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true                  // set focus to editable area after initializing summernote
+        });
+    });
+</script>
 @endsection

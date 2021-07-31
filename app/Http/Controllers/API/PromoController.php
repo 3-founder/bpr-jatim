@@ -16,13 +16,18 @@ class PromoController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $data = Promo::select('judul', 'slug', 'cover', 'updated_at')->orderBy('judul', 'ASC');
+            $data = Promo::select('id','judul', 'slug', 'cover','konten', 'updated_at')->orderBy('judul', 'ASC');
 
             if ($keyword) {
                 $data->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
             }
             
             $data = $data->paginate(5);
+            foreach ($data as $key => $value) {
+                $value->cover =  url($value->cover);
+                $value->judul = substr($value->judul,0,30);
+                $value->konten = substr($value->konten,0,100);
+            }
             
             $status = 200;
             $message = 'berhasil';
