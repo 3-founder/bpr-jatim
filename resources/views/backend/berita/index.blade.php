@@ -58,6 +58,7 @@
                                     <th class="text-center">#</th>
                                     <th>Sampul</th>
                                     <th>Judul</th>
+                                    <th>Kategori</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -73,6 +74,7 @@
                                             <img src="{{ asset('../'.$item->cover) }}" alt="{{ $item->judul }}" width="150px" height="150px">
                                         </td>
                                         <td>{{ ucwords($item->judul) }}</td>
+                                        <td>{{ ucwords($item->kategori) }}</td>
                                         <td>
                                             <div class="form-inline">
                                                 <a href="{{ route('berita.show', $item->id) }}" class="mr-2">

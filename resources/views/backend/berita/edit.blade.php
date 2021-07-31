@@ -48,6 +48,15 @@
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
+                                <label for="kategori" class="">Kategori</label>
+                                <input name="kategori" id="kategori" placeholder="Kategori Berita" type="text" class="form-control @error('kategori') is-invalid @enderror" value="{{ old('kategori', $konten->kategori) }}">
+                                @error('kategori')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
                                 <label for="cover" class="">Cover</label>
                                 <br>
                                 <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" width="150" height="150">

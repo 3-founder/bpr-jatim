@@ -74,6 +74,8 @@ class BeritaController extends Controller
 
         try {
             $data = Berita::where('slug', $slug)->first();
+            $data->telah_dilihat += 1;
+            $data->save();
             $data->cover = url($data->cover);
             $status = 200;
             $message = 'berhasil';

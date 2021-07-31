@@ -21,7 +21,11 @@
 
 <div class="position-relative form-group">
     <label for="konten" class="">Konten</label>
-    <textarea name="konten" id="konten" class="form-control @error('konten') is-invalid @enderror">{{ old('konten', $item->konten) }}</textarea>
+    {{-- <textarea name="konten" id="konten" class="form-control @error('konten') is-invalid @enderror">{{ old('konten', $item->konten) }}</textarea> --}}
+    <textarea name="konten" id="getKonten" class="form-control">{{old('konten', $item->konten)}}</textarea>
+    <div id="konten">
+        {!! old('konten', $item->konten) !!}
+    </div>
     @error('konten')
         <div class="invalid-feedback">
             {{ $message }}
