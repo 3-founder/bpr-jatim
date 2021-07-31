@@ -25,6 +25,8 @@ class PromoController extends Controller
             $data = $data->paginate(5);
             foreach ($data as $key => $value) {
                 $value->cover =  url($value->cover);
+                $value->judulFull = $value->judul;
+                $value->kontenFull = $value->konten;
                 $value->judul = substr($value->judul,0,30);
                 $value->konten = substr($value->konten,0,100);
             }

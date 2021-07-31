@@ -16,7 +16,7 @@ class EpaperController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $data = Epaper::select('id','judul', 'slug', 'cover', 'updated_at')->orderBy('judul', 'ASC');
+            $data = Epaper::orderBy('judul', 'ASC');
 
             if ($keyword) {
                 $data->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
@@ -26,6 +26,7 @@ class EpaperController extends Controller
 
             foreach ($data as $key => $value) {
                 $value->cover =  url($value->cover);
+                $value->konten =  url($value->konten);
                 $value->tgl = date('d M Y',strtotime($value->updated_at));
             }
             

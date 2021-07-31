@@ -16,7 +16,7 @@ class BeritaController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $berita = Berita::orderBy('updated_at', 'ASC')->get();
+            $berita = Berita::orderBy('updated_at', 'ASC');
 
             $data['slide'] = [];
             $data['right'] = [];
@@ -25,7 +25,7 @@ class BeritaController extends Controller
             if ($keyword) {
                 $berita->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
             }
-            
+            $berita = $berita->get();
             // $berita = $berita->paginate(5);
 
             foreach ($berita as $key => $value) {
@@ -33,14 +33,19 @@ class BeritaController extends Controller
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
                 $value->tgl = date('d M Y H:i',strtotime($value->created_at));
-                if($key<=3){
-                    array_push($data['slide'],$value);
-                }
-                else if($key>=4 && $key<=6){
-                    array_push($data['right'],$value);
+                if($keyword){
+                    array_push($data['box'],$value);
                 }
                 else{
-                    array_push($data['box'],$value);
+                    if($key<=3){
+                        array_push($data['slide'],$value);
+                    }
+                    else if($key>=4 && $key<=6){
+                        array_push($data['right'],$value);
+                    }
+                    else{
+                        array_push($data['box'],$value);
+                    }
                 }
             }
 
@@ -75,6 +80,8 @@ class BeritaController extends Controller
         try {
             $data = Berita::where('slug', $slug)->first();
             $data->cover = url($data->cover);
+            $data->tgl = date('d M Y H:i',strtotime($data->created_at));
+
             $status = 200;
             $message = 'berhasil';
         }

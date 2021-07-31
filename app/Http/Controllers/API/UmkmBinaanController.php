@@ -83,7 +83,33 @@ class UmkmBinaanController extends Controller
         $data = null;
 
         try {
-            $data = \DB::table('umkm_binaan as ub')->select('ub.*','k.nama_kota')->join('kota as k','ub.id_kota','k.id')->orderBy('ub.nama', 'ASC')->get();
+            $keyword = $request->get('key');
+            $idKota = $request->get('id_kota');
+
+            $data = \DB::table('umkm_binaan as ub')->select('ub.*','k.nama_kota')->join('kota as k','ub.id_kota','k.id')->orderBy('ub.nama', 'ASC');
+
+            if($keyword){
+                if($idKota==''){
+                    $data->where('ub.jenis_usaha', 'LIKE', "%$keyword%");
+                }
+                else{
+                    $data->where('ub.jenis_usaha', 'LIKE', "%$keyword%");
+                    $data->where('ub.id_kota',$request->get('id_kota'));
+                }
+            }
+
+            if($idKota){
+                if($keyword==''){
+                    $data->where('ub.id_kota',$request->get('id_kota'));
+                }
+                else{
+                    $data->where('ub.jenis_usaha', 'LIKE', "%$keyword%");
+                    $data->where('ub.id_kota',$request->get('id_kota'));
+                }
+            }
+            
+            
+            $data = $data->get();
             foreach ($data as $key => $value) {
                 $value->foto =  url($value->foto);
             }
