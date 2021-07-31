@@ -75,7 +75,10 @@
                                         <td>{{ ucwords($item->judul) }}</td>
                                         <td>
                                             <div class="form-inline">
-                                                <a href="{{ route('epaper.show', $item->id) }}" target="_blank" class="mr-2">
+                                                {{-- <a href="{{ route('epaper.show', $item->id) }}" target="_blank" class="mr-2">
+                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Detail" data-placement="top"><span class="fa fa-eye"></span></button>
+                                                </a> --}}
+                                                <a href="{{ url($item->konten) }}" target="_blank" class="mr-2">
                                                     <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Detail" data-placement="top"><span class="fa fa-eye"></span></button>
                                                 </a>
                                                 <a href="{{ route('epaper.edit', $item->id) }}" class="mr-2">

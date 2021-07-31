@@ -502,10 +502,10 @@
         </div>
     </div>
     @yield('extraJS')
-    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script> --}}
     <script src="{{ asset('assets/vendor/select2-develop/dist/js/select2.min.js') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
-    <script>
+    {{-- <script>
         ClassicEditor
             .create(document.querySelector('.ck-editor'))
             .catch(error => {
@@ -518,7 +518,7 @@
                 console.error(error);
             });
         $(".select2").select2();
-    </script>
+    </script> --}}
 </body>
 
 </html>
