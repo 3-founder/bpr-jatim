@@ -79,6 +79,8 @@ class BeritaController extends Controller
 
         try {
             $data = Berita::where('slug', $slug)->first();
+            $data->telah_dilihat += 1;
+            $data->save();
             $data->cover = url($data->cover);
             $data->tgl = date('d M Y H:i',strtotime($data->created_at));
 

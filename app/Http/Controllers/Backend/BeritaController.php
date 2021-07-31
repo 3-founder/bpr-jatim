@@ -30,7 +30,9 @@ class BeritaController extends Controller
             $getBerita = Berita::orderBy('judul', 'ASC');
 
             if ($keyword) {
-                $getBerita->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
+                $getBerita->where('judul', 'LIKE', "%$keyword%")
+                        ->orWhere('konten', 'LIKE', "%$keyword%")
+                        ->orWhere('kategori', 'LIKE', "%$keyword%");
             }
 
             $this->param['data'] = $getBerita->paginate(10);
@@ -70,6 +72,7 @@ class BeritaController extends Controller
 
     public function store(Request $request)
     {
+        return $request->get('konten');
         $validatedData = $request->validate(
             [
                 'judul' => 'required',
@@ -102,10 +105,13 @@ class BeritaController extends Controller
                 if($file->move($folder, $filename)) {
                     $newBerita = new Berita;
 
+                    $newBerita->id_user = auth()->user()->id;
                     $newBerita->judul = $request->get('judul');
                     $newBerita->slug = Str::slug($request->get('judul'));
+                    $newBerita->kategori = $request->get('kategori');
                     $newBerita->cover = $folder.$filename;
                     $newBerita->konten = $request->get('konten');
+                    $newBerita->telah_dilihat = 0;
 
                     $newBerita->save();       
                 }
@@ -175,8 +181,10 @@ class BeritaController extends Controller
                 }
             }
 
+            $berita->id_user = auth()->user()->id;
             $berita->judul = $request->get('judul');
             $berita->slug = Str::slug($request->get('judul'));
+            $berita->kategori = $request->get('kategori');
             $berita->konten = $request->get('konten');
 
             $berita->save();   

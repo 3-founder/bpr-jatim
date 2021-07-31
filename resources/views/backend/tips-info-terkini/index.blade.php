@@ -1,12 +1,21 @@
 @extends('backend.template')
 
 @section('extraCSS')
-<!-- include libraries(jQuery, bootstrap) -->
-{{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> --}}
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<!-- include summernote css -->
-<link href="{{ asset('') }}summernote-0.8.18-dist/summernote.min.css" rel="stylesheet">
+<!-- Include the Quill library -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<style>
+#konten {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  height: 375px;
+}
+
+.ql-editor .ql-video {
+    width: 914px !important;
+    height: 514px !important;
+}
+</style>
+    
 @endsection
 
 @section('content')
@@ -56,24 +65,74 @@
 @endsection
 
 @section('extraJS')
-<!-- include summernote js -->
-<script src="{{ asset('') }}summernote-0.8.18-dist/summernote.min.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#konten').summernote({
-            height: 400,                 // set editor height
-            minHeight: null,             // set minimum height of editor
-            maxHeight: null,             // set maximum height of editor
-            focus: true                  // set focus to editable area after initializing summernote
-        });
+    var quill = new Quill('#konten', {
+        modules: {
+            toolbar: [
+                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                ['blockquote', 'code-block'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                [{ 'script': 'sub' }, { 'script': 'super' }],
+                [{ 'indent': '-1' }, { 'indent': '+1' }],
+                [{ 'direction': 'rtl' }],
+                [{'size': ['small', false, 'large', 'huge']}],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['link', 'image', 'video', 'formula'],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'align': [] }],
+            ]
+        },
+        placeholder: 'Masukkan konten disini',
+        theme: 'snow'  // or 'bubble'
     });
-    $(document).ready(function() {
-        $('#konten_info').summernote({
-            height: 500,                 // set editor height
-            minHeight: null,             // set minimum height of editor
-            maxHeight: null,             // set maximum height of editor
-            focus: true                  // set focus to editable area after initializing summernote
-        });
+
+    quill.on('text-change', function() {
+        var delta = quill.getContents();
+        var text = quill.getText();
+        var justHtml = quill.root.innerHTML;
+        // preciousContent.innerHTML = JSON.stringify(delta);
+        // justTextContent.innerHTML = text;
+        // justHtmlContent.innerHTML = justHtml;
+        // console.log(justHtml)
+        $('#getKonten').val(justHtml)
+        console.log(justHtml);
     });
+
+    $('#getKonten').hide();
+
+    var quill2 = new Quill('#konten_info', {
+        modules: {
+            toolbar: [
+                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                ['blockquote', 'code-block'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                [{ 'script': 'sub' }, { 'script': 'super' }],
+                [{ 'indent': '-1' }, { 'indent': '+1' }],
+                [{ 'direction': 'rtl' }],
+                [{'size': ['small', false, 'large', 'huge']}],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['link', 'image', 'video', 'formula'],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'align': [] }],
+            ]
+        },
+        placeholder: 'Masukkan konten disini',
+        theme: 'snow'  // or 'bubble'
+    });
+
+    quill2.on('text-change', function() {
+        var delta = quill2.getContents();
+        var text = quill2.getText();
+        var justHtml = quill2.root.innerHTML;
+        // preciousContent.innerHTML = JSON.stringify(delta);
+        // justTextContent.innerHTML = text;
+        // justHtmlContent.innerHTML = justHtml;
+        // console.log(justHtml)
+        $('#getKontenInfo').val(justHtml)
+        console.log(justHtml);
+    });
+
+    $('#getKontenInfo').hide();
 </script>
 @endsection

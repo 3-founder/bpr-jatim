@@ -64,7 +64,8 @@ class EpaperController extends Controller
             // return view('backend.epaper.detail', $pdfUrl);
             $pdf = App::make('dompdf.wrapper');
             $pdf->loadHTML('<h1>Test</h1>');
-            return $pdf->stream();        }
+            // return $pdf->stream();
+        }
         catch (\Exception $e) {
             return redirect()->back()->withError('Terjadi kesalahan');
         }
@@ -111,8 +112,8 @@ class EpaperController extends Controller
 
                     $newEpaper->judul = $request->get('judul');
                     $newEpaper->slug = Str::slug($request->get('judul'));
-                    $newEpaper->cover = $folder.'/'.$filename;
-                    $newEpaper->konten = $folder.'/'.$filenamePdf;
+                    $newEpaper->cover = $folder.$filename;
+                    $newEpaper->konten = $folder.$filenamePdf;
 
                     $newEpaper->save();       
                 }
