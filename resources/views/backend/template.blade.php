@@ -375,6 +375,13 @@
                                 </a>
                                 <ul class="{{ Request::segment(2) == 'berita-info' ? 'mm-collapse mm-show' : '' }}">
                                     <li>
+                                        <a href="{{ url('administrator/berita-info/kategori-berita') }}"
+                                        class="{{ Request::segment(3) == 'kategori-berita' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon"></i>
+                                            Kategori Berita
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ url('administrator/berita-info/berita') }}"
                                         class="{{ Request::segment(3) == 'berita' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon"></i>
@@ -505,21 +512,20 @@
     @yield('extraJS')
     <script src="{{ asset('assets/vendor/select2-develop/dist/js/select2.min.js') }}"></script>
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script> --}}
-    
-    {{-- <script>
-        ClassicEditor
-            .create(document.querySelector('.ck-editor'))
-            .catch(error => {
-                console.error(error);
-            });
+    <script>
+        // ClassicEditor
+        //     .create(document.querySelector('.ck-editor'))
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
 
-        ClassicEditor
-            .create(document.querySelector('.ck-editor2'))
-            .catch(error => {
-                console.error(error);
-            });
+        // ClassicEditor
+        //     .create(document.querySelector('.ck-editor2'))
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
         $(".select2").select2();
-    </script> --}}
+    </script>
 </body>
 
 </html>

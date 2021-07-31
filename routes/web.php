@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // Route::get('/administrator/dashboard', function () {
@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('umkm-binaan', 'Backend\UmkmBinaanController');
         Route::prefix('berita-info')->group(function () {
             Route::resource('jaringan-kantor', 'Backend\JaringanKantorController');
+            Route::resource('kategori-berita', 'Backend\KategoriBeritaController');
             Route::resource('berita', 'Backend\BeritaController');
             Route::resource('promo', 'Backend\PromoController');
             Route::resource('penghargaan', 'Backend\PenghargaanController');

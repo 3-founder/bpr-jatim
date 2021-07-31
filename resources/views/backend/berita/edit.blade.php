@@ -1,15 +1,22 @@
 @extends('backend.template')
-
 @section('extraCSS')
-<!-- include libraries(jQuery, bootstrap) -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Include the Quill library -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        #konten {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            height: 375px;
+        }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<!-- include summernote css -->
-<link href="{{ asset('') }}summernote-0.8.18-dist/summernote.min.css" rel="stylesheet">
+        .ql-editor .ql-video {
+            width: 914px !important;
+            height: 514px !important;
+        }
+
+    </style>
+
 @endsection
-
 @section('content')
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -39,18 +46,23 @@
                             @csrf
                             @method('PUT')
                             <div class="position-relative form-group">
-                                <label for="judul" class="">Judul</label>
-                                <input name="judul" id="judul" placeholder="Judul" type="text" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul', $konten->judul) }}">
-                                @error('judul')
+                                <label for="id_kategori" class="">Kategori Berita</label>
+                                <select name="id_kategori" id="id_kategori" class="form-control select2 @error('id_kategori') is-invalid @enderror">
+                                    <option value="0">Pilih Kategori Berita</option>
+                                    @foreach ($kategori as $item)
+                                        <option value="{{ $item->id }}" {{old('id_kategori', $konten->id_kategori) == $item->id ? 'selected' : '' }} > {{ $item->kategori}} </option>
+                                    @endforeach
+                                </select>
+                                @error('id_kategori')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
-                                <label for="kategori" class="">Kategori</label>
-                                <input name="kategori" id="kategori" placeholder="Kategori Berita" type="text" class="form-control @error('kategori') is-invalid @enderror" value="{{ old('kategori', $konten->kategori) }}">
-                                @error('kategori')
+                                <label for="judul" class="">Judul</label>
+                                <input name="judul" id="judul" placeholder="Judul" type="text" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul', $konten->judul) }}">
+                                @error('judul')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -69,7 +81,11 @@
                             </div>
                             <div class="position-relative form-group">
                                 <label for="konten" class="">Konten</label>
-                                <textarea name="konten" id="konten" class="form-control @error('konten') is-invalid @enderror" cols="30" rows="5">{{ old('konten', $konten->konten) }}</textarea>
+                                <textarea name="konten" id="getKonten" class="form-control">{{ old('konten', $konten->konten) }}</textarea>
+                                <div id="konten">
+                                    {!! old('konten', $konten->konten) !!}
+                                </div>
+                                {{-- <textarea name="konten" id="konten" class="konten form-control @error('konten') is-invalid @enderror" cols="30" rows="5"></textarea> --}}
                                 @error('konten')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -87,15 +103,64 @@
 
 @section('extraJS')
 <!-- include summernote js -->
-<script src="{{ asset('') }}summernote-0.8.18-dist/summernote.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#konten').summernote({
-            height: 500,                 // set editor height
-            minHeight: null,             // set minimum height of editor
-            maxHeight: null,             // set maximum height of editor
-            focus: true                  // set focus to editable area after initializing summernote
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        var quill = new Quill('#konten', {
+            modules: {
+                toolbar: [
+                    [{
+                        header: [1, 2, 3, 4, 5, 6, false]
+                    }],
+                    ['blockquote', 'code-block'],
+                    [{
+                        'list': 'ordered'
+                    }, {
+                        'list': 'bullet'
+                    }],
+                    [{
+                        'script': 'sub'
+                    }, {
+                        'script': 'super'
+                    }],
+                    [{
+                        'indent': '-1'
+                    }, {
+                        'indent': '+1'
+                    }],
+                    [{
+                        'direction': 'rtl'
+                    }],
+                    [{
+                        'size': ['small', false, 'large', 'huge']
+                    }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link', 'image', 'video', 'formula'],
+                    [{
+                        'color': []
+                    }, {
+                        'background': []
+                    }],
+                    [{
+                        'align': []
+                    }],
+                ]
+            },
+            placeholder: 'Masukkan konten disini',
+            theme: 'snow' // or 'bubble'
         });
-    });
-</script>
+
+        quill.on('text-change', function() {
+            var delta = quill.getContents();
+            var text = quill.getText();
+            var justHtml = quill.root.innerHTML;
+            // preciousContent.innerHTML = JSON.stringify(delta);
+            // justTextContent.innerHTML = text;
+            // justHtmlContent.innerHTML = justHtml;
+            // console.log(justHtml)
+            $('#getKonten').val(justHtml)
+            console.log(justHtml);
+        });
+
+        $('#getKonten').hide();
+    </script>
 @endsection

@@ -44,14 +44,18 @@
                             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                 <tbody>
                                     <tr>
-                                        <th class="w-25">Sampul</th>
-                                        <td>
-                                            <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" class="img-thumbnail">
-                                        </td>
+                                        <th class="w-25">Kategori Berita</th>
+                                        <td>{{ucwords($konten->kategori->kategori)}}</td>
                                     </tr>
                                     <tr>
                                         <th class="w-25">Judul</th>
                                         <td>{{ucwords($konten->judul)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="w-25">Sampul</th>
+                                        <td>
+                                            <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" class="img-thumbnail">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th colspan="2" class="w-25">Konten</th>

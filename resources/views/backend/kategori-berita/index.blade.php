@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
-                    <div class="card-header">List Berita
+                    <div class="card-header">List Kategori Berita
                         <div class="btn-actions-pane-right">
                             <form action="" method="get">
                                 <div class="input-group">
@@ -57,9 +57,6 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th>Kategori Berita</th>
-                                    <th>Sampul</th>
-                                    <th>Judul</th>
-                                    <th>Kategori</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -71,20 +68,13 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
-                                        <td>{{ ucwords($item->kategori->kategori) }}</td>
-                                        <td>
-                                            <img src="{{ asset('../'.$item->cover) }}" alt="{{ $item->judul }}" width="150px" height="150px">
-                                        </td>
-                                        <td>{{ ucwords($item->judul) }}</td>
+                                        <td>{{ ucwords($item->kategori) }}</td>
                                         <td>
                                             <div class="form-inline">
-                                                <a href="{{ route('berita.show', $item->id) }}" class="mr-2">
-                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Detail" data-placement="top"><span class="fa fa-eye"></span></button>
-                                                </a>
-                                                <a href="{{ route('berita.edit', $item->id) }}" class="mr-2">
+                                                <a href="{{ route('kategori-berita.edit', $item->id) }}" class="mr-2">
                                                     <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Edit" data-placement="top"><span class="fa fa-pen"></span></button>
                                                 </a>
-                                                <form action="{{ route('berita.destroy', $item->id) }}" method="post">
+                                                <form action="{{ route('kategori-berita.destroy', $item->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">

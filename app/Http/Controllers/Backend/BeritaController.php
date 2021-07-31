@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \App\Models\Berita;
+use \App\Models\KategoriBerita;
 use App\Models\User;
 use Illuminate\Support\Str;
 
@@ -27,7 +28,7 @@ class BeritaController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getBerita = Berita::orderBy('judul', 'ASC');
+            $getBerita = Berita::with('kategori')->orderBy('judul', 'ASC');
 
             if ($keyword) {
                 $getBerita->where('judul', 'LIKE', "%$keyword%")
@@ -48,6 +49,7 @@ class BeritaController extends Controller
         
         $this->param['btnRight']['text'] = 'Lihat Data';
         $this->param['btnRight']['link'] = route('berita.index');
+        $this->param['kategori'] = KategoriBerita::get();
 
         return \view('backend.berita.create', $this->param);
     }
@@ -58,7 +60,7 @@ class BeritaController extends Controller
             $this->param['btnRight']['text'] = 'Lihat Data';
             $this->param['btnRight']['link'] = route('berita.index');
 
-            $this->param['konten'] = Berita::find($id);
+            $this->param['konten'] = Berita::with('kategori')->find($id);
             
             return \view('backend.berita.detail', $this->param);
         }
@@ -72,12 +74,12 @@ class BeritaController extends Controller
 
     public function store(Request $request)
     {
-        return $request->get('konten');
         $validatedData = $request->validate(
             [
                 'judul' => 'required',
                 'cover' => 'required',
                 'konten' => 'required',
+                'id_kategori' => 'required',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
@@ -86,6 +88,7 @@ class BeritaController extends Controller
                 'judul' => 'Judul',
                 'cover' => 'Cover',
                 'konten' => 'Konten',
+                'id_kategori' => 'Kategori'
             ]
         );
         try {
@@ -106,9 +109,9 @@ class BeritaController extends Controller
                     $newBerita = new Berita;
 
                     $newBerita->id_user = auth()->user()->id;
+                    $newBerita->id_kategori = $request->get('id_kategori');
                     $newBerita->judul = $request->get('judul');
                     $newBerita->slug = Str::slug($request->get('judul'));
-                    $newBerita->kategori = $request->get('kategori');
                     $newBerita->cover = $folder.$filename;
                     $newBerita->konten = $request->get('konten');
                     $newBerita->telah_dilihat = 0;
@@ -130,7 +133,7 @@ class BeritaController extends Controller
         try {
             $this->param['btnRight']['text'] = 'Lihat Data';
             $this->param['btnRight']['link'] = route('berita.index');
-
+            $this->param['kategori'] = KategoriBerita::get();
             $this->param['konten'] = Berita::find($id);
             
             return \view('backend.berita.edit', $this->param);
@@ -153,6 +156,7 @@ class BeritaController extends Controller
             [
                 'judul' => 'required',
                 'konten' => 'required',
+                'id_kategori' => 'required',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
@@ -160,6 +164,7 @@ class BeritaController extends Controller
             [
                 'judul' => 'Judul',
                 'konten' => 'Konten',
+                'id_kategori' => 'Kategori'
             ]
         );
         try {
@@ -182,9 +187,9 @@ class BeritaController extends Controller
             }
 
             $berita->id_user = auth()->user()->id;
+            $berita->id_kategori = $request->get('id_kategori');
             $berita->judul = $request->get('judul');
             $berita->slug = Str::slug($request->get('judul'));
-            $berita->kategori = $request->get('kategori');
             $berita->konten = $request->get('konten');
 
             $berita->save();   
