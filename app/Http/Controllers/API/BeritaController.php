@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
+use App\Models\KategoriBerita;
 use Illuminate\Http\Request;
 
 class BeritaController extends Controller
@@ -13,10 +14,13 @@ class BeritaController extends Controller
         $status = null;
         $message = null;
         $data = null;
-
+        
         try {
+            $kategori = KategoriBerita::get();
             $keyword = $request->get('keyword');
-            $berita = Berita::orderBy('updated_at', 'ASC');
+            $keyKategori = $request->get('kategori');
+            $berita = \DB::table('berita as b')->select('b.id','judul', 'slug', 'cover', 'b.updated_at','konten','b.created_at','k.kategori')->join('kategori_berita as  k','b.id_kategori','k.id')->orderBy('updated_at', 'ASC');
+
 
             $data['slide'] = [];
             $data['right'] = [];
@@ -25,6 +29,11 @@ class BeritaController extends Controller
             if ($keyword) {
                 $berita->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
             }
+
+            if ($keyKategori) {
+                $berita->where('id_kategori',$keyKategori);
+            }
+
             $berita = $berita->get();
             // $berita = $berita->paginate(5);
 
@@ -33,7 +42,7 @@ class BeritaController extends Controller
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
                 $value->tgl = date('d M Y H:i',strtotime($value->created_at));
-                if($keyword){
+                if($keyword || $keyKategori){
                     array_push($data['box'],$value);
                 }
                 else{
@@ -48,6 +57,7 @@ class BeritaController extends Controller
                     }
                 }
             }
+
 
             $status = 200;
             $message = 'berhasil';
@@ -64,7 +74,8 @@ class BeritaController extends Controller
             $response = array(
                 'status' => $status,
                 'message' => $message,
-                'berita' => $data
+                'berita' => $data,
+                'kategori' => $kategori
             );
 
             return response($response, $status);
@@ -78,7 +89,7 @@ class BeritaController extends Controller
         $data = null;
 
         try {
-            $data = Berita::where('slug', $slug)->first();
+            $data = Berita::with('kategori')->where('slug', $slug)->first();
             $data->telah_dilihat += 1;
             $data->save();
             $data->cover = url($data->cover);

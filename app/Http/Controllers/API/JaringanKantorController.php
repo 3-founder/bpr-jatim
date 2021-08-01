@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\JaringanKantor;
+use App\Models\Kota;
 use Illuminate\Http\Request;
 
 class JaringanKantorController extends Controller
@@ -16,7 +17,7 @@ class JaringanKantorController extends Controller
 
         try {
             $data = JaringanKantor::with('kota')->get();
-            
+            $kota = Kota::get(); 
             $status = 200;
             $message = 'berhasil';
         }
@@ -32,7 +33,8 @@ class JaringanKantorController extends Controller
             $response = array(
                 'status' => $status,
                 'message' => $message,
-                'data' => $data
+                'data' => $data,
+                'kota' =>  $kota
             );
 
             return response($response, $status);

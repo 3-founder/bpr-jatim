@@ -68,6 +68,14 @@ Route::get('get-detail-penghargaan/{slug}', 'API\PenghargaanController@detailPen
 Route::get('get-karier', 'API\KarierController@getKarier');
 /** END Karier*/
 
+/** Tips Keamanan & Info*/
+Route::get('get-tips-info', 'API\TipsInfoController@getTipsInfo');
+/** END Keamanan & Info*/
+
+/** Peta Cabang*/
+Route::get('get-peta-cabang', 'API\PetaCabangController@getPetaCabang');
+/** END Peta Cabang*/
+
 /** Jaringan Kantor Kas*/
 Route::get('get-jaringan-kantor', 'API\JaringanKantorController@getJaringanKantor');
 /** END Jaringan Kantor Kas*/

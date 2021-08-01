@@ -118,7 +118,7 @@ class HomeController extends Controller
         $data = null;
 
         try {
-            $berita = Berita::select('id','judul', 'slug', 'cover', 'updated_at','konten','created_at')->orderBy('updated_at', 'ASC')->take(8)->get();
+            $berita = \DB::table('berita as b')->select('b.id','judul', 'slug', 'cover', 'b.updated_at','konten','b.created_at','k.kategori')->join('kategori_berita as  k','b.id_kategori','k.id')->orderBy('updated_at', 'ASC')->take(8)->get();
 
             $data['slide'] = [];
             $data['box'] = [];
