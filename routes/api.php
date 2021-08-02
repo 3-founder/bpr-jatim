@@ -80,6 +80,10 @@ Route::get('get-peta-cabang', 'API\PetaCabangController@getPetaCabang');
 Route::get('get-jaringan-kantor', 'API\JaringanKantorController@getJaringanKantor');
 /** END Jaringan Kantor Kas*/
 
+/** Pengaduan Nasabah*/
+Route::post('add-pengaduan-nasabah', 'API\PengaduanNasabahController@store');
+/** END Pengaduan Nasabah*/
+
 /** Pengumuman Lelang Jaminan */
 Route::get('get-pengumuman-lelang-jaminan', 'API\PengumumanLelangJaminanController@getPengumumanLelangJaminan');
 /** END Pengumuman Lelang Jaminan */
