@@ -26,6 +26,7 @@ class LaporanKeuanganController extends Controller
     {
         $this->param['btnRight']['text'] = 'Tambah Laporan Keuangan';
         $this->param['btnRight']['link'] = route('laporan-keuangan.create');
+        // $this->param['pageIcon'] = 'book';
 
         try {
             $keyword = $request->get('keyword');
@@ -69,11 +70,14 @@ class LaporanKeuanganController extends Controller
         $validatedData = $request->validate(
             [
                 'tahun' => 'required|unique:lap_keuangan,tahun',
-                'laporan' => 'required',
+                'laporan' => 'required|file|max:10240|mimes:pdf',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
                 'unique' => ':attribute telah tersedia.',
+                'mimes' => ':attribute hanya dapat menerima file pdf.',
+                'file' => ':attribute harus berbentuk file.',
+                'max' => 'Maksimal ukuran file hingga 10mb.'
             ],
             [
                 'tahun' => 'Tahun',
@@ -102,15 +106,18 @@ class LaporanKeuanganController extends Controller
                     $newLaporan->file = $folder.$filename;
                     $newLaporan->user_id = auth()->user()->id;
 
-                    $newLaporan->save();       
+                    $newLaporan->save();      
+
+                    $status = 'success';
+                    $message = 'successfully';
                 }
             }
 
             return redirect()->route('laporan-keuangan.index')->withStatus('Data berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->route('laporan-keuangan.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
+            return back()->withError('Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('laporan-keuangan.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            return back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }
 
@@ -159,14 +166,19 @@ class LaporanKeuanganController extends Controller
     {
         $laporan = LaporanKeuangan::find($id);
         $isUnique = $laporan->tahun == $request->get('tahun') ? '' : '|unique:lap_keuangan,tahun';
+        $validFile = $request->file('laporan') != null ? 'file|max:10240|mimes:pdf' : '';
 
         $validatedData = $request->validate(
             [
                 'tahun' => 'required'.$isUnique,
+                'laporan' => $validFile
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
                 'unique' => ':attribute telah tersedia.',
+                'mimes' => ':attribute hanya dapat menerima file pdf.',
+                'file' => ':attribute harus berbentuk file.',
+                'max' => 'Maksimal ukuran file hingga 10mb.'
             ],
             [
                 'tahun' => 'Tahun',
@@ -225,10 +237,8 @@ class LaporanKeuanganController extends Controller
 
             return redirect()->route('laporan-keuangan.index')->withStatus('Data berhasil disimpan.');
         } catch (\Exception $e) {
-            return $e->getMessage();
             return back()->withError('Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return $e->getMessage();
             return back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }

@@ -37,7 +37,7 @@
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
-                                <label for="laporan" class="">File Laporan(.pdf)</label>
+                                <label for="laporan" class="">File Laporan(.pdf) - maks 10MB</label>
                                 <br>
                                 @if ($laporan->file != null)
                                 <a href="{{ asset('../'.$laporan->file) }}" target="_blank">{{ $laporan->file }}</a>

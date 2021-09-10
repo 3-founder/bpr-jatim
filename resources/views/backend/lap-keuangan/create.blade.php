@@ -17,6 +17,19 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                @if (session('status'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <i class="fa fa-check-circle"></i> {{session('status')}}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <i class="fa fa-times-circle"></i> {{session('error')}}
+                </div>
+                @endif
                 <div class="row">
                     <div class="col-md-2 mb-3">
                         <a href="{{ $btnRight['link'] }}"><button class="btn btn-lg btn-primary"> <i
@@ -40,11 +53,11 @@
                             </div>
 
                             <div class="position-relative form-group">
-                                <label for="laporan" class="">File Laporan(.pdf)</label>
+                                <label for="laporan" class="">File Laporan(.pdf) - maks 10MB</label><br>
                                 <input name="laporan" id="laporan" type="file" accept="application/pdf"
-                                    class="form-control @error('laporan') is-invalid @enderror">
+                                    class="@error('laporan') is-invalid @enderror">
                                 @error('laporan')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
