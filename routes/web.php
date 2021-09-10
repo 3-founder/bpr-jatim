@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('tenor', 'Backend\TenorController');
         Route::resource('kota', 'Backend\KotaController');
         Route::resource('kurs', 'Backend\KursController');
+        Route::resource('laporan-keuangan', 'Backend\LaporanKeuanganController');
         
         Route::resource('about', 'Backend\AboutController');
         Route::resource('jenis-produk-layanan', 'Backend\JenisProdukLayananController');

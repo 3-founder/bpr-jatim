@@ -247,6 +247,14 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{ url('administrator/laporan-keuangan') }}"
+                                    class="{{ Request::segment(2) == 'laporan-keuangan' ? 'mm-active' : '' }}">
+                                    <i class="metismenu-icon fa fa-book icon-gradient bg-arielle-smile"></i>
+                                    Laporan Keuangan
+                                </a>
+                            </li>
+
                             <li class="app-sidebar__heading">Tentang BPR</li>
                             <li>
                                 <a href="#">

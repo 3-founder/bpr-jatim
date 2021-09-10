@@ -87,3 +87,7 @@ Route::post('add-pengaduan-nasabah', 'API\PengaduanNasabahController@store');
 /** Pengumuman Lelang Jaminan */
 Route::get('get-pengumuman-lelang-jaminan', 'API\PengumumanLelangJaminanController@getPengumumanLelangJaminan');
 /** END Pengumuman Lelang Jaminan */
+
+/** Laporan Keuangan */
+Route::get('get-laporan-keuangan', 'API\LaporanKeuanganController@getLaporan');
+/** END Laporan Keuangan */
