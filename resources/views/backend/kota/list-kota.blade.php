@@ -61,6 +61,8 @@
                                     <th>Kode Area</th>
                                     <th>Telepon</th>
                                     <th>Faksimile</th>
+                                    <th>Longitude</th>
+                                    <th>Latitude</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -77,6 +79,8 @@
                                         <td>{{ $item->kode_area != null ? $item->kode_area : '-' }}</td>
                                         <td>{{ $item->telp != null ? $item->telp : '-' }}</td>
                                         <td>{{ $item->fax != null ? $item->fax : '-' }}</td>
+                                        <td>{{ $item->longitude != null ? $item->longitude : '-' }}</td>
+                                        <td>{{ $item->latitude != null ? $item->latitude : '-' }}</td>
                                         <td>
                                             <div class="form-inline">
                                                 <a href="{{ route('kota.edit', $item->id) }}" class="mr-2">

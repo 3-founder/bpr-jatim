@@ -72,6 +72,24 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="position-relative form-group">
+                                <label for="longitude" class="">Longitude</label>
+                                <input name="longitude" id="longitude" placeholder="Longitude" type="text" class="form-control @error('longitude') is-invalid @enderror">
+                                @error('longitude')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="latitude" class="">Latitude</label>
+                                <input name="latitude" id="latitude" placeholder="Latitude" type="text" class="form-control @error('latitude') is-invalid @enderror">
+                                @error('latitude')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
                         </form>
                     </div>

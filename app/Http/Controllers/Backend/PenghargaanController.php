@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Penghargaan;
 use Illuminate\Support\Str;
+use File;
 
 class PenghargaanController extends Controller
 {
@@ -160,21 +161,26 @@ class PenghargaanController extends Controller
 
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/penghargaan/';
-                $file = $request->file('cover');
-                $filename = date('YmdHis').$file->getClientOriginalName();
-                // Get canonicalized absolute pathname
-                $path = realpath($folder);
+                // mengecek apakah file sebelumnya ada
+                if($penghargaan->cover != null) {
+                    if(file_exists($penghargaan->cover)) {
+                        $folder = 'upload/penghargaan/';
+                        $file = $request->file('cover');
+                        $filename = date('YmdHis').$file->getClientOriginalName();
+                        // Get canonicalized absolute pathname
+                        $path = realpath($folder);
 
-                // If it exist, check if it's a directory
-                if(!($path !== true AND is_dir($path)))
-                {
-                    // Path/folder does not exist then create a new folder
-                    mkdir($folder, 0755, true);
-                }
-                if($file->move($folder, $filename)) {
-                    if(File::delete($penghargaan->cover)) {
-                        $penghargaan->cover = $folder.'/'.$filename;
+                        // If it exist, check if it's a directory
+                        if(!($path !== true AND is_dir($path)))
+                        {
+                            // Path/folder does not exist then create a new folder
+                            mkdir($folder, 0755, true);
+                        }
+                        if($file->move($folder, $filename)) {
+                            if(File::delete($penghargaan->cover)) {
+                                $penghargaan->cover = $folder.'/'.$filename;
+                            }
+                        }
                     }
                 }
             }

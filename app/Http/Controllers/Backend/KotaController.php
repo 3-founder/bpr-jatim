@@ -66,6 +66,8 @@ class KotaController extends Controller
         $validatedData = $request->validate(
             [
                 'name' => 'required|unique:kota,nama_kota',
+                'longitude' => 'required',
+                'latitude' => 'required',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
@@ -73,6 +75,8 @@ class KotaController extends Controller
             ],
             [
                 'name' => 'Nama Kota',
+                'longitude' => 'Longitude',
+                'latitude' => 'Latitude',
             ]
         );
         try {
@@ -83,6 +87,8 @@ class KotaController extends Controller
             $newCity->telp = $request->get('telp');
             $newCity->kode_area = $request->get('kode_area');
             $newCity->fax = $request->get('fax');
+            $newCity->longitude = $request->get('longitude');
+            $newCity->latitude = $request->get('latitude');
 
             $newCity->save();
 
@@ -144,12 +150,16 @@ class KotaController extends Controller
         $validatedData = $request->validate(
             [
                 'name' => 'required'. $isUnique,
+                'longitude' => 'required',
+                'latitude' => 'required',
             ],
             [
                 'name.required' => ':attribute tidak boleh kosong.',
             ],
             [
                 'name' => 'Nama kota',
+                'longitude' => 'Longitude',
+                'latitude' => 'Latitude',
             ]
         );
         try {
@@ -158,6 +168,8 @@ class KotaController extends Controller
             $kota->telp = $request->get('telp');
             $kota->kode_area = $request->get('kode_area');
             $kota->fax = $request->get('fax');
+            $kota->longitude = $request->get('longitude');
+            $kota->latitude = $request->get('latitude');
             
             $kota->save();
 
