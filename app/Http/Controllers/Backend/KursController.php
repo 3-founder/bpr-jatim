@@ -28,14 +28,23 @@ class KursController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getKurs = Kurs::orderBy('nama', 'ASC');
 
+            $getKurs = \DB::table('kurs AS k1')
+                            ->select('k1.*')
+                            ->leftJoin('kurs AS k2', function($join){
+                                $join->on('k1.nama', '=', 'k2.nama');
+                                $join->on('k1.id', '<', 'k2.id');
+                            })
+                            ->whereNull('k2.id');
+                            
             if ($keyword) {
                 $getKurs->where('nama', 'LIKE', "%$keyword%");
+                // $getKurs = \DB::select(\DB::raw('SELECT k1.* FROM kurs k1 LEFT JOIN kurs k2 ON (k1.nama = k2.nama AND k1.id < k2.id) WHERE k2.id IS NULL AND k1.nama LIKE "%$keyword%"'));
             }
 
-            $this->param['kurs'] = $getKurs->paginate(10);
+            $this->param['kurs'] = $getKurs->orderBy('k1.nama', 'ASC')->paginate(10);
         } catch (\Illuminate\Database\QueryException $e) {
+            return $e->getMessage();
             return redirect()->back()->withStatus('Terjadi Kesalahan');
         }
 
@@ -65,13 +74,12 @@ class KursController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'name' => 'required|unique:kurs,nama',
+                'name' => 'required',
                 'harga_beli' => 'required',
                 'harga_jual' => 'required',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
-                'unique' => ':attribute telah terdaftar'
             ],
             [
                 'name' => 'Mata Uang',
@@ -80,13 +88,29 @@ class KursController extends Controller
             ]
         );
         try {
+            $currentKurs = Kurs::where('nama', strtoupper($request->get('name')))->orderBy('id', 'DESC')->get();
+
+            if(count($currentKurs) > 0) {
+                // terdapat kurs sebelumnya
+                $new_kurs_beli = $request->get('harga_beli');
+                $new_kurs_jual = $request->get('harga_jual');
+                $temp_kurs_beli = $currentKurs[0]->harga_beli;
+                $temp_kurs_jual = $currentKurs[0]->harga_jual;
+            }
+            else {
+                // kurs belum tersedia
+                $new_kurs_beli = $request->get('harga_beli');
+                $new_kurs_jual = $request->get('harga_jual');
+                $temp_kurs_beli = $request->get('harga_beli');
+                $temp_kurs_jual = $request->get('harga_jual');
+            }
             $newKurs = new Kurs;
 
             $newKurs->nama = $request->get('name');
-            $newKurs->harga_beli = $request->get('harga_beli');
-            $newKurs->temp_harga_beli = $request->get('harga_beli');
-            $newKurs->harga_jual = $request->get('harga_jual');
-            $newKurs->temp_harga_jual = $request->get('harga_jual');
+            $newKurs->harga_beli = $new_kurs_beli;
+            $newKurs->temp_harga_beli = $temp_kurs_beli;
+            $newKurs->harga_jual = $new_kurs_jual;
+            $newKurs->temp_harga_jual = $temp_kurs_jual;
 
             $newKurs->save();
 
@@ -144,16 +168,15 @@ class KursController extends Controller
     {
         $kurs = Kurs::find($id);
 
-        $isUnique = $kurs->nama == $request->name ? '' : '|unique:kurs,nama';
+        // $isUnique = $kurs->nama == $request->name ? '' : '|unique:kurs,nama';
         $validatedData = $request->validate(
             [
-                'name' => 'required'. $isUnique,
+                'name' => 'required',
                 'harga_beli' => 'required',
                 'harga_jual' => 'required',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
-                'unique' => ':attribute telah terdaftar'
             ],
             [
                 'name' => 'Mata Uang',
@@ -163,32 +186,35 @@ class KursController extends Controller
         );
         try {
             $kurs->nama = $request->get('name');
-            if($kurs->harga_beli != $request->get('harga_beli')) {
-                $kurs->temp_harga_beli = $kurs->harga_beli;
-                $kurs->harga_beli = $request->get('harga_beli');
-                if($request->get('harga_beli') > $kurs->temp_harga_beli) {
-                    $kurs->ket_beli = 'naik';
-                }
-                else if($request->get('harga_beli') < $kurs->temp_harga_beli) {
-                    $kurs->ket_beli = 'turun';
-                }
-                else {
-                    $kurs->ket_beli = 'tetap';
-                }
-            }
-            if($kurs->harga_jual != $request->get('harga_jual')) {
-                $kurs->temp_harga_jual = $kurs->harga_jual;
-                $kurs->harga_jual = $request->get('harga_jual');
-                if($request->get('harga_jual') > $kurs->temp_harga_jual) {
-                    $kurs->ket_jual = 'naik';
-                }
-                else if($request->get('harga_jual') < $kurs->temp_harga_jual) {
-                    $kurs->ket_jual = 'turun';
-                }
-                else {
-                    $kurs->ket_jual = 'tetap';
-                }
-            }
+            $kurs->harga_beli = $request->get('harga_beli');
+            $kurs->harga_jual = $request->get('harga_jual');
+
+            // if($kurs->harga_beli != $request->get('harga_beli')) {
+            //     $kurs->temp_harga_beli = $kurs->harga_beli;
+            //     $kurs->harga_beli = $request->get('harga_beli');
+            //     if($request->get('harga_beli') > $kurs->temp_harga_beli) {
+            //         $kurs->ket_beli = 'naik';
+            //     }
+            //     else if($request->get('harga_beli') < $kurs->temp_harga_beli) {
+            //         $kurs->ket_beli = 'turun';
+            //     }
+            //     else {
+            //         $kurs->ket_beli = 'tetap';
+            //     }
+            // }
+            // if($kurs->harga_jual != $request->get('harga_jual')) {
+            //     $kurs->temp_harga_jual = $kurs->harga_jual;
+            //     $kurs->harga_jual = $request->get('harga_jual');
+            //     if($request->get('harga_jual') > $kurs->temp_harga_jual) {
+            //         $kurs->ket_jual = 'naik';
+            //     }
+            //     else if($request->get('harga_jual') < $kurs->temp_harga_jual) {
+            //         $kurs->ket_jual = 'turun';
+            //     }
+            //     else {
+            //         $kurs->ket_jual = 'tetap';
+            //     }
+            // }
             
             $kurs->save();
 

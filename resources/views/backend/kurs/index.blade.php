@@ -34,11 +34,11 @@
                 @endif
                 <div class="row">
                     <div class="col-md-2 mb-3">
-                        <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-user-plus mr-2"></i>{{$btnRight['text']}}</button></a>
+                        <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-plus mr-2"></i>{{$btnRight['text']}}</button></a>
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
-                    <div class="card-header">List Cabang
+                    <div class="card-header">List Kurs
                         <div class="btn-actions-pane-right">
                             <form action="" method="get">
                                 <div class="input-group">

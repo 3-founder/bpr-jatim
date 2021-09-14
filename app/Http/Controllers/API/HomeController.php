@@ -111,6 +111,42 @@ class HomeController extends Controller
         }
     }
 
+    public function getGrafikKurs($nama)
+    {
+        $status = null;
+        $message = null;
+        $data = null;
+
+        try {
+            $data = Kurs::select('id','nama', 'harga_beli', 'ket_beli', 'harga_jual', 'ket_jual', 'updated_at')
+                        ->orderBy('nama', 'ASC')
+                        ->where('nama', $nama)
+                        ->get();
+            $lastUpdate = Kurs::select('updated_at')->orderBy('updated_at','desc')->first();
+            
+            $status = 200;
+            $message = 'berhasil';
+        }
+        catch (\Exception $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        catch (\Illuminate\Database\QueryException $e) {
+            $status = 400;
+            $message = 'gagal.'.$e->getMessage();
+        }
+        finally {
+            $response = array(
+                'status' => $status,
+                'message' => $message,
+                'data' => $data,
+                'lastUpdate' => date('d M Y H:i', strtotime($lastUpdate->updated_at))
+            );
+
+            return response($response, $status);
+        }
+    }
+
     public function getBerita(Request $request)
     {
         $status = null;
