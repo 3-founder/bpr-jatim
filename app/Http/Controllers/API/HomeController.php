@@ -119,8 +119,9 @@ class HomeController extends Controller
 
         try {
             $data = Kurs::select('id','nama', 'harga_beli', 'ket_beli', 'harga_jual', 'ket_jual', 'updated_at')
-                        ->orderBy('nama', 'ASC')
+                        ->orderBy('updated_at', 'DESC')
                         ->where('nama', $nama)
+                        ->limit(7)
                         ->get();
             $lastUpdate = Kurs::select('updated_at')->orderBy('updated_at','desc')->first();
             
