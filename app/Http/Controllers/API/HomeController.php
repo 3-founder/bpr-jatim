@@ -22,7 +22,7 @@ class HomeController extends Controller
 
         try {
             $data = Bunga::first()->bunga;
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -53,7 +53,7 @@ class HomeController extends Controller
 
         try {
             $data = Tenor::orderBy('tenor', 'ASC')->get();
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -83,11 +83,25 @@ class HomeController extends Controller
         $data = null;
 
         try {
-            $data = Kurs::select('id','nama', 'harga_beli', 'ket_beli', 'harga_jual', 'ket_jual', 'updated_at')
-                        ->orderBy('nama', 'ASC')
-                        ->get();
+            // $data = Kurs::select('id','nama', 'harga_beli', 'ket_beli', 'harga_jual', 'ket_jual', 'updated_at')
+            //             ->orderBy('updated_at', 'ASC')
+            //             ->distinct()
+            //             ->get();
+
+            $data = \DB::table('kurs')
+                    ->select('id', 'nama', 'harga_beli', 'ket_beli', 'harga_jual', 'ket_jual',
+                                \DB::raw('MAX(harga_beli) as harga_beli'),
+                                \DB::raw('MAX(harga_jual) as harga_jual'),
+                                \DB::raw('MAX(ket_beli) as ket_beli'),
+                                \DB::raw('MAX(ket_jual) as ket_jual'),)
+
+                    ->groupBy('nama')
+                    ->orderBy('nama', 'ASC')
+                    ->latest()
+                    ->get();
+
             $lastUpdate = Kurs::select('updated_at')->orderBy('updated_at','desc')->first();
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -119,12 +133,12 @@ class HomeController extends Controller
 
         try {
             $data = Kurs::select('id','nama', 'harga_beli', 'ket_beli', 'harga_jual', 'ket_jual', 'updated_at')
-                        ->orderBy('updated_at', 'DESC')
+                        ->orderBy('updated_at', 'ASC')
                         ->where('nama', $nama)
                         ->limit(7)
                         ->get();
             $lastUpdate = Kurs::select('updated_at')->orderBy('updated_at','desc')->first();
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -171,7 +185,7 @@ class HomeController extends Controller
                     array_push($data['box'],$value);
                 }
             }
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -202,7 +216,7 @@ class HomeController extends Controller
 
         try {
             $data = Profil::first();
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -233,7 +247,7 @@ class HomeController extends Controller
 
         try {
             $data = IntroVidio::first();
-            
+
             $status = 200;
             $message = 'berhasil';
         }
