@@ -15,7 +15,7 @@ class LaporanKeuanganController extends Controller
 
         try {
             $data = LaporanKeuangan::orderBy('tahun', 'DESC')->get();
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -28,13 +28,18 @@ class LaporanKeuanganController extends Controller
             $message = 'gagal.'.$e->getMessage();
         }
         finally {
+
             $response = array(
                 'status' => $status,
                 'message' => $message,
                 'data' => $data
             );
 
-            return response($response, $status);
+            return response($response,
+            $status,
+            array(
+                'Content-Type'=>'application/json; charset=utf-8'
+            ));
         }
     }
 }

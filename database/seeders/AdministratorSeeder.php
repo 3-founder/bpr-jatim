@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AdministratorSeeder extends Seeder
 {
@@ -11,34 +13,43 @@ class AdministratorSeeder extends Seeder
      *
      * @return void
      */
+
+    /**
+     * How to run
+     *  open terminal `php artisan db:seed --class=AdministratorSeeder`
+     */
     public function run()
     {
-        $administrator = new \App\Models\User;
-        $administrator->name = 'Administrator';
-        $administrator->email = 'administrator@mail.com';
-        $administrator->password = \Hash::make('mwb546hs51');
-        $administrator->role = 'admin';
-        $administrator->save();
+        // $administrator = new \App\Models\User;
+        // $administrator->name = 'Administrator';
+        // $administrator->email = 'administrator@mail.com';
+        // $administrator->password = \Hash::make('mwb546hs51');
+        // $administrator->role = 'admin';
+        // $administrator->save();
 
-        $administrator = new \App\Models\User;
-        $administrator->name = 'Admin Produk & Layanan';
-        $administrator->email = 'produklayanan@mail.com';
-        $administrator->password = \Hash::make('12345678');
-        $administrator->role = 'produklayanan';
-        $administrator->save();
-
-        $administrator = new \App\Models\User;
-        $administrator->name = 'Admin Berita';
-        $administrator->email = 'berita@mail.com';
-        $administrator->password = \Hash::make('12345678');
-        $administrator->role = 'berita';
-        $administrator->save();
-
-        $administrator = new \App\Models\User;
-        $administrator->name = 'Admin Umkm Binaan';
-        $administrator->email = 'umkmbinaan@mail.com';
-        $administrator->password = \Hash::make('12345678');
-        $administrator->role = 'umkmbinaan';
-        $administrator->save();
+        User::create([
+            'name' => 'Administrator',
+            'email' => 'administrator@mail.com',
+            'password' => Hash::make('mwb546hs51'),
+            'role' => 'admin'
+        ]);
+        User::create([
+            'name' => 'Admin Produk & Layanan',
+            'email' => 'produklayanan@mail.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'produklayanan'
+        ]);
+        User::create([
+            'name' => 'Admin Berita',
+            'email' => 'berita@mail.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'berita'
+        ]);
+        User::create([
+            'name' => 'Admin Umkm Binaan',
+            'email' => 'umkmbinaan@mail.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'umkmbinaan'
+        ]);
     }
 }

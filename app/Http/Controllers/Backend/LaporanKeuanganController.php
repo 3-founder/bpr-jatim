@@ -10,7 +10,7 @@ use File;
 class LaporanKeuanganController extends Controller
 {
     private $param;
-    
+
     public function __construct()
     {
         $this->param['title'] = 'Laporan Keuangan';
@@ -89,7 +89,7 @@ class LaporanKeuanganController extends Controller
             if($request->file('laporan') != null) {
                 $folder = 'upload/laporan-keuangan/';
                 $file = $request->file('laporan');
-                $filename = date('YmdHis').$file->getClientOriginalName();
+                $filename = date('YmdHis').str_replace(' ', '_', $file->getClientOriginalName());
                 // Get canonicalized absolute pathname
                 $path = realpath($folder);
 
@@ -106,7 +106,7 @@ class LaporanKeuanganController extends Controller
                     $newLaporan->file = $folder.$filename;
                     $newLaporan->user_id = auth()->user()->id;
 
-                    $newLaporan->save();      
+                    $newLaporan->save();
 
                     $status = 'success';
                     $message = 'successfully';
@@ -144,7 +144,7 @@ class LaporanKeuanganController extends Controller
             $this->param['btnRight']['text'] = 'Lihat Data';
             $this->param['btnRight']['link'] = route('laporan-keuangan.index');
             $this->param['laporan'] = LaporanKeuangan::find($id);
-            
+
             return \view('backend.lap-keuangan.edit', $this->param);
         }
         catch (\Exception $e) {
@@ -185,7 +185,7 @@ class LaporanKeuanganController extends Controller
                 'laporan' => 'File Laporan Keuangan',
             ]
         );
-        
+
         try {
             if($request->file('laporan') != null) {
                 if($laporan->file != null) {
@@ -198,7 +198,7 @@ class LaporanKeuanganController extends Controller
                             $filename = date('YmdHis').$file->getClientOriginalName();
                             // Get canonicalized absolute pathname
                             $path = realpath($folder);
-            
+
                             // If it exist, check if it's a directory
                             if(!($path !== true AND is_dir($path)))
                             {
@@ -217,7 +217,7 @@ class LaporanKeuanganController extends Controller
                     $filename = date('YmdHis').$file->getClientOriginalName();
                     // Get canonicalized absolute pathname
                     $path = realpath($folder);
-    
+
                     // If it exist, check if it's a directory
                     if(!($path !== true AND is_dir($path)))
                     {

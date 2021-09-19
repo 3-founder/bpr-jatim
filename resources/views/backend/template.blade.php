@@ -162,7 +162,7 @@
                                     Dashboard
                                 </a>
                             </li>
-                            
+
                             @if (auth()->user()->role == 'admin')
                             <li class="app-sidebar__heading">Master</li>
                             <li>
@@ -359,7 +359,6 @@
                                 </ul>
                             </li>
                             @endif
-
                             @if (auth()->user()->role == 'umkmbinaan' || auth()->user()->role == 'admin')
                             <li class="app-sidebar__heading">UMKM Binaan</li>
                             <li>
