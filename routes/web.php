@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Backend\TanggungJawabPerusahaanController as TgControlller;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('kota', 'Backend\KotaController');
         Route::resource('kurs', 'Backend\KursController');
         Route::resource('laporan-keuangan', 'Backend\LaporanKeuanganController');
-        
+
+        Route::resource('tanggung-jawab-perusahaan', TgControlller::class);
+
         Route::resource('about', 'Backend\AboutController');
         Route::resource('jenis-produk-layanan', 'Backend\JenisProdukLayananController');
         Route::resource('umkm-binaan', 'Backend\UmkmBinaanController');
@@ -65,7 +68,7 @@ Route::group(['middleware' => ['auth']], function () {
                 'destroy'
             ]);
         });
-        
+
 
     });
 

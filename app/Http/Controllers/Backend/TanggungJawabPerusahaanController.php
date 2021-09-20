@@ -4,19 +4,21 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\LaporanKeuangan;
+use App\Models\TanggungJawabPerusahaan;
 use File;
 
-class LaporanKeuanganController extends Controller
+class TanggungJawabPerusahaanController extends Controller
 {
+
     private $param;
 
     public function __construct()
     {
-        $this->param['title'] = 'Laporan Keuangan';
-        $this->param['pageTitle'] = 'Laporan Keuangan';
+        $this->param['title'] = 'Tanggung Jawab Perusahaan';
+        $this->param['pageTitle'] = 'Tanggung Jawab Perusahaan';
         $this->param['pageIcon'] = 'book';
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,14 +26,15 @@ class LaporanKeuanganController extends Controller
      */
     public function index(Request $request)
     {
-        $this->param['btnRight']['text'] = 'Tambah Laporan Keuangan';
-        $this->param['btnRight']['link'] = route('laporan-keuangan.create');
+        // return view('backend.tanggung-jawab-perusahaan.index');
+        $this->param['btnRight']['text'] = 'Tambah Tanggung Jawab Perusahaan';
+        $this->param['btnRight']['link'] = route('tanggung-jawab-perusahaan.create');
         // $this->param['pageIcon'] = 'book';
 
         try {
             $keyword = $request->get('keyword');
-            $getLaporan = LaporanKeuangan::select('lap_keuangan.*', 'users.name')
-                                        ->join('users', 'users.id', 'lap_keuangan.user_id')
+            $getLaporan = TanggungJawabPerusahaan::select('tanggung_jawab_perusahaan.*', 'users.name')
+                                        ->join('users', 'users.id', 'tanggung_jawab_perusahaan.user_id')
                                         ->orderBy('tahun', 'DESC');
 
             if ($keyword) {
@@ -43,7 +46,7 @@ class LaporanKeuanganController extends Controller
             return redirect()->back()->withStatus('Terjadi Kesalahan');
         }
 
-        return \view('backend.lap-keuangan.index', $this->param);
+        return view('backend.tanggung-jawab-perusahaan.index', $this->param);
     }
 
     /**
@@ -53,10 +56,11 @@ class LaporanKeuanganController extends Controller
      */
     public function create()
     {
+        //
         $this->param['btnRight']['text'] = 'Lihat Data';
-        $this->param['btnRight']['link'] = route('laporan-keuangan.index');
+        $this->param['btnRight']['link'] = route('tanggung-jawab-perusahaan.index');
 
-        return \view('backend.lap-keuangan.create', $this->param);
+        return view('backend.tanggung-jawab-perusahaan.create', $this->param);
     }
 
     /**
@@ -69,7 +73,7 @@ class LaporanKeuanganController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'tahun' => 'required|unique:lap_keuangan,tahun',
+                'tahun' => 'required|unique:tanggung_jawab_perusahaan,tahun',
                 'laporan' => 'required|file|max:10240|mimes:pdf',
             ],
             [
@@ -87,7 +91,7 @@ class LaporanKeuanganController extends Controller
 
         try {
             if($request->file('laporan') != null) {
-                $folder = 'upload/laporan-keuangan/';
+                $folder = 'upload/tanggung-jawab-perusahaan/';
                 $file = $request->file('laporan');
                 $filename = date('YmdHis').str_replace(' ', '_', $file->getClientOriginalName());
                 // Get canonicalized absolute pathname
@@ -100,20 +104,20 @@ class LaporanKeuanganController extends Controller
                     mkdir($folder, 0755, true);
                 }
                 if($file->move($folder, $filename)) {
-                    $newLaporan = new LaporanKeuangan;
+                    $NewLaporanTj = new TanggungJawabPerusahaan();
 
-                    $newLaporan->tahun = $request->get('tahun');
-                    $newLaporan->file = $folder.$filename;
-                    $newLaporan->user_id = auth()->user()->id;
+                    $NewLaporanTj->tahun = $request->get('tahun');
+                    $NewLaporanTj->file = $folder.$filename;
+                    $NewLaporanTj->user_id = auth()->user()->id;
 
-                    $newLaporan->save();
+                    $NewLaporanTj->save();
 
                     $status = 'success';
                     $message = 'successfully';
                 }
             }
 
-            return redirect()->route('laporan-keuangan.index')->withStatus('Data berhasil ditambahkan.');
+            return redirect()->route('tanggung-jawab-perusahaan.index')->withStatus('Data berhasil ditambahkan.');
         } catch (\Exception $e) {
             return back()->withError('Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -140,12 +144,13 @@ class LaporanKeuanganController extends Controller
      */
     public function edit($id)
     {
+        //
         try {
             $this->param['btnRight']['text'] = 'Lihat Data';
-            $this->param['btnRight']['link'] = route('laporan-keuangan.index');
-            $this->param['laporan'] = LaporanKeuangan::find($id);
+            $this->param['btnRight']['link'] = route('tanggung-jawab-perusahaan.index');
+            $this->param['laporan'] = TanggungJawabPerusahaan::find($id);
 
-            return \view('backend.lap-keuangan.edit', $this->param);
+            return \view('backend.tanggung-jawab-perusahaan.edit', $this->param);
         }
         catch (\Exception $e) {
             return redirect()->back()->withError('Terjadi kesalahan');
@@ -164,7 +169,7 @@ class LaporanKeuanganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $laporan = LaporanKeuangan::find($id);
+        $laporan = TanggungJawabPerusahaan::find($id);
         $isUnique = $laporan->tahun == $request->get('tahun') ? '' : '|unique:lap_keuangan,tahun';
         $validFile = $request->file('laporan') != null ? 'file|max:10240|mimes:pdf' : '';
 
@@ -193,9 +198,9 @@ class LaporanKeuanganController extends Controller
                     if(file_exists($laporan->file)){
                         // Menghapus file sebelumnya
                         if(File::delete($laporan->file)) {
-                            $folder = 'upload/laporan-keuangan/';
+                            $folder = 'upload/tanggung-jawab-perusahaan/';
                             $file = $request->file('laporan');
-                            $filename = date('YmdHis').$file->getClientOriginalName();
+                            $filename = date('YmdHis').str_replace(' ', '_', $file->getClientOriginalName());
                             // Get canonicalized absolute pathname
                             $path = realpath($folder);
 
@@ -212,7 +217,7 @@ class LaporanKeuanganController extends Controller
                     }
                 }
                 else {
-                    $folder = 'upload/laporan-keuangan/';
+                    $folder = 'upload/tanggung-jawab-perusahaan/';
                     $file = $request->file('laporan');
                     $filename = date('YmdHis').$file->getClientOriginalName();
                     // Get canonicalized absolute pathname
@@ -235,7 +240,7 @@ class LaporanKeuanganController extends Controller
 
             $laporan->save();
 
-            return redirect()->route('laporan-keuangan.index')->withStatus('Data berhasil disimpan.');
+            return redirect()->route('tanggung-jawab-perusahaan.index')->withStatus('Data berhasil disimpan.');
         } catch (\Exception $e) {
             return back()->withError('Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
@@ -252,7 +257,7 @@ class LaporanKeuanganController extends Controller
     public function destroy($id)
     {
         try{
-            $laporan = LaporanKeuangan::find($id);
+            $laporan = TanggungJawabPerusahaan::find($id);
 
             $file = $laporan->file;
             if($file != null){

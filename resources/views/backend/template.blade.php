@@ -255,6 +255,14 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{ route('tanggung-jawab-perusahaan.index') }}"
+                                    class="{{ Request::segment(2) == 'tanggung-jawab-perusahaan' ? 'mm-active' : '' }}">
+                                    <i class="metismenu-icon fa fa-book icon-gradient bg-arielle-smile"></i>
+                                    Tanggung Jawab Perusahaan
+                                </a>
+                            </li>
+
                             <li class="app-sidebar__heading">Tentang BPR</li>
                             <li>
                                 <a href="#">
