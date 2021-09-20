@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\TanggungJawabPerusahaanController as tjController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,3 +93,9 @@ Route::get('get-pengumuman-lelang-jaminan', 'API\PengumumanLelangJaminanControll
 /** Laporan Keuangan */
 Route::get('get-laporan-keuangan', 'API\LaporanKeuanganController@getLaporan');
 /** END Laporan Keuangan */
+
+/**
+ * GET tanggung-jawab-perusahaan
+ */
+
+ Route::get('get-tanggung-jawab-perusahaan', [tjController::class, 'getIndex']);
