@@ -38,7 +38,7 @@ class KursController extends Controller
                             ->whereNull('k2.id');
                             
             if ($keyword) {
-                $getKurs->where('nama', 'LIKE', "%$keyword%");
+                $getKurs->where('k1.nama', 'LIKE', "%$keyword%");
                 // $getKurs = \DB::select(\DB::raw('SELECT k1.* FROM kurs k1 LEFT JOIN kurs k2 ON (k1.nama = k2.nama AND k1.id < k2.id) WHERE k2.id IS NULL AND k1.nama LIKE "%$keyword%"'));
             }
 
