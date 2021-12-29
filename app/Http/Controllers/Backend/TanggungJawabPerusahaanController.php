@@ -74,13 +74,13 @@ class TanggungJawabPerusahaanController extends Controller
         $validatedData = $request->validate(
             [
                 'tahun' => 'required|unique:tanggung_jawab_perusahaan,tahun',
-                'laporan' => 'required|file|max:10240|mimes:pdf',
+                'laporan' => 'required|file|max:10240|mimes:jpeg,jpg',
                 'artikel' => 'required',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
                 'unique' => ':attribute telah tersedia.',
-                'mimes' => ':attribute hanya dapat menerima file pdf.',
+                'mimes' => ':attribute hanya dapat menerima file jpeg atau jpg.',
                 'file' => ':attribute harus berbentuk file.',
                 'max' => 'Maksimal ukuran file hingga 10mb.'
             ],
@@ -174,7 +174,7 @@ class TanggungJawabPerusahaanController extends Controller
     {
         $laporan = TanggungJawabPerusahaan::find($id);
         $isUnique = $laporan->tahun == $request->get('tahun') ? '' : '|unique:lap_keuangan,tahun';
-        $validFile = $request->file('laporan') != null ? 'file|max:10240|mimes:pdf' : '';
+        $validFile = $request->file('laporan') != null ? 'file|max:10240|mimes:jpeg,jpg' : '';
 
         $validatedData = $request->validate(
             [
@@ -185,7 +185,7 @@ class TanggungJawabPerusahaanController extends Controller
             [
                 'required' => ':attribute tidak boleh kosong.',
                 'unique' => ':attribute telah tersedia.',
-                'mimes' => ':attribute hanya dapat menerima file pdf.',
+                'mimes' => ':attribute hanya dapat menerima file jpg.',
                 'file' => ':attribute harus berbentuk file.',
                 'max' => 'Maksimal ukuran file hingga 10mb.'
             ],

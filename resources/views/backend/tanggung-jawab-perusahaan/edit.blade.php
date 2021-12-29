@@ -57,12 +57,12 @@
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
-                                <label for="laporan" class="">File Laporan(.pdf) - maks 10MB</label>
+                                <label for="laporan" class="">File Laporan(.jpeg/.jpg) - maks 10MB</label>
                                 <br>
                                 @if ($laporan->file != null)
                                 <a href="{{ asset('../'.$laporan->file) }}" target="_blank">{{ $laporan->file }}</a>
                                 @endif
-                                <input name="laporan" id="laporan" type="file" class="form-control @error('laporan') is-invalid @enderror" accept="application/pdf">
+                                <input name="laporan" id="laporan" type="file" class="form-control @error('laporan') is-invalid @enderror" accept=".jpg,.jpeg">
                                 @error('laporan')
                                     <div class="invalid-feedback">
                                         {{ $message }}

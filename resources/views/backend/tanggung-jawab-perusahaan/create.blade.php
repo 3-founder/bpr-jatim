@@ -72,8 +72,8 @@
                             </div>
 
                             <div class="position-relative form-group">
-                                <label for="laporan" class="">File Laporan(.pdf) - maks 10MB</label><br>
-                                <input name="laporan" id="laporan" type="file" accept="application/pdf"
+                                <label for="laporan" class="">File Laporan(.jpeg/.jpg) - maks 10MB</label><br>
+                                <input name="laporan" id="laporan" type="file" accept=".jpg,.jpeg"
                                     class="@error('laporan') is-invalid @enderror">
                                 @error('laporan')
                                     <div class="span text-danger">

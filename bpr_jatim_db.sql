@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 02, 2021 at 04:20 AM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 7.4.19
+-- Host: localhost
+-- Generation Time: Dec 29, 2021 at 11:54 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 7.4.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -448,6 +448,8 @@ CREATE TABLE `kota` (
   `telp` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT 'NULL',
   `kode_area` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fax` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `longitude` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `latitude` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -456,39 +458,39 @@ CREATE TABLE `kota` (
 -- Dumping data for table `kota`
 --
 
-INSERT INTO `kota` (`id`, `nama_kota`, `alamat`, `telp`, `kode_area`, `fax`, `created_at`, `updated_at`) VALUES
-(1, '﻿Surabaya', 'Jl. Ciliwung No. 11, Surabaya', '031', '5677844, 5', '5661099', NULL, NULL),
-(2, 'Pamekasan', ' Jl. Jokotole No. 114, Pamekasan', '0324', '334726', '334725', NULL, NULL),
-(3, 'Bangkalan', 'Jl. Teuku Umar No. 33 A,  Bangkalan', '031', '3099760', '3061490', NULL, NULL),
-(4, 'Banyuwangi', 'Jl. Letkol Istiqlah No. 9, Banyuwangi', '0333', '411585', '421061', NULL, NULL),
-(5, 'Lumajang', 'Jl. Veteran No. 18 B,  Lumajang', '0334', '894101', '890400', NULL, NULL),
-(6, 'Probolinggo', 'Jl. KH. Hasan Genggong No. 244, Kebonsari Wetan, Kec. Kanigaran, Probolinggo', '0335', '432774', '436484', NULL, NULL),
-(7, 'Pasuruan', 'Jl. KH. Ahmad Dahlan No. 10,  Pasuruan', '0343', '431530', '417600', NULL, NULL),
-(8, ' Malang', 'Jl. R. Tumenggung Suryo No. 35 Kav. 7,  Malang', '0341', '419325', '405818', NULL, NULL),
-(9, 'Ngawi', 'Jl. S. Parman No. 8, Ngawi', '0351', '749778', '749419', NULL, NULL),
-(10, 'Blitar', 'Jl. Kalimantan No. 59, Sananwetan - Blitar', '0342', '816369', '816866', NULL, NULL),
-(11, 'Kediri', ' Jl. Kilisuci No. 81 C-D, RT. 28 / RW. 6, Kel. Singonegaran, Kec. Pesantren - Kediri', '0354', '2892410', '2893413', NULL, NULL),
-(12, 'Mojokerto', 'Jl. Majapahit No. 381, Prajurit Kulon - Mojokerto', '0321', '396422', '323228', NULL, NULL),
-(13, 'Jombang', 'Jl. Dr. Sutomo No. 7 Ploso, Jombang', '0321', '855056', '855057', NULL, NULL),
-(14, 'Nganjuk', 'Jl. Merdeka 2 Kav. 2 B, Kec. Nganjuk, Kab. Nganjuk', '0358', '323152', '325665', NULL, NULL),
-(15, 'Madiun', 'Jl. Parikesit No. 6, Madiun', '0351', '481197', '481196', NULL, NULL),
-(16, 'Tulungagung', 'Jl. Ki Mangun Sarkoro Vila Satwika No. A 1', '0355', '328436', '333354', NULL, NULL),
-(17, 'Trenggalek', 'JL. Jaksa Agung Suprapto No. 17, Trenggalek', '0355', '792831', '796695', NULL, NULL),
-(18, 'Ponorogo', 'JL. MH. Thamrin No. 51, Ponorogo', '0352', '487475', '484063', NULL, NULL),
-(19, 'Gresik', 'Jl. Jaksa Agung Suprapto No. 8,  Gresik', '031', '3982985', '3982983', NULL, NULL),
-(20, ' Lamongan', 'Jl. Wahidin Sudiro Husodo No. 96, Banjar Mendalan - Lamongan', '0322', '324920', '318921', NULL, NULL),
-(21, 'Magetan', 'Jl. Raya Gorang - gareng, Maospati, Magetan', '0351', '439960', '438407', NULL, NULL),
-(22, 'Pacitan', 'Jl. Tentara Pelajar No. 165,  Pacitan', '0357', '886042', '886043', NULL, NULL),
-(23, 'Sidoarjo', 'Jl. Raya Gelam No. 49, Kec. Candi - Sidoarjo', '031', '8923886', '8062076', NULL, NULL),
-(24, 'Jember', 'Jl. Darmawangsa Ruko Graha Wijaya Kav. 14, Kec. Sukorambi - Jember', '0331', '484200', '410083', NULL, NULL),
-(25, 'Tuban', 'Jl. Pramuka No. 10 A,  Tuban', '0356', '323331', '320110', NULL, NULL),
-(26, 'Batu', 'Jl. A Yani nomor 4, Kel. Ngaglik, Kec. Batu, Kota Batu', '0341', '594414', '594415', NULL, NULL),
-(27, 'Situbondo', 'Jl. Wijaya Kusuma 82 A RT.04 RW.01 Des/Kel. Dawuhan Kec/Kab. Situbondo.', '0338', '678810', '674225', NULL, NULL),
-(28, 'Bojonegoro', 'Jl. Teuku Umar No. 30, Bojonegoro', '0353', '311122', '311500', NULL, NULL),
-(29, 'Bondowoso', 'Jl. Kyai Haji Wahid Hasyim Nomor 168, Ruko Crown Plaza Kavling 3 Bondowoso, Kab. Bondowoso', '0332', '420430', '420431', NULL, NULL),
-(30, 'Sumenep', 'Jl. Trunojoyo, Desa Kolor, Kec Kota Sumenep, Kab. Sumenep (Komplek Ruko Arya Wiraraja)', '0328', '664642', '664643', NULL, NULL),
-(31, 'Kepanjen', 'Jl. Kawi, Kec. Kepanjen, Kab. Malang (Ruko Kepanjen City)', '0341', '394466', '398815', NULL, NULL),
-(32, 'Sampang', 'Jl. Rajawali No. 48, Kel. Karangdalem, Kec. Sampang, Kab. Sampang', '0323', '325228', '325229', NULL, NULL);
+INSERT INTO `kota` (`id`, `nama_kota`, `alamat`, `telp`, `kode_area`, `fax`, `longitude`, `latitude`, `created_at`, `updated_at`) VALUES
+(1, '﻿Surabaya', 'Jl. Ciliwung No. 11, Surabaya', '031', '5677844, 5', '5661099', NULL, NULL, NULL, NULL),
+(2, 'Pamekasan', ' Jl. Jokotole No. 114, Pamekasan', '0324', '334726', '334725', NULL, NULL, NULL, NULL),
+(3, 'Bangkalan', 'Jl. Teuku Umar No. 33 A,  Bangkalan', '031', '3099760', '3061490', NULL, NULL, NULL, NULL),
+(4, 'Banyuwangi', 'Jl. Letkol Istiqlah No. 9, Banyuwangi', '0333', '411585', '421061', NULL, NULL, NULL, NULL),
+(5, 'Lumajang', 'Jl. Veteran No. 18 B,  Lumajang', '0334', '894101', '890400', NULL, NULL, NULL, NULL),
+(6, 'Probolinggo', 'Jl. KH. Hasan Genggong No. 244, Kebonsari Wetan, Kec. Kanigaran, Probolinggo', '0335', '432774', '436484', NULL, NULL, NULL, NULL),
+(7, 'Pasuruan', 'Jl. KH. Ahmad Dahlan No. 10,  Pasuruan', '0343', '431530', '417600', NULL, NULL, NULL, NULL),
+(8, ' Malang', 'Jl. R. Tumenggung Suryo No. 35 Kav. 7,  Malang', '0341', '419325', '405818', NULL, NULL, NULL, NULL),
+(9, 'Ngawi', 'Jl. S. Parman No. 8, Ngawi', '0351', '749778', '749419', NULL, NULL, NULL, NULL),
+(10, 'Blitar', 'Jl. Kalimantan No. 59, Sananwetan - Blitar', '0342', '816369', '816866', NULL, NULL, NULL, NULL),
+(11, 'Kediri', ' Jl. Kilisuci No. 81 C-D, RT. 28 / RW. 6, Kel. Singonegaran, Kec. Pesantren - Kediri', '0354', '2892410', '2893413', NULL, NULL, NULL, NULL),
+(12, 'Mojokerto', 'Jl. Majapahit No. 381, Prajurit Kulon - Mojokerto', '0321', '396422', '323228', NULL, NULL, NULL, NULL),
+(13, 'Jombang', 'Jl. Dr. Sutomo No. 7 Ploso, Jombang', '0321', '855056', '855057', NULL, NULL, NULL, NULL),
+(14, 'Nganjuk', 'Jl. Merdeka 2 Kav. 2 B, Kec. Nganjuk, Kab. Nganjuk', '0358', '323152', '325665', NULL, NULL, NULL, NULL),
+(15, 'Madiun', 'Jl. Parikesit No. 6, Madiun', '0351', '481197', '481196', NULL, NULL, NULL, NULL),
+(16, 'Tulungagung', 'Jl. Ki Mangun Sarkoro Vila Satwika No. A 1', '0355', '328436', '333354', NULL, NULL, NULL, NULL),
+(17, 'Trenggalek', 'JL. Jaksa Agung Suprapto No. 17, Trenggalek', '0355', '792831', '796695', NULL, NULL, NULL, NULL),
+(18, 'Ponorogo', 'JL. MH. Thamrin No. 51, Ponorogo', '0352', '487475', '484063', NULL, NULL, NULL, NULL),
+(19, 'Gresik', 'Jl. Jaksa Agung Suprapto No. 8,  Gresik', '031', '3982985', '3982983', NULL, NULL, NULL, NULL),
+(20, ' Lamongan', 'Jl. Wahidin Sudiro Husodo No. 96, Banjar Mendalan - Lamongan', '0322', '324920', '318921', NULL, NULL, NULL, NULL),
+(21, 'Magetan', 'Jl. Raya Gorang - gareng, Maospati, Magetan', '0351', '439960', '438407', NULL, NULL, NULL, NULL),
+(22, 'Pacitan', 'Jl. Tentara Pelajar No. 165,  Pacitan', '0357', '886042', '886043', NULL, NULL, NULL, NULL),
+(23, 'Sidoarjo', 'Jl. Raya Gelam No. 49, Kec. Candi - Sidoarjo', '031', '8923886', '8062076', NULL, NULL, NULL, NULL),
+(24, 'Jember', 'Jl. Darmawangsa Ruko Graha Wijaya Kav. 14, Kec. Sukorambi - Jember', '0331', '484200', '410083', NULL, NULL, NULL, NULL),
+(25, 'Tuban', 'Jl. Pramuka No. 10 A,  Tuban', '0356', '323331', '320110', NULL, NULL, NULL, NULL),
+(26, 'Batu', 'Jl. A Yani nomor 4, Kel. Ngaglik, Kec. Batu, Kota Batu', '0341', '594414', '594415', NULL, NULL, NULL, NULL),
+(27, 'Situbondo', 'Jl. Wijaya Kusuma 82 A RT.04 RW.01 Des/Kel. Dawuhan Kec/Kab. Situbondo.', '0338', '678810', '674225', NULL, NULL, NULL, NULL),
+(28, 'Bojonegoro', 'Jl. Teuku Umar No. 30, Bojonegoro', '0353', '311122', '311500', NULL, NULL, NULL, NULL),
+(29, 'Bondowoso', 'Jl. Kyai Haji Wahid Hasyim Nomor 168, Ruko Crown Plaza Kavling 3 Bondowoso, Kab. Bondowoso', '0332', '420430', '420431', NULL, NULL, NULL, NULL),
+(30, 'Sumenep', 'Jl. Trunojoyo, Desa Kolor, Kec Kota Sumenep, Kab. Sumenep (Komplek Ruko Arya Wiraraja)', '0328', '664642', '664643', NULL, NULL, NULL, NULL),
+(31, 'Kepanjen', 'Jl. Kawi, Kec. Kepanjen, Kab. Malang (Ruko Kepanjen City)', '0341', '394466', '398815', NULL, NULL, NULL, NULL),
+(32, 'Sampang', 'Jl. Rajawali No. 48, Kel. Karangdalem, Kec. Sampang, Kab. Sampang', '0323', '325228', '325229', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -527,6 +529,21 @@ INSERT INTO `kurs` (`id`, `nama`, `harga_beli`, `temp_harga_beli`, `ket_beli`, `
 (11, 'AUD', 10748, 10748, 'tetap', 11309, 11309, 'tetap', '2021-07-27 14:11:20', '2021-07-27 14:11:20'),
 (12, 'EUR', 17004, 17004, 'tetap', 17686, 17686, 'tetap', '2021-07-27 14:11:20', '2021-07-27 14:11:20'),
 (13, 'USD', 14025, 14025, 'tetap', 14475, 14475, 'tetap', '2021-07-27 14:11:20', '2021-07-27 14:11:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lap_keuangan`
+--
+
+CREATE TABLE `lap_keuangan` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tahun` int(10) UNSIGNED NOT NULL,
+  `file` blob NOT NULL,
+  `user_id` tinyint(3) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -589,7 +606,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (42, '2021_07_31_122146_add_kategori_to_berita_table', 3),
 (43, '2021_07_31_171048_alter_konten_at_berita_table', 3),
 (44, '2021_08_01_050003_create_kategori_berita_table', 4),
-(45, '2021_08_01_050635_add_id_kategori_to_berita_table', 4);
+(45, '2021_08_01_050635_add_id_kategori_to_berita_table', 4),
+(46, '2021_09_10_183635_create_lap_keuangan_table', 5),
+(47, '2021_09_10_223850_add_longitude_and_latitude_on_kota_table', 5),
+(48, '2021_09_20_105911_create_tanggung_jawab_perusahaan_table', 5),
+(49, '2021_12_29_165430_add_artikel_to_tanggung_jawab_perusahaan_table', 6);
 
 -- --------------------------------------------------------
 
@@ -805,6 +826,22 @@ INSERT INTO `syarat_dan_ketentuan` (`id`, `syarat_dan_ketentuan`, `created_at`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tanggung_jawab_perusahaan`
+--
+
+CREATE TABLE `tanggung_jawab_perusahaan` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tahun` int(10) UNSIGNED NOT NULL,
+  `file` blob NOT NULL,
+  `user_id` tinyint(3) UNSIGNED NOT NULL,
+  `artikel` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tenor`
 --
 
@@ -999,6 +1036,14 @@ ALTER TABLE `kurs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `lap_keuangan`
+--
+ALTER TABLE `lap_keuangan`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `lap_keuangan_tahun_unique` (`tahun`),
+  ADD KEY `lap_keuangan_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -1052,6 +1097,13 @@ ALTER TABLE `promo`
 --
 ALTER TABLE `syarat_dan_ketentuan`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tanggung_jawab_perusahaan`
+--
+ALTER TABLE `tanggung_jawab_perusahaan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tanggung_jawab_perusahaan_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `tenor`
@@ -1168,10 +1220,16 @@ ALTER TABLE `kurs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `lap_keuangan`
+--
+ALTER TABLE `lap_keuangan`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `pengaduan_nasabah`
@@ -1214,6 +1272,12 @@ ALTER TABLE `promo`
 --
 ALTER TABLE `syarat_dan_ketentuan`
   MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tanggung_jawab_perusahaan`
+--
+ALTER TABLE `tanggung_jawab_perusahaan`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tenor`
@@ -1262,10 +1326,22 @@ ALTER TABLE `kantor_kas`
   ADD CONSTRAINT `kantor_kas_id_kota_foreign` FOREIGN KEY (`id_kota`) REFERENCES `kota` (`id`);
 
 --
+-- Constraints for table `lap_keuangan`
+--
+ALTER TABLE `lap_keuangan`
+  ADD CONSTRAINT `lap_keuangan_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `pengaduan_nasabah`
 --
 ALTER TABLE `pengaduan_nasabah`
   ADD CONSTRAINT `pengaduan_nasabah_id_kota_foreign` FOREIGN KEY (`id_kota`) REFERENCES `kota` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tanggung_jawab_perusahaan`
+--
+ALTER TABLE `tanggung_jawab_perusahaan`
+  ADD CONSTRAINT `tanggung_jawab_perusahaan_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `umkm_binaan`
