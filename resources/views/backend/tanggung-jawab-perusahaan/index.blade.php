@@ -59,6 +59,7 @@
                                     <th>Tahun</th>
                                     <th>User</th>
                                     <th>File</th>
+                                    <th>Artikel</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -75,6 +76,7 @@
                                         <td>
                                             <a href="{{ asset('../'.$item->file) }}" target="_blank">{{ $item->file }}</a>
                                         </td>
+                                        <td>{{ isset($item->artikel) ? substr($item->artikel, 0, 100).'...' : '-'}}</td>
                                         <td>
                                             <div class="form-inline">
                                                 <a href="{{ route('tanggung-jawab-perusahaan.edit', $item->id) }}" class="mr-2">

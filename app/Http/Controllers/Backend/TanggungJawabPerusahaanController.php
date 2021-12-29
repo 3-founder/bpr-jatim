@@ -75,6 +75,7 @@ class TanggungJawabPerusahaanController extends Controller
             [
                 'tahun' => 'required|unique:tanggung_jawab_perusahaan,tahun',
                 'laporan' => 'required|file|max:10240|mimes:pdf',
+                'artikel' => 'required',
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
@@ -85,7 +86,8 @@ class TanggungJawabPerusahaanController extends Controller
             ],
             [
                 'tahun' => 'Tahun',
-                'laporan' => 'File Laporan Keuangan'
+                'laporan' => 'File Laporan Keuangan',
+                'artikel' => 'Artikel'
             ]
         );
 
@@ -109,6 +111,7 @@ class TanggungJawabPerusahaanController extends Controller
                     $NewLaporanTj->tahun = $request->get('tahun');
                     $NewLaporanTj->file = $folder.$filename;
                     $NewLaporanTj->user_id = auth()->user()->id;
+                    $NewLaporanTj->artikel = $request->get('artikel');
 
                     $NewLaporanTj->save();
 
@@ -176,7 +179,8 @@ class TanggungJawabPerusahaanController extends Controller
         $validatedData = $request->validate(
             [
                 'tahun' => 'required'.$isUnique,
-                'laporan' => $validFile
+                'laporan' => $validFile,
+                'artikel' => 'required'
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
@@ -188,6 +192,7 @@ class TanggungJawabPerusahaanController extends Controller
             [
                 'tahun' => 'Tahun',
                 'laporan' => 'File Laporan Keuangan',
+                'artikel' => 'Artikel'
             ]
         );
 
@@ -237,6 +242,7 @@ class TanggungJawabPerusahaanController extends Controller
 
             $laporan->tahun = $request->get('tahun');
             $laporan->user_id = auth()->user()->id;
+            $laporan->artikel = $request->get('artikel');
 
             $laporan->save();
 
