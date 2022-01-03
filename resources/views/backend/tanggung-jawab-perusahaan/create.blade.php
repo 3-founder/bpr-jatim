@@ -62,9 +62,27 @@
                             @csrf
                             <div class="position-relative form-group">
                                 <label for="tahun" class="">Tahun</label>
-                                <input name="tahun" value="{{ old('tahun') }}" id="tahun" placeholder="ex: 2020"
-                                    type="text" class="form-control @error('tahun') is-invalid @enderror">
+                                <select name="tahun" id="" class="form-control @error('tahun') is-invalid @enderror">
+                                    <?php 
+                                        $thnMin = date('Y', strtotime('-10 years'));
+                                        for ($i=date('Y'); $i >= $thnMin; $i--) { 
+                                            $s = old('tahun')==$i ? 'selected' : '';
+                                    ?>
+                                        <option {{$s}}>{{$i}}</option>
+                                    <?php
+                                        }    
+                                    ?>
+                                </select>
                                 @error('tahun')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="title" class="">Title</label>
+                                <input name="title" id="" class="form-control @error('title') is-invalid @enderror">
+                                @error('title')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

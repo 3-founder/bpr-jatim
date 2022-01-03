@@ -73,7 +73,8 @@ class TanggungJawabPerusahaanController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'tahun' => 'required|unique:tanggung_jawab_perusahaan,tahun',
+                'tahun' => 'required',
+                'title' => 'required',
                 'laporan' => 'required|file|max:10240|mimes:jpeg,jpg',
                 'artikel' => 'required',
             ],
@@ -86,6 +87,7 @@ class TanggungJawabPerusahaanController extends Controller
             ],
             [
                 'tahun' => 'Tahun',
+                'title' => 'Title',
                 'laporan' => 'File Laporan Keuangan',
                 'artikel' => 'Artikel'
             ]
@@ -109,6 +111,7 @@ class TanggungJawabPerusahaanController extends Controller
                     $NewLaporanTj = new TanggungJawabPerusahaan();
 
                     $NewLaporanTj->tahun = $request->get('tahun');
+                    $NewLaporanTj->title = $request->get('title');
                     $NewLaporanTj->file = $folder.$filename;
                     $NewLaporanTj->user_id = auth()->user()->id;
                     $NewLaporanTj->artikel = $request->get('artikel');
@@ -178,7 +181,8 @@ class TanggungJawabPerusahaanController extends Controller
 
         $validatedData = $request->validate(
             [
-                'tahun' => 'required'.$isUnique,
+                'tahun' => 'required',
+                'title' => 'required',
                 'laporan' => $validFile,
                 'artikel' => 'required'
             ],
@@ -191,6 +195,7 @@ class TanggungJawabPerusahaanController extends Controller
             ],
             [
                 'tahun' => 'Tahun',
+                'title' => 'Title',
                 'laporan' => 'File Laporan Keuangan',
                 'artikel' => 'Artikel'
             ]
@@ -241,6 +246,7 @@ class TanggungJawabPerusahaanController extends Controller
             }
 
             $laporan->tahun = $request->get('tahun');
+            $laporan->title = $request->get('title');
             $laporan->user_id = auth()->user()->id;
             $laporan->artikel = $request->get('artikel');
 

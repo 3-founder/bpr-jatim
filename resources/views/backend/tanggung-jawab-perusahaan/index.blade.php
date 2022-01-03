@@ -57,7 +57,7 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th>Tahun</th>
-                                    <th>User</th>
+                                    <th>Title</th>
                                     <th>File</th>
                                     <th>Artikel</th>
                                     <th>Aksi</th>
@@ -72,7 +72,7 @@
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
                                         <td>{{ ucwords($item->tahun) }}</td>
-                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->title }}</td>
                                         <td>
                                             <a href="{{ asset('../'.$item->file) }}" target="_blank">{{ $item->file }}</a>
                                         </td>

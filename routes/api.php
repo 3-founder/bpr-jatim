@@ -98,4 +98,7 @@ Route::get('get-laporan-keuangan', 'API\LaporanKeuanganController@getLaporan');
  * GET tanggung-jawab-perusahaan
  */
 
- Route::get('get-tanggung-jawab-perusahaan', [tjController::class, 'getIndex']);
+ Route::get('get-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getIndex']);
+ Route::get('get-tahun-tanggung-jawab-perusahaan', [tjController::class, 'getTahun']);
+ Route::get('get-default-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getDefaultContent']);
+ Route::get('get-selected-tanggung-jawab-perusahaan/{tahun}/{id}', [tjController::class, 'getDefaultContent']);

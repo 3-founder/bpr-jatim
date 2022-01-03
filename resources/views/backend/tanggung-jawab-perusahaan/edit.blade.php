@@ -49,8 +49,27 @@
                             @method('PUT')
                             <div class="position-relative form-group">
                                 <label for="tahun" class="">Tahun</label>
-                                <input name="tahun" id="tahun" placeholder="ex: 2020" type="text" class="form-control @error('tahun') is-invalid @enderror" value="{{ old('tahun', $laporan->tahun) }}">
+                                <select name="tahun" id="" class="form-control @error('tahun') is-invalid @enderror">
+                                    <?php 
+                                        $thnMin = date('Y', strtotime('-10 years'));
+                                        for ($i=date('Y'); $i >= $thnMin; $i--) { 
+                                            $s = old('tahun', $laporan->tahun)==$i ? 'selected' : '';
+                                    ?>
+                                        <option {{$s}}>{{$i}}</option>
+                                    <?php
+                                        }    
+                                    ?>
+                                </select>
                                 @error('tahun')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="title" class="">Title</label>
+                                <input name="title" id="title" placeholder="ex: 2020" type="text" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $laporan->title) }}">
+                                @error('title')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
