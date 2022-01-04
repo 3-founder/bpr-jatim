@@ -50,7 +50,7 @@ class ProdukLayananController extends Controller
             $data = ItemProdukLayanan::select('id','judul', 'slug','cover', 'updated_at')->where('id_jenis', $id_jenis)->orderBy('judul', 'ASC')->get();
 
             foreach ($data as $key => $value) {
-                $value->cover =  url($value->cover);
+                $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
             }
             
             $status = 200;
@@ -84,7 +84,7 @@ class ProdukLayananController extends Controller
         
         try {
             $data = ItemProdukLayanan::where('slug', $slug)->first();
-            $data->cover =  url($data->cover);
+            $data->cover =  $request->getSchemeAndHttpHost().'/public/'.$data->cover;
             $sidemenu = ItemProdukLayanan::select('id','judul', 'slug')
                                         ->where('id_jenis', $data->id_jenis)
                                         ->orderBy('judul', 'ASC')

@@ -49,7 +49,7 @@
                             </div>
                             <div class="position-relative form-group">
                                 <label for="cover" class="">Cover</label><br>
-                                <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" width="150px" height="150px">
+                                <img src="{{ Request::root().'/'.$konten->cover }}" alt="{{ $konten->judul }}" width="150px" height="150px">
                                 <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror">
                                 @error('cover')
                                     <div class="span text-danger">
@@ -59,7 +59,7 @@
                             </div>
                             <div class="position-relative form-group">
                                 <label for="konten" class="">File PDF</label><br>
-                                <a href="{{ asset('../'.$konten->konten) }}" target="_blank">{{ $konten->konten }}</a>
+                                <a href="{{ Request::root().'/'.$konten->konten }}" target="_blank">{{ $konten->konten }}</a>
                                 <input name="konten" type="file" class="form-control @error('konten') is-invalid @enderror">
                                 @error('konten')
                                     <div class="span text-danger">

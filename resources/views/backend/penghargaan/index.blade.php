@@ -70,7 +70,7 @@
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
                                         <td>
-                                            <img src="{{ asset('../'.$item->cover) }}" alt="{{ $item->judul }}" width="150px" height="150px">
+                                            <img src="{{ Request::root().'/'.$item->cover }}" alt="{{ $item->judul }}" width="150px" height="150px">
                                         </td>
                                         <td>{{ ucwords($item->judul) }}</td>
                                         <td>

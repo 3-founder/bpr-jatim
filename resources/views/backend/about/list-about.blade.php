@@ -28,7 +28,7 @@
                 </div>
                 <div>
                     @foreach ($about as $item)
-                    {{ ucwords(str_replace('-', ' ', $item->tipe)) }}
+                    {{ ucwords(str_replace('_', ' ', $item->tipe)) }}
                     
                 </div>
             </div>
@@ -51,7 +51,7 @@
             @endif
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $item->tipe }}</h5>
+                    <h5 class="card-title">{{ str_replace('_', ' ', $item->tipe) }}</h5>
                     <form action="{{route('about.update', $item->id)}}" method="POST" autocomplete="off">
                     @csrf
                     @method('PUT')

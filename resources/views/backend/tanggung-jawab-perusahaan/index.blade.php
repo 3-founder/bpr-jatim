@@ -74,7 +74,7 @@
                                         <td>{{ ucwords($item->tahun) }}</td>
                                         <td>{{ $item->title }}</td>
                                         <td>
-                                            <a href="{{ asset('../'.$item->file) }}" target="_blank">{{ $item->file }}</a>
+                                            <a href="{{ Request::root().'/'.$item->file }}" target="_blank">{{ $item->file }}</a>
                                         </td>
                                         <td>{{ isset($item->artikel) ? substr($item->artikel, 0, 100).'...' : '-'}}</td>
                                         <td>

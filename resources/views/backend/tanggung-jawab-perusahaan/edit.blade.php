@@ -79,7 +79,7 @@
                                 <label for="cover" class="">File cover(.jpeg/.jpg) - maks 2MB</label>
                                 <br>
                                 @if ($laporan->cover != null)
-                                <img src="{{ asset('../'.$laporan->cover) }}" width="100" height="100" /><br>
+                                <img src="{{ Request::root().'/'.$laporan->cover }}" width="100" height="100" /><br>
                                 @endif
                                 <input name="cover" id="cover" type="file" accept=".jpg,.jpeg"
                                     class="@error('cover') is-invalid @enderror">
@@ -93,7 +93,7 @@
                                 <label for="laporan" class="">File Laporan(.jpeg/.jpg) - maks 10MB</label>
                                 <br>
                                 @if ($laporan->file != null)
-                                <a href="{{ asset('../'.$laporan->file) }}" target="_blank">{{ $laporan->file }}</a><br>
+                                <a href="{{ Request::root().'/'.$laporan->file }}" target="_blank">{{ $laporan->file }}</a><br>
                                 @endif
                                 <input name="laporan" id="laporan" type="file" class="@error('laporan') is-invalid @enderror" accept=".jpg,.jpeg">
                                 @error('laporan')

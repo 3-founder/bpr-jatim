@@ -54,7 +54,7 @@
                                     <tr>
                                         <th class="w-25">Sampul</th>
                                         <td>
-                                            <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" class="img-thumbnail">
+                                            <img src="{{ Request::root().'/'.$konten->cover }}" alt="{{ $konten->judul }}" class="img-thumbnail">
                                         </td>
                                     </tr>
                                     <tr>

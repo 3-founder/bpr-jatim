@@ -38,7 +38,7 @@ class BeritaController extends Controller
             // $berita = $berita->paginate(5);
 
             foreach ($berita as $key => $value) {
-                $value->cover =  url('public/'.$value->cover);
+                $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
                 $value->tgl = date('d M Y H:i',strtotime($value->created_at));
@@ -57,7 +57,6 @@ class BeritaController extends Controller
                     }
                 }
             }
-
 
             $status = 200;
             $message = 'berhasil';

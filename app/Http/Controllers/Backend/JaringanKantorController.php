@@ -21,7 +21,7 @@ class JaringanKantorController extends Controller
     public function index(Request $request)
     {
         
-        $this->param['btnRight']['text'] = 'Tambah Jaringan Kantor Kas';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('jaringan-kantor.create');
 
         try {

@@ -25,8 +25,8 @@ class EpaperController extends Controller
             $data = $data->paginate(5);
 
             foreach ($data as $key => $value) {
-                $value->cover =  url($value->cover);
-                $value->konten =  url($value->konten);
+                $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
+                $value->konten =  $request->getSchemeAndHttpHost().'/public/'.$value->konten;
                 $value->tgl = date('d M Y',strtotime($value->updated_at));
             }
             
@@ -52,7 +52,7 @@ class EpaperController extends Controller
         }
     }
 
-    public function detailEpaper($slug)
+    public function detailEpaper($slug, Request $request)
     {
         $status = null;
         $message = null;
@@ -60,6 +60,8 @@ class EpaperController extends Controller
 
         try {
             $data = Epaper::where('slug', $slug)->first();
+            $data->cover =  $request->getSchemeAndHttpHost().'/public/'.$data->cover;
+            $data->konten =  $request->getSchemeAndHttpHost().'/public/'.$data->konten;
             
             $status = 200;
             $message = 'berhasil';

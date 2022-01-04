@@ -51,7 +51,7 @@ class UmkmBinaanController extends Controller
 
             $data = \DB::table('umkm_binaan as ub')->select('ub.*','k.nama_kota')->join('kota as k','ub.id_kota','k.id')->where('ub.id_kota', $id_kota)->orderBy('ub.nama', 'ASC')->get();
             foreach ($data as $key => $value) {
-                $value->foto =  url($value->foto);
+                $value->foto =  $request->getSchemeAndHttpHost().'/public/'.$value->foto;
             }
 
             
@@ -111,7 +111,7 @@ class UmkmBinaanController extends Controller
             
             $data = $data->get();
             foreach ($data as $key => $value) {
-                $value->foto =  url($value->foto);
+                $value->foto =  $request->getSchemeAndHttpHost().'/public/'.$value->foto;
             }
             
             $status = 200;
@@ -136,7 +136,7 @@ class UmkmBinaanController extends Controller
         }
     }
 
-    public function getUmkmBinaanBySlug($slug)
+    public function getUmkmBinaanBySlug($slug, Request $request)
     {
         $status = null;
         $message = null;
@@ -144,7 +144,8 @@ class UmkmBinaanController extends Controller
 
         try {
             $data = UmkmBinaan::where('slug', $slug)->first();
-            
+            $data->foto = $request->getSchemeAndHttpHost().'/public/'.$data->foto;
+
             $status = 200;
             $message = 'berhasil';
         }

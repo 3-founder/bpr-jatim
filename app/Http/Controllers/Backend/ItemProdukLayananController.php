@@ -14,8 +14,8 @@ class ItemProdukLayananController extends Controller
     
     public function __construct()
     {
-        $this->param['title'] = 'Master Jenis Produk & Layanan';
-        $this->param['pageTitle'] = 'Master Jenis Produk & Layanan';
+        $this->param['title'] = 'Master Konten Produk & Layanan';
+        $this->param['pageTitle'] = 'Master Konten Produk & Layanan';
         $this->param['pageIcon'] = 'store';
     }
     /**
@@ -25,7 +25,7 @@ class ItemProdukLayananController extends Controller
      */
     public function index(Request $request)
     {
-        $this->param['btnRight']['text'] = 'Tambah Konten';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('item-produk-layanan.create');
 
         try {
@@ -105,7 +105,7 @@ class ItemProdukLayananController extends Controller
         try {
 
             if($request->file('cover') != null) {
-                $folder = 'upload/produk-layanan/';
+                $folder = 'public/upload/produk-layanan/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
@@ -117,7 +117,10 @@ class ItemProdukLayananController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                if($file->move($folder, $filename)) {
+
+                $compressed = \Image::make($file->getRealPath());
+
+                if($compressed->save($folder.$filename, 50)) {
                     $newKonten = new ItemProdukLayanan;
                     
                     $newKonten->id_jenis = $request->get('jenis');
@@ -133,10 +136,10 @@ class ItemProdukLayananController extends Controller
 
             return redirect()->route('item-produk-layanan.index')->withStatus('Data berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return $e->getMessage();
+            // return $e->getMessage();
             return redirect()->route('item-produk-layanan.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return $e->getMessage();
+            // return $e->getMessage();
 
             return redirect()->route('item-produk-layanan.index')->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
@@ -227,7 +230,7 @@ class ItemProdukLayananController extends Controller
         );
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/produk-layanan/';
+                $folder = 'public/upload/produk-layanan/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
@@ -239,7 +242,14 @@ class ItemProdukLayananController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                if($file->move($folder, $filename)) {
+
+                if(\file_exists($konten->cover)){
+                    // Menghapus file sebelumnya
+                    \File::delete($konten->cover);
+                }
+                $compressed = \Image::make($file->getRealPath());
+
+                if($compressed->save($folder.$filename, 50)) {
                     $konten->cover = $folder.$filename;
                 }
             }
@@ -257,10 +267,10 @@ class ItemProdukLayananController extends Controller
                 return redirect()->route('item-produk-layanan.index');
 
         } catch (\Exception $e) {
-            return $e->getMessage();
+            // return $e->getMessage();
             return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
         } catch (\Illuminate\Database\QueryException $e) {
-            return $e->getMessage();
+            // return $e->getMessage();
             return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
         }
     }

@@ -88,6 +88,9 @@
                         </div>
                         <div class="position-relative form-group">
                             <label for="foto" class="">Foto</label>
+                            @if ($UmkmBinaan->foto != null)
+                                <br><img src="{{ Request::root().'/'.$UmkmBinaan->foto }}" width="150" height="150"><br>
+                            @endif
                             <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" value="{{old('foto', $UmkmBinaan->foto)}}">
                             
                         

@@ -24,7 +24,7 @@ class PromoController extends Controller
             
             $data = $data->paginate(5);
             foreach ($data as $key => $value) {
-                $value->cover =  url($value->cover);
+                $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
                 $value->judulFull = $value->judul;
                 $value->kontenFull = $value->konten;
                 $value->judul = substr($value->judul,0,30);
@@ -53,7 +53,7 @@ class PromoController extends Controller
         }
     }
 
-    public function detailPromo($slug)
+    public function detailPromo($slug, Request $request)
     {
         $status = null;
         $message = null;
@@ -61,6 +61,7 @@ class PromoController extends Controller
 
         try {
             $data = Promo::where('slug', $slug)->first();
+            $data->cover =  $request->getSchemeAndHttpHost().'/public/'.$data->cover;
             
             $status = 200;
             $message = 'berhasil';

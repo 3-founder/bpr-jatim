@@ -34,11 +34,11 @@
                 @endif
                 <div class="row">
                     <div class="col-md-2 mb-3">
-                        <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-user-plus mr-2"></i>{{$btnRight['text']}}</button></a>
+                        <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-plus"></i>{{$btnRight['text']}}</button></a>
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
-                    <div class="card-header">List Berita
+                    <div class="card-header">List Promo
                         <div class="btn-actions-pane-right">
                             <form action="" method="get">
                                 <div class="input-group">
@@ -70,7 +70,7 @@
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
                                         <td>
-                                            <img src="{{ asset('../'.$item->cover) }}" alt="{{ $item->judul }}" width="150px" height="150px">
+                                            <img src="{{ Request::root().'/'.$item->cover }}" alt="{{ $item->judul }}" width="150px" height="150px">
                                         </td>
                                         <td>{{ ucwords($item->judul) }}</td>
                                         <td>

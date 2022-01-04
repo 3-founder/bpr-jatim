@@ -23,7 +23,7 @@ class KotaController extends Controller
      */
     public function index(Request $request)
     {
-        $this->param['btnRight']['text'] = 'Tambah Cabang';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('kota.create');
 
         try {

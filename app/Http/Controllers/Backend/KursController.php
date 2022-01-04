@@ -23,7 +23,7 @@ class KursController extends Controller
      */
     public function index(Request $request)
     {
-        $this->param['btnRight']['text'] = 'Tambah Kurs';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('kurs.create');
 
         try {

@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $this->param['btnRight']['text'] = 'Tambah User';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('user.create');
 
         try {

@@ -20,7 +20,7 @@ class KategoriBeritaController extends Controller
     public function index(Request $request)
     {
 
-        $this->param['btnRight']['text'] = 'Tambah Kategori Berita';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('kategori-berita.create');
 
         try {

@@ -28,7 +28,7 @@ class UmkmBinaanController extends Controller
          */
         public function index(Request $request)
         {
-            $this->param['btnRight']['text'] = 'Tambah Konten';
+            $this->param['btnRight']['text'] = 'Tambah';
             $this->param['btnRight']['link'] = route('umkm-binaan.create');
     
             try {
@@ -75,7 +75,7 @@ class UmkmBinaanController extends Controller
         {
             try {
                 if($request->file('foto') != null) {
-                    $folder = 'upload/umkm-binaan/';
+                    $folder = 'public/upload/umkm-binaan/';
                     $file = $request->file('foto');
                     $filename = date('YmdHis').$file->getClientOriginalName();
                     // Get canonicalized absolute pathname
@@ -165,7 +165,7 @@ class UmkmBinaanController extends Controller
                 $currentFoto = $updateUmkm->foto;
 
                 if($request->file('foto') != null) {
-                    $folder = 'upload/umkm-binaan/';
+                    $folder = 'public/upload/umkm-binaan/';
                     $file = $request->file('foto');
                     $filename = date('YmdHis').$file->getClientOriginalName();
                     // Get canonicalized absolute pathname

@@ -23,7 +23,7 @@ class JenisProdukLayananController extends Controller
      */
     public function index(Request $request)
     {
-        $this->param['btnRight']['text'] = 'Tambah Jenis';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('jenis-produk-layanan.create');
 
         try {

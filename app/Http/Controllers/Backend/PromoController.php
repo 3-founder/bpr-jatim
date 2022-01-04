@@ -21,7 +21,7 @@ class PromoController extends Controller
     public function index(Request $request)
     {
         
-        $this->param['btnRight']['text'] = 'Tambah Promo';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('promo.create');
 
         try {
@@ -88,7 +88,7 @@ class PromoController extends Controller
         );
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/promo/';
+                $folder = 'public/upload/promo/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
@@ -160,7 +160,7 @@ class PromoController extends Controller
 
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/promo/';
+                $folder = 'public/upload/promo/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname

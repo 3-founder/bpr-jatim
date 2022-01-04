@@ -23,15 +23,19 @@ class TanggungJawabPerusahaanController extends Controller
             ], 200
         );
     }
-    public function getDefaultContent($tahun,$id="")
+    public function getDefaultContent($tahun,$id="", Request $request)
     {
         if($id!=""){
-            $data = TanggungJawabPerusahaan::where('id',$id)->first();
+            $data = TanggungJawabPerusahaan::where('id',$id)->get();
         }
         else{
-            $data = TanggungJawabPerusahaan::where('tahun',$tahun)->orderBy('tahun','DESC')->first();
+            $data = TanggungJawabPerusahaan::where('tahun',$tahun)->orderBy('tahun','DESC')->get();
         }
 
+        foreach ($data as $key => $value) {
+            $value->cover = $request->getSchemeAndHttpHost().'/public/'.$value->cover;
+            $value->file = $request->getSchemeAndHttpHost().'/public/'.$value->file;
+        }
 
         if (!$data) {
             abort(404);

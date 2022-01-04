@@ -4,10 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\LaporanKeuangan;
+use Illuminate\Http\Request;
 
 class LaporanKeuanganController extends Controller
 {
-    public function getLaporan()
+    public function getLaporan(Request $request)
     {
         $status = null;
         $message = null;
@@ -15,6 +16,11 @@ class LaporanKeuanganController extends Controller
 
         try {
             $data = LaporanKeuangan::orderBy('tahun', 'DESC')->get();
+
+            foreach ($data as $key => $value) {
+                $value->cover = $request->getSchemeAndHttpHost().'/public/'.$value->cover;
+                $value->file = $request->getSchemeAndHttpHost().'/public/'.$value->file;
+            }
 
             $status = 200;
             $message = 'berhasil';

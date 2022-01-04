@@ -89,7 +89,7 @@ class LaporanKeuanganController extends Controller
 
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/laporan-keuangan/';
+                $folder = 'public/upload/laporan-keuangan/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').str_replace(' ', '_', $file->getClientOriginalName());
                 // Get canonicalized absolute pathname
@@ -101,9 +101,11 @@ class LaporanKeuanganController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                if($file->move($folder, $filename)) {
+                $coverCompressed = \Image::make($file->getRealPath());
+
+                if($coverCompressed->save($folder.$filename, 50)) {
                     if($request->file('laporan') != null) {
-                        $folderL = 'upload/laporan-keuangan/';
+                        $folderL = 'public/upload/laporan-keuangan/';
                         $fileL = $request->file('laporan');
                         $filenameL = date('YmdHis').str_replace(' ', '_', $fileL->getClientOriginalName());
                         // Get canonicalized absolute pathname
@@ -212,7 +214,7 @@ class LaporanKeuanganController extends Controller
                     if(file_exists($laporan->cover)){
                         // Menghapus file sebelumnya
                         if(File::delete($laporan->cover)) {
-                            $folder = 'upload/laporan-keuangan/';
+                            $folder = 'public/upload/laporan-keuangan/';
                             $file = $request->file('cover');
                             $filename = date('YmdHis').$file->getClientOriginalName();
                             // Get canonicalized absolute pathname
@@ -224,14 +226,16 @@ class LaporanKeuanganController extends Controller
                                 // Path/folder does not exist then create a new folder
                                 mkdir($folder, 0755, true);
                             }
-                            if($file->move($folder, $filename)) {
+                            $coverCompressed = \Image::make($file->getRealPath());
+            
+                            if($coverCompressed->save($folder.$filename, 50)) {
                                 $laporan->cover = $folder.$filename;
                             }
                         }
                     }
                 }
                 else {
-                    $folder = 'upload/laporan-keuangan/';
+                    $folder = 'public/upload/laporan-keuangan/';
                     $file = $request->file('cover');
                     $filename = date('YmdHis').$file->getClientOriginalName();
                     // Get canonicalized absolute pathname
@@ -243,7 +247,9 @@ class LaporanKeuanganController extends Controller
                         // Path/folder does not exist then create a new folder
                         mkdir($folder, 0755, true);
                     }
-                    if($file->move($folder, $filename)) {
+                    $coverCompressed = \Image::make($file->getRealPath());
+    
+                    if($coverCompressed->save($folder.$filename, 50)) {
                         $laporan->cover = $folder.$filename;
                     }
                 }
@@ -254,7 +260,7 @@ class LaporanKeuanganController extends Controller
                     if(file_exists($laporan->file)){
                         // Menghapus file sebelumnya
                         if(File::delete($laporan->file)) {
-                            $folderL = 'upload/laporan-keuangan/';
+                            $folderL = 'public/upload/laporan-keuangan/';
                             $fileL = $request->file('laporan');
                             $filenameL = date('YmdHis').$fileL->getClientOriginalName();
                             // Get canonicalized absolute pathname
@@ -273,7 +279,7 @@ class LaporanKeuanganController extends Controller
                     }
                 }
                 else {
-                    $folderL = 'upload/laporan-keuangan/';
+                    $folderL = 'public/upload/laporan-keuangan/';
                     $fileL = $request->file('laporan');
                     $filenameL = date('YmdHis').$fileL->getClientOriginalName();
                     // Get canonicalized absolute pathname
@@ -331,6 +337,10 @@ class LaporanKeuanganController extends Controller
                     }
                 }
             }
+
+            if(!file_exists($cover) && !file_exists($file)) 
+                $laporan->delete();
+
             return redirect()->back()->withStatus('Berhasil menghapus data.');
         }
         catch(\Exception $e){

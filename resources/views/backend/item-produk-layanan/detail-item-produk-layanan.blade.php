@@ -34,7 +34,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-2 mb-3">
-                        <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-user-plus mr-2"></i>{{$btnRight['text']}}</button></a>
+                        <a href="{{$btnRight['link']}}"><button class="btn btn-lg btn-primary"> <i class="fa fa-plus"></i>{{$btnRight['text']}}</button></a>
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
@@ -43,6 +43,16 @@
                         <div class="table-responsive">
                             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                 <tbody>
+                                    <tr>
+                                        <th class="w-25">Sampul</th>
+                                        <td>
+                                            @if ($konten->cover != null)
+                                            <img src="{{ Request::root().'/'.$konten->cover }}" width="200" height="200">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <th class="w-25">Judul</th>
                                         <td>{{ucwords($konten->judul)}}</td>

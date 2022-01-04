@@ -71,7 +71,7 @@
                             <div class="position-relative form-group">
                                 <label for="cover" class="">Cover</label>
                                 <br>
-                                <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" width="150" height="150">
+                                <img src="{{ Request::root().'/'.$konten->cover }}" alt="{{ $konten->judul }}" width="150" height="150">
                                 <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror">
                                 @error('cover')
                                     <div class="span text-danger">

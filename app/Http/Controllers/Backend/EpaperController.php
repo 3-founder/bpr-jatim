@@ -23,7 +23,7 @@ class EpaperController extends Controller
     public function index(Request $request)
     {
         
-        $this->param['btnRight']['text'] = 'Tambah Epaper';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('epaper.create');
 
         try {
@@ -93,7 +93,7 @@ class EpaperController extends Controller
         );
         try {
             if($request->file('cover') != null || $request->file('konten') != null) {
-                $folder = 'upload/epaper/';
+                $folder = 'public/upload/epaper/';
                 $file = $request->file('cover');
                 $filePdf = $request->file('konten');
                 $filename = date('YmdHis').$file->getClientOriginalName();
@@ -107,7 +107,9 @@ class EpaperController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                if($file->move($folder, $filename) && $filePdf->move($folder, $filenamePdf)) {
+                $compressedCover = \Image::make($file->getRealPath());
+
+                if($compressedCover->save($folder. $filename, 50) && $filePdf->move($folder, $filenamePdf)) {
                     $newEpaper = new Epaper;
 
                     $newEpaper->judul = $request->get('judul');
@@ -164,7 +166,7 @@ class EpaperController extends Controller
         );
 
         try {
-            $folder = 'upload/epaper/';
+            $folder = 'public/upload/epaper/';
             if($request->file('cover') != null) {
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
@@ -177,7 +179,15 @@ class EpaperController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                if($file->move($folder, $filename)) {
+                if($epaper->cover != null){
+                    if(file_exists($epaper->cover)){
+                        \File::delete($epaper->cover);
+                    }
+                }
+                
+                $compressedCover = \Image::make($file->getRealPath());
+
+                if($compressedCover->save($folder. $filename, 50)) {
                     if(File::delete($epaper->cover)) {
                         $epaper->cover = $folder.$filename;
                     }

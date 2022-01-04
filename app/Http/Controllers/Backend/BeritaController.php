@@ -23,21 +23,22 @@ class BeritaController extends Controller
     public function index(Request $request)
     {
         
-        $this->param['btnRight']['text'] = 'Tambah Berita';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('berita.create');
 
         try {
             $keyword = $request->get('keyword');
-            $getBerita = Berita::with('kategori')->orderBy('judul', 'ASC');
+            $getBerita = Berita::select('berita.*')->with('kategori')->orderBy('judul', 'ASC');
 
             if ($keyword) {
                 $getBerita->where('judul', 'LIKE', "%$keyword%")
-                        ->orWhere('konten', 'LIKE', "%$keyword%")
-                        ->orWhere('kategori', 'LIKE', "%$keyword%");
+                        ->orWhere('konten', 'LIKE', "%$keyword%");
+                        // ->orWhere('kategori.kategori', 'LIKE', "%$keyword%");
             }
 
             $this->param['data'] = $getBerita->paginate(10);
         } catch (\Illuminate\Database\QueryException $e) {
+            return $e->getMessage();
             return redirect()->back()->withStatus('Terjadi Kesalahan');
         }
 

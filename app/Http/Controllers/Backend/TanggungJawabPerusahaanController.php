@@ -97,7 +97,7 @@ class TanggungJawabPerusahaanController extends Controller
 
         try {
             if($request->file('laporan') != null) {
-                $folder = 'upload/tanggung-jawab-perusahaan/';
+                $folder = 'public/upload/tanggung-jawab-perusahaan/';
                 $file = $request->file('laporan');
                 $filename = date('YmdHis').str_replace(' ', '_', $file->getClientOriginalName());
                 // Get canonicalized absolute pathname
@@ -109,10 +109,12 @@ class TanggungJawabPerusahaanController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                // if($file->move($folder, $filename)) {
-                if(copy($file->getPathname(), $folder.$filename)) {
+
+                $laporanCompressed = \Image::make($file->getRealPath());
+
+                if($laporanCompressed->save($folder.$filename, 70)) {
                     if($request->file('cover') != null) {
-                        $folderC = 'upload/tanggung-jawab-perusahaan/';
+                        $folderC = 'public/upload/tanggung-jawab-perusahaan/';
                         $fileC = $request->file('cover');
                         $filenameC = date('YmdHis').str_replace(' ', '_', $fileC->getClientOriginalName());
                         // Get canonicalized absolute pathname
@@ -124,7 +126,9 @@ class TanggungJawabPerusahaanController extends Controller
                             // Path/folder does not exist then create a new folder
                             mkdir($folderC, 0755, true);
                         }
-                        if($fileC->move($folderC, $filenameC)) {
+                        $coverCompressed = \Image::make($fileC->getRealPath());
+
+                        if($coverCompressed->save($folderC.$filenameC, 50)) {
                             $NewLaporanTj = new TanggungJawabPerusahaan();
 
                             $NewLaporanTj->tahun = $request->get('tahun');
@@ -231,7 +235,7 @@ class TanggungJawabPerusahaanController extends Controller
                     if(file_exists($laporan->file)){
                         // Menghapus file sebelumnya
                         if(File::delete($laporan->file)) {
-                            $folder = 'upload/tanggung-jawab-perusahaan/';
+                            $folder = 'public/upload/tanggung-jawab-perusahaan/';
                             $file = $request->file('laporan');
                             $filename = date('YmdHis').str_replace(' ', '_', $file->getClientOriginalName());
                             // Get canonicalized absolute pathname
@@ -243,14 +247,16 @@ class TanggungJawabPerusahaanController extends Controller
                                 // Path/folder does not exist then create a new folder
                                 mkdir($folder, 0755, true);
                             }
-                            if($file->move($folder, $filename)) {
+                            $laporanCompressed = \Image::make($file->getRealPath());
+            
+                            if($laporanCompressed->save($folder.$filename, 70)) {
                                 $laporan->file = $folder.$filename;
                             }
                         }
                     }
                 }
                 else {
-                    $folder = 'upload/tanggung-jawab-perusahaan/';
+                    $folder = 'public/upload/tanggung-jawab-perusahaan/';
                     $file = $request->file('laporan');
                     $filename = date('YmdHis').$file->getClientOriginalName();
                     // Get canonicalized absolute pathname
@@ -262,7 +268,9 @@ class TanggungJawabPerusahaanController extends Controller
                         // Path/folder does not exist then create a new folder
                         mkdir($folder, 0755, true);
                     }
-                    if($file->move($folder, $filename)) {
+                    $laporanCompressed = \Image::make($file->getRealPath());
+    
+                    if($laporanCompressed->save($folder.$filename, 70)) {
                         $laporan->file = $folder.$filename;
                     }
                 }
@@ -272,7 +280,7 @@ class TanggungJawabPerusahaanController extends Controller
                         if(file_exists($laporan->cover)){
                             // Menghapus file sebelumnya
                             if(File::delete($laporan->cover)) {
-                                $folderC = 'upload/tanggung-jawab-perusahaan/';
+                                $folderC = 'public/upload/tanggung-jawab-perusahaan/';
                                 $fileC = $request->file('cover');
                                 $filenameC = date('YmdHis').str_replace(' ', '_', $fileC->getClientOriginalName());
                                 // Get canonicalized absolute pathname
@@ -284,14 +292,16 @@ class TanggungJawabPerusahaanController extends Controller
                                     // Path/folder does not exist then create a new folder
                                     mkdir($folderC, 0755, true);
                                 }
-                                if($fileC->move($folderC, $filenameC)) {
+                                $coverCompressed = \Image::make($fileC->getRealPath());
+                
+                                if($coverCompressed->save($folderC.$filenameC, 50)) {
                                     $laporan->cover = $folderC.$filenameC;
                                 }
                             }
                         }
                     }
                     else {
-                        $folderC = 'upload/tanggung-jawab-perusahaan/';
+                        $folderC = 'public/upload/tanggung-jawab-perusahaan/';
                         $fileC = $request->file('cover');
                         $filenameC = date('YmdHis').$fileC->getClientOriginalName();
                         // Get canonicalized absolute pathname
@@ -303,7 +313,9 @@ class TanggungJawabPerusahaanController extends Controller
                             // Path/folder does not exist then create a new folder
                             mkdir($folderC, 0755, true);
                         }
-                        if($fileC->move($folderC, $filenameC)) {
+                        $coverCompressed = \Image::make($fileC->getRealPath());
+        
+                        if($coverCompressed->save($folderC.$filenameC, 50)) {
                             $laporan->cover = $folderC.$filenameC;
                         }
                     }

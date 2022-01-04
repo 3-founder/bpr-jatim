@@ -22,7 +22,7 @@ class PenghargaanController extends Controller
     public function index(Request $request)
     {
         
-        $this->param['btnRight']['text'] = 'Tambah Penghargaan';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('penghargaan.create');
 
         try {
@@ -89,7 +89,7 @@ class PenghargaanController extends Controller
         );
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/penghargaan/';
+                $folder = 'public/upload/penghargaan/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
@@ -164,7 +164,7 @@ class PenghargaanController extends Controller
                 // mengecek apakah file sebelumnya ada
                 if($penghargaan->cover != null) {
                     if(file_exists($penghargaan->cover)) {
-                        $folder = 'upload/penghargaan/';
+                        $folder = 'public/upload/penghargaan/';
                         $file = $request->file('cover');
                         $filename = date('YmdHis').$file->getClientOriginalName();
                         // Get canonicalized absolute pathname

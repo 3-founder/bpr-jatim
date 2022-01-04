@@ -38,13 +38,13 @@
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
-                    <div class="card-header">Detail Berita</div>
+                    <div class="card-header">Detail</div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                                 <tbody>
                                     <tr>
-                                        <th class="w-25">Kategori Berita</th>
+                                        <th class="w-25">Kategori</th>
                                         <td>{{ucwords($konten->kategori->kategori)}}</td>
                                     </tr>
                                     <tr>
@@ -54,7 +54,7 @@
                                     <tr>
                                         <th class="w-25">Sampul</th>
                                         <td>
-                                            <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" class="img-thumbnail">
+                                            <img src="{{ Request::root().'/'.$konten->cover }}" alt="{{ $konten->judul }}" class="img-thumbnail">
                                         </td>
                                     </tr>
                                     <tr>

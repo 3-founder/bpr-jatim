@@ -169,12 +169,12 @@ class HomeController extends Controller
         $data = null;
 
         try {
-            $berita = \DB::table('berita as b')->select('b.id','judul', 'slug', 'cover', 'b.updated_at','konten','b.created_at','k.kategori')->join('kategori_berita as  k','b.id_kategori','k.id')->orderBy('updated_at', 'ASC')->take(8)->get();
+            $berita = \DB::table('berita as b')->select('b.id','judul', 'slug', 'cover','b.created_at','b.updated_at','konten','b.created_at','k.kategori')->join('kategori_berita as  k','b.id_kategori','k.id')->orderBy('created_at', 'DESC')->take(8)->get();
 
             $data['slide'] = [];
             $data['box'] = [];
             foreach ($berita as $key => $value) {
-                $value->cover =  url($value->cover);
+                $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
                 $value->tgl = date('d M Y H:i',strtotime($value->created_at));
@@ -280,7 +280,7 @@ class HomeController extends Controller
             $data = Promo::select('id','judul', 'slug', 'cover')->take(8)->get();
 
             foreach ($data as $key => $value) {
-                $value->cover =  url($value->cover);
+                $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;;
                 $value->judul = substr($value->judul,0,15);
             }
 
