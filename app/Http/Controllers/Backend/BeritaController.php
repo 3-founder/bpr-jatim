@@ -93,7 +93,7 @@ class BeritaController extends Controller
         );
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/berita/';
+                $folder = 'public/upload/berita/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
@@ -170,7 +170,7 @@ class BeritaController extends Controller
 
         try {
             if($request->file('cover') != null) {
-                $folder = 'upload/berita/';
+                $folder = 'public/upload/berita/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
