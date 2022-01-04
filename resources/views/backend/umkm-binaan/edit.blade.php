@@ -32,7 +32,7 @@
                             <label for="name" class="">Nama</label>
                             <input name="nama" id="nama" placeholder="Nama" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name', $UmkmBinaan->nama)}}">
                             @error('name')
-                                <div class="invalid-feedback">
+                                <div class="span text-danger">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -45,7 +45,7 @@
                                 @endforeach
                             </select>
                             @error('id_kota')
-                                <div class="invalid-feedback">
+                                <div class="span text-danger">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -54,7 +54,7 @@
                             <label for="jenis_usaha" class="">Jenis usaha</label>
                             <input name="jenis_usaha" id="nama" placeholder="Jenis usaha" type="text" class="form-control @error('jenis_usaha') is-invalid @enderror" value="{{old('jenis_usaha', $UmkmBinaan->jenis_usaha)}}">
                             @error('jenis_usaha')
-                                <div class="invalid-feedback">
+                                <div class="span text-danger">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -63,7 +63,7 @@
                             <label for="alamat" class="">Alamat</label>
                             <textarea name="alamat" id="" cols="30" rows="10" class="form-control">{{old('alamat', $UmkmBinaan->alamat)}}"</textarea>
                             @error('alamat')
-                                <div class="invalid-feedback">
+                                <div class="span text-danger">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -72,7 +72,7 @@
                             <label for="no_telp" class="">No. Telepon</label>
                             <input type="number" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp" value="{{old('name', $UmkmBinaan->no_telp)}}">
                             @error('no_telp')
-                                <div class="invalid-feedback">
+                                <div class="span text-danger">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -81,7 +81,7 @@
                             <label for="deskripsi" class="">Deskripsi</label>
                             <textarea name="deskripsi" id="" cols="30" rows="10" class="form-control">{{old('deskripsi', $UmkmBinaan->deskripsi)}}"</textarea>
                             @error('deskripsi')
-                                <div class="invalid-feedback">
+                                <div class="span text-danger">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -92,7 +92,7 @@
                             
                         
                             @error('foto')
-                                <div class="invalid-feedback">
+                                <div class="span text-danger">
                                     {{ $message }}
                                 </div>
                             @enderror

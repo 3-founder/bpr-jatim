@@ -32,7 +32,7 @@
                                 <label for="name" class="">Nama Lengkap</label>
                                 <input name="name" id="name" placeholder="Nama Lengkap" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name', $user->name)}}">
                                 @error('name')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -41,7 +41,7 @@
                                 <label for="email" class="">Email</label>
                                 <input name="email" id="email" placeholder="Email" type="email" class="form-control @error('email') is-invalid @enderror" value="{{old('email', $user->email)}}">
                                 @error('email')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -56,7 +56,7 @@
                                     <option value="umkmbinaan" {{ $user->role == 'umkmbinaan' ? 'selected' : '' }}>Umkm Binaan</option>
                                 </select>
                                 @error('role')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

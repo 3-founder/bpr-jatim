@@ -40,7 +40,7 @@
                                 <label for="bunga">Bunga</label>
                                 <input type="text" name="bunga" id="bunga" class="form-control @error('bunga') is-invalid @enderror" placeholder="Nominal bunga" value="{{ old('bunga', $bunga->bunga) }}">
                                 @error('bunga')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

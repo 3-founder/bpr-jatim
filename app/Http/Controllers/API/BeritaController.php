@@ -19,7 +19,7 @@ class BeritaController extends Controller
             $kategori = KategoriBerita::get();
             $keyword = $request->get('keyword');
             $keyKategori = $request->get('kategori');
-            $berita = \DB::table('berita as b')->select('b.id','judul', 'slug', 'cover', 'b.updated_at','konten','b.created_at','k.kategori')->join('kategori_berita as  k','b.id_kategori','k.id')->orderBy('updated_at', 'ASC');
+            $berita = \DB::table('berita as b')->select('b.id','judul', 'slug', 'cover', 'b.updated_at','konten','b.created_at','b.updated_at','k.kategori')->join('kategori_berita as  k','b.id_kategori','k.id')->orderBy('created_at', 'DESC');
 
 
             $data['slide'] = [];
@@ -38,7 +38,7 @@ class BeritaController extends Controller
             // $berita = $berita->paginate(5);
 
             foreach ($berita as $key => $value) {
-                $value->cover =  url($value->cover);
+                $value->cover =  url('public/'.$value->cover);
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
                 $value->tgl = date('d M Y H:i',strtotime($value->created_at));

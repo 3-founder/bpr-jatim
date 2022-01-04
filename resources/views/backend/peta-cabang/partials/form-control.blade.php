@@ -4,7 +4,7 @@
         class="form-control @error('judul') is-invalid @enderror"
         value="{{old('judul', $peta->judul)}}">
     @error('judul')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror
@@ -14,7 +14,7 @@
     <label for="konten" class="">Url Peta</label>
     <textarea name="konten" rows="5" class="form-control @error('konten') is-invalid @enderror">{{ old('konten', $peta->konten) }}</textarea>
     @error('konten')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror

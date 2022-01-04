@@ -32,7 +32,7 @@
                                 <label for="name" class="">Nama Wilayah</label>
                                 <input name="name" id="name" placeholder="Nama Wilayah" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name', $kota->nama_kota)}}">
                                 @error('name')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -41,7 +41,7 @@
                                 <label for="alamat" class="">Alamat</label>
                                 <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control @error('alamat') is-invalid @enderror">{{old('alamat', $kota->alamat)}}</textarea>
                                 @error('name')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -50,7 +50,7 @@
                                 <label for="kode_area" class="">Kode Area</label>
                                 <input name="kode_area" id="kode_area" placeholder="Kode Area" type="number" class="form-control @error('kode_area') is-invalid @enderror" value="{{old('kode_area', $kota->kode_area)}}">
                                 @error('kode_area')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -59,7 +59,7 @@
                                 <label for="telp" class="">Telp.</label>
                                 <input name="telp" id="telp" placeholder="Nomor Telepon" type="number" class="form-control @error('telp') is-invalid @enderror" value="{{old('telp', $kota->telp)}}">
                                 @error('telp')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -68,7 +68,7 @@
                                 <label for="fax" class="">Faksimile</label>
                                 <input name="fax" id="fax" placeholder="Faksimile" type="number" class="form-control @error('fax') is-invalid @enderror" value="{{old('fax', $kota->fax)}}">
                                 @error('fax')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -78,7 +78,7 @@
                                 <label for="longitude" class="">Longitude</label>
                                 <input name="longitude" id="longitude" placeholder="Longitude" type="text" class="form-control @error('longitude') is-invalid @enderror" value="{{old('longitude', $kota->longitude)}}">
                                 @error('longitude')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -87,7 +87,7 @@
                                 <label for="latitude" class="">Latitude</label>
                                 <input name="latitude" id="latitude" placeholder="Latitude" type="text" class="form-control @error('latitude') is-invalid @enderror" value="{{old('latitude', $kota->latitude)}}">
                                 @error('latitude')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

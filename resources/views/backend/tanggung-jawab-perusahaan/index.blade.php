@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
-                    <div class="card-header">List Laporan Keuangan
+                    <div class="card-header">List Tanggung Jawab Perusahaan
                         <div class="btn-actions-pane-right">
                             <form action="" method="get">
                                 <div class="input-group">
@@ -57,7 +57,7 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th>Tahun</th>
-                                    <th>Title</th>
+                                    <th>Judul</th>
                                     <th>File</th>
                                     <th>Artikel</th>
                                     <th>Aksi</th>

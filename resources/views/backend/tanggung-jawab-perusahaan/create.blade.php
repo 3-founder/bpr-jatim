@@ -62,7 +62,7 @@
                             @csrf
                             <div class="position-relative form-group">
                                 <label for="tahun" class="">Tahun</label>
-                                <select name="tahun" id="" class="form-control @error('tahun') is-invalid @enderror">
+                                <select name="tahun" id="" class="form-control @error('tahun') is-invalid @enderror" required>
                                     <?php 
                                         $thnMin = date('Y', strtotime('-10 years'));
                                         for ($i=date('Y'); $i >= $thnMin; $i--) { 
@@ -74,25 +74,34 @@
                                     ?>
                                 </select>
                                 @error('tahun')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="position-relative form-group">
-                                <label for="title" class="">Title</label>
-                                <input name="title" id="" class="form-control @error('title') is-invalid @enderror">
+                                <label for="title" class="">Judul</label>
+                                <input name="title" id="" class="form-control @error('title') is-invalid @enderror" required>
                                 @error('title')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-
+                            <div class="position-relative form-group">
+                                <label for="cover" class="">File cover(.jpeg/.jpg) - maks 2MB</label><br>
+                                <input name="cover" id="cover" type="file" accept=".jpg,.jpeg"
+                                    class="@error('cover') is-invalid @enderror" required>
+                                @error('cover')
+                                    <div class="span text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div class="position-relative form-group">
                                 <label for="laporan" class="">File Laporan(.jpeg/.jpg) - maks 10MB</label><br>
                                 <input name="laporan" id="laporan" type="file" accept=".jpg,.jpeg"
-                                    class="@error('laporan') is-invalid @enderror">
+                                    class="@error('laporan') is-invalid @enderror" required>
                                 @error('laporan')
                                     <div class="span text-danger">
                                         {{ $message }}
@@ -106,7 +115,7 @@
                                     {!! old('artikel') !!}
                                 </div>
                                 @error('artikel')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

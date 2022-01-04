@@ -31,7 +31,7 @@
                                 <label for="name" class="">Mata Uang</label>
                                 <input name="name" id="name" placeholder="Nama" type="text" class="form-control @error('name') is-invalid @enderror">
                                 @error('name')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -40,7 +40,7 @@
                                 <label for="harga_beli" class="">Harga Beli</label>
                                 <input name="harga_beli" id="harga_beli" placeholder="Harga Beli" type="number" class="form-control @error('harga_beli') is-invalid @enderror">
                                 @error('harga_beli')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -49,7 +49,7 @@
                                 <label for="harga_jual" class="">Harga Jual</label>
                                 <input name="harga_jual" id="harga_jual" placeholder="Harga Jual" type="number" class="form-control @error('harga_jual') is-invalid @enderror">
                                 @error('harga_jual')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

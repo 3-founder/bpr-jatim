@@ -40,7 +40,7 @@
                                 <label for="kantor_pusat" class="">Kantor Pusat</label>
                                 <textarea name="kantor_pusat" class="form-control @error('kantor_pusat') is-invalid @enderror">{{ old('kantor_pusat', $profil->kantor_pusat) }}</textarea>
                                 @error('kantor_pusat')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -51,7 +51,7 @@
                                     class="form-control @error('facebook') is-invalid @enderror"
                                     value="{{ old('facebook', $profil->facebook) }}">
                                 @error('facebook')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -62,7 +62,7 @@
                                     class="form-control @error('instagram') is-invalid @enderror"
                                     value="{{ old('instagram', $profil->instagram) }}">
                                 @error('instagram')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -73,7 +73,7 @@
                                     class="form-control @error('youtube') is-invalid @enderror"
                                     value="{{ old('youtube', $profil->youtube) }}">
                                 @error('youtube')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -84,7 +84,7 @@
                                     class="form-control @error('email') is-invalid @enderror"
                                     value="{{ old('email', $profil->email) }}">
                                 @error('email')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -95,7 +95,7 @@
                                     class="form-control @error('telepon1') is-invalid @enderror"
                                     value="{{ old('telepon1', $profil->telepon1) }}">
                                 @error('telepon1')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -106,7 +106,7 @@
                                     class="form-control @error('telepon2') is-invalid @enderror"
                                     value="{{ old('telepon2', $profil->telepon2) }}">
                                 @error('telepon2')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -117,7 +117,7 @@
                                     class="form-control @error('telepon3') is-invalid @enderror"
                                     value="{{ old('telepon3', $profil->telepon3) }}">
                                 @error('telepon3')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

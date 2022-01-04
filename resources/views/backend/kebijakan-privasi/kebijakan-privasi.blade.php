@@ -63,7 +63,7 @@
                                 </div>
                                 {{-- <textarea name="kebijakan_privasi" class="form-control ck-editor @error('kebijakan_privasi') is-invalid @enderror">{{ old('kebijakan_privasi', $kebijakanPrivasi->kebijakan_privasi) }}</textarea> --}}
                                 @error('kebijakan_privasi')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

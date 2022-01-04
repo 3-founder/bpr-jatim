@@ -167,6 +167,7 @@ class BeritaController extends Controller
                 'id_kategori' => 'Kategori'
             ]
         );
+
         try {
             if($request->file('cover') != null) {
                 $folder = 'upload/berita/';
@@ -181,6 +182,12 @@ class BeritaController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
+                if($berita->cover != null){
+                    if(file_exists($berita->cover)){
+                        \File::delete($berita->cover);
+                    }
+                }
+
                 if($file->move($folder, $filename)) {
                     $berita->cover = $folder.$filename;
                 }
@@ -210,7 +217,7 @@ class BeritaController extends Controller
             $cover = $berita->cover;
             if($cover != null){
                 if(file_exists($cover)){
-                    if(File::delete($cover)){
+                    if(\File::delete($cover)){
                         $berita->delete();
                     }
                 }

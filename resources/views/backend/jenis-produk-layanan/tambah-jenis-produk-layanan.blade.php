@@ -41,7 +41,7 @@
                                 <label for="name" class="">Nama Jenis</label>
                                 <input name="name" id="name" placeholder="Nama Jenis Produk & Layanan" type="text" class="form-control @error('name') is-invalid @enderror">
                                 @error('name')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -50,7 +50,7 @@
                                 <label for="keterangan" class="">Keterangan</label>
                                 <textarea name="keterangan" id="keterangan" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5">{{old('keterangan')}}</textarea>
                                 @error('keterangan')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

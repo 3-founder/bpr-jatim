@@ -50,7 +50,7 @@
                                 <label for="judul" class="">Judul</label>
                                 <input name="judul" id="judul" placeholder="Judul" type="text" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul', $konten->judul) }}">
                                 @error('judul')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -61,7 +61,7 @@
                                 <img src="{{ asset('../'.$konten->cover) }}" alt="{{ $konten->judul }}" width="150" height="150">
                                 <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror">
                                 @error('cover')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -74,7 +74,7 @@
                                     {!! old('konten', $konten->konten) !!}
                                 </div>
                                 @error('konten')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

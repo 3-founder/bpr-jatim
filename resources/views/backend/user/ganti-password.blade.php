@@ -49,7 +49,7 @@
                                 <input name="old_password" id="old_password" placeholder="Password Lama"
                                     type="password" class="form-control @error('old_password') is-invalid @enderror">
                                 @error('old_password')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -59,7 +59,7 @@
                                 <input name="new_password" id="new_password" placeholder="Password Baru"
                                     type="password" class="form-control @error('new_password') is-invalid @enderror">
                                 @error('new_password')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -70,7 +70,7 @@
                                     placeholder="Kofirmasi Password Baru" type="password"
                                     class="form-control @error('confirm_password') is-invalid @enderror">
                                 @error('confirm_password')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

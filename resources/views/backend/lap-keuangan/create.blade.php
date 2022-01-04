@@ -46,12 +46,31 @@
                                 <input name="tahun" value="{{ old('tahun') }}" id="tahun" placeholder="ex: 2020"
                                     type="text" class="form-control @error('tahun') is-invalid @enderror">
                                 @error('tahun')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-
+                            <div class="position-relative form-group">
+                                <label for="title" class="">Judul</label>
+                                <input name="title" value="{{ old('title') }}" id="title" placeholder="ex: Laporan Keuangan"
+                                    type="text" class="form-control @error('title') is-invalid @enderror">
+                                @error('title')
+                                    <div class="span text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="cover" class="">File cover(.jpeg/.jpg) - maks 2MB</label><br>
+                                <input name="cover" id="cover" type="file" accept=".jpg,.jpeg"
+                                    class="@error('cover') is-invalid @enderror" required>
+                                @error('cover')
+                                    <div class="span text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div class="position-relative form-group">
                                 <label for="laporan" class="">File Laporan(.pdf) - maks 10MB</label><br>
                                 <input name="laporan" id="laporan" type="file" accept="application/pdf"

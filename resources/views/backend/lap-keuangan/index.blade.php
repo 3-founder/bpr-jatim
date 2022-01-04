@@ -56,9 +56,11 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
+                                    <th>Sampul</th>
+                                    <th>Judul</th>
                                     <th>Tahun</th>
-                                    <th>User</th>
                                     <th>File</th>
+                                    <th>User</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -70,11 +72,15 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
+                                        <td>
+                                            <img src="{{ asset('../'.$item->cover) }}" alt="{{ $item->judul }}" width="150px" height="150px">
+                                        </td>
+                                        <td>{{ ucwords($item->title) }}</td>
                                         <td>{{ ucwords($item->tahun) }}</td>
-                                        <td>{{ $item->name }}</td>
                                         <td>
                                             <a href="{{ asset('../'.$item->file) }}" target="_blank">{{ $item->file }}</a>
                                         </td>
+                                        <td>{{ $item->name }}</td>
                                         <td>
                                             <div class="form-inline">
                                                 <a href="{{ route('laporan-keuangan.edit', $item->id) }}" class="mr-2">

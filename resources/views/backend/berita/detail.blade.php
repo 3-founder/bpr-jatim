@@ -64,7 +64,9 @@
                             </table>
                         </div>
                         <br>
-                        {!!$konten->konten!!}
+                        <div class="pl-2">
+                            {!!$konten->konten!!}
+                        </div>
                     </div>
                 </div>
             </div>

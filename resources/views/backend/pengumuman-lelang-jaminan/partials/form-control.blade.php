@@ -4,7 +4,7 @@
         class="form-control @error('judul') is-invalid @enderror"
         value="{{old('judul', $data->judul)}}">
     @error('judul')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror
@@ -18,7 +18,7 @@
         {!! old('konten', $data->konten) !!}
     </div>
     @error('konten')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror

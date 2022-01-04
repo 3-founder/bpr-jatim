@@ -27,7 +27,7 @@ class TanggungJawabPerusahaanController extends Controller
     public function index(Request $request)
     {
         // return view('backend.tanggung-jawab-perusahaan.index');
-        $this->param['btnRight']['text'] = 'Tambah Tanggung Jawab Perusahaan';
+        $this->param['btnRight']['text'] = 'Tambah';
         $this->param['btnRight']['link'] = route('tanggung-jawab-perusahaan.create');
         // $this->param['pageIcon'] = 'book';
 
@@ -75,6 +75,7 @@ class TanggungJawabPerusahaanController extends Controller
             [
                 'tahun' => 'required',
                 'title' => 'required',
+                'cover' => 'required|file|max:2048|mimes:jpeg,jpg',
                 'laporan' => 'required|file|max:10240|mimes:jpeg,jpg',
                 'artikel' => 'required',
             ],
@@ -88,6 +89,7 @@ class TanggungJawabPerusahaanController extends Controller
             [
                 'tahun' => 'Tahun',
                 'title' => 'Title',
+                'cover' => 'Cover',
                 'laporan' => 'File Laporan Keuangan',
                 'artikel' => 'Artikel'
             ]
@@ -107,19 +109,37 @@ class TanggungJawabPerusahaanController extends Controller
                     // Path/folder does not exist then create a new folder
                     mkdir($folder, 0755, true);
                 }
-                if($file->move($folder, $filename)) {
-                    $NewLaporanTj = new TanggungJawabPerusahaan();
+                // if($file->move($folder, $filename)) {
+                if(copy($file->getPathname(), $folder.$filename)) {
+                    if($request->file('cover') != null) {
+                        $folderC = 'upload/tanggung-jawab-perusahaan/';
+                        $fileC = $request->file('cover');
+                        $filenameC = date('YmdHis').str_replace(' ', '_', $fileC->getClientOriginalName());
+                        // Get canonicalized absolute pathname
+                        $pathC = realpath($folderC);
 
-                    $NewLaporanTj->tahun = $request->get('tahun');
-                    $NewLaporanTj->title = $request->get('title');
-                    $NewLaporanTj->file = $folder.$filename;
-                    $NewLaporanTj->user_id = auth()->user()->id;
-                    $NewLaporanTj->artikel = $request->get('artikel');
+                        // If it exist, check if it's a directory
+                        if(!($pathC !== true AND is_dir($pathC)))
+                        {
+                            // Path/folder does not exist then create a new folder
+                            mkdir($folderC, 0755, true);
+                        }
+                        if($fileC->move($folderC, $filenameC)) {
+                            $NewLaporanTj = new TanggungJawabPerusahaan();
 
-                    $NewLaporanTj->save();
+                            $NewLaporanTj->tahun = $request->get('tahun');
+                            $NewLaporanTj->title = $request->get('title');
+                            $NewLaporanTj->file = $folder.$filename;
+                            $NewLaporanTj->cover = $folderC.$filenameC;
+                            $NewLaporanTj->user_id = auth()->user()->id;
+                            $NewLaporanTj->artikel = $request->get('artikel');
 
-                    $status = 'success';
-                    $message = 'successfully';
+                            $NewLaporanTj->save();
+
+                            $status = 'success';
+                            $message = 'successfully';
+                        }
+                    }
                 }
             }
 
@@ -176,13 +196,15 @@ class TanggungJawabPerusahaanController extends Controller
     public function update(Request $request, $id)
     {
         $laporan = TanggungJawabPerusahaan::find($id);
-        $isUnique = $laporan->tahun == $request->get('tahun') ? '' : '|unique:lap_keuangan,tahun';
+
+        $validCover = $request->file('cover') != null ? 'file|max:2048|mimes:jpeg,jpg' : '';
         $validFile = $request->file('laporan') != null ? 'file|max:10240|mimes:jpeg,jpg' : '';
 
         $validatedData = $request->validate(
             [
                 'tahun' => 'required',
                 'title' => 'required',
+                'cover' => $validCover,
                 'laporan' => $validFile,
                 'artikel' => 'required'
             ],
@@ -196,6 +218,7 @@ class TanggungJawabPerusahaanController extends Controller
             [
                 'tahun' => 'Tahun',
                 'title' => 'Title',
+                'cover' => 'Cover',
                 'laporan' => 'File Laporan Keuangan',
                 'artikel' => 'Artikel'
             ]
@@ -243,6 +266,48 @@ class TanggungJawabPerusahaanController extends Controller
                         $laporan->file = $folder.$filename;
                     }
                 }
+                if($request->file('cover') != null) {
+                    if($laporan->cover != null) {
+                        // mengecek apakah file sebelumnya ada atau tidak
+                        if(file_exists($laporan->cover)){
+                            // Menghapus file sebelumnya
+                            if(File::delete($laporan->cover)) {
+                                $folderC = 'upload/tanggung-jawab-perusahaan/';
+                                $fileC = $request->file('cover');
+                                $filenameC = date('YmdHis').str_replace(' ', '_', $fileC->getClientOriginalName());
+                                // Get canonicalized absolute pathname
+                                $pathC = realpath($folderC);
+    
+                                // If it exist, check if it's a directory
+                                if(!($pathC !== true AND is_dir($pathC)))
+                                {
+                                    // Path/folder does not exist then create a new folder
+                                    mkdir($folderC, 0755, true);
+                                }
+                                if($fileC->move($folderC, $filenameC)) {
+                                    $laporan->cover = $folderC.$filenameC;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        $folderC = 'upload/tanggung-jawab-perusahaan/';
+                        $fileC = $request->file('cover');
+                        $filenameC = date('YmdHis').$fileC->getClientOriginalName();
+                        // Get canonicalized absolute pathname
+                        $pathC = realpath($folderC);
+    
+                        // If it exist, check if it's a directory
+                        if(!($pathC !== true AND is_dir($pathC)))
+                        {
+                            // Path/folder does not exist then create a new folder
+                            mkdir($folderC, 0755, true);
+                        }
+                        if($fileC->move($folderC, $filenameC)) {
+                            $laporan->cover = $folderC.$filenameC;
+                        }
+                    }
+                }
             }
 
             $laporan->tahun = $request->get('tahun');
@@ -271,6 +336,13 @@ class TanggungJawabPerusahaanController extends Controller
         try{
             $laporan = TanggungJawabPerusahaan::find($id);
 
+            $cover = $laporan->cover;
+            if($cover != null){
+                if(file_exists($cover)){
+                    File::delete($cover);
+                }
+            }
+
             $file = $laporan->file;
             if($file != null){
                 if(file_exists($file)){
@@ -279,6 +351,7 @@ class TanggungJawabPerusahaanController extends Controller
                     }
                 }
             }
+
             return redirect()->back()->withStatus('Berhasil menghapus data.');
         }
         catch(\Exception $e){

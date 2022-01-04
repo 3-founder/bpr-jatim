@@ -59,7 +59,7 @@
                                     @endforeach
                                 </select>
                                 @error('id_kategori')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -69,7 +69,7 @@
                                 <input name="judul" value="{{ old('judul') }}" id="judul" placeholder="Judul Berita"
                                     type="text" class="form-control @error('judul') is-invalid @enderror">
                                 @error('judul')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -80,7 +80,7 @@
                                 <input name="cover" id="cover" type="file"
                                     class="form-control @error('cover') is-invalid @enderror">
                                 @error('cover')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -93,7 +93,7 @@
                                 </div>
                                 {{-- <textarea name="konten" id="konten" class="konten form-control @error('konten') is-invalid @enderror" cols="30" rows="5"></textarea> --}}
                                 @error('konten')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

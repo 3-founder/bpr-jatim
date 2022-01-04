@@ -41,7 +41,7 @@
                                 <label for="vidio_url" class="">Vidio URL</label>
                                 <textarea name="vidio_url" rows="5" class="form-control @error('vidio_url') is-invalid @enderror">{{ old('vidio_url', $vidio->vidio_url) }}</textarea>
                                 @error('vidio_url')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

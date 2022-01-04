@@ -34,7 +34,7 @@
                                 <input name="kategori" value="{{ old('kategori', $kategori->kategori) }}" id="kategori" placeholder="Kategori Berita"
                                     type="text" class="form-control @error('kategori') is-invalid @enderror">
                                 @error('kategori')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

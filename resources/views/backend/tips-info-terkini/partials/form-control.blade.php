@@ -5,7 +5,7 @@
         class="form-control @error('judul_tips') is-invalid @enderror"
         value="{{old('judul_tips', $data->judul_tips_keamanan)}}">
     @error('judul_tips')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror
@@ -19,7 +19,7 @@
         {!! old('konten', $data->konten_tips_keamanan) !!}
     </div>
     @error('konten')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror
@@ -32,7 +32,7 @@
         class="form-control @error('judul_info') is-invalid @enderror"
         value="{{old('judul_info', $data->judul_info_terkini)}}">
     @error('judul_info')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror
@@ -46,7 +46,7 @@
         {!! old('konten_info', $data->konten_info_terkini) !!}
     </div>
     @error('konten_info')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror

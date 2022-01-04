@@ -56,7 +56,6 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th>Kategori Berita</th>
                                     <th>Sampul</th>
                                     <th>Judul</th>
                                     <th>Kategori</th>
@@ -71,11 +70,11 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
-                                        <td>{{ ucwords($item->kategori->kategori) }}</td>
                                         <td>
                                             <img src="{{ asset('../'.$item->cover) }}" alt="{{ $item->judul }}" width="150px" height="150px">
                                         </td>
                                         <td>{{ ucwords($item->judul) }}</td>
+                                        <td>{{ ucwords($item->kategori->kategori) }}</td>
                                         <td>
                                             <div class="form-inline">
                                                 <a href="{{ route('berita.show', $item->id) }}" class="mr-2">

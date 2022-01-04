@@ -41,7 +41,7 @@
                                     @endforeach
                                 </select>
                                 @error('id_kota')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -51,7 +51,7 @@
                                 <input name="jaringan_kantor" id="jaringan_kantor" placeholder="Jaringan Kantor"
                                     type="text" class="form-control @error('jaringan_kantor') is-invalid @enderror" value="{{old('jaringan_kantor', $jaringanKantor->jaringan_kantor)}}">
                                 @error('jaringan_kantor')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -68,7 +68,7 @@
                                     <option value="PP" {{old('jenis', $jaringanKantor->jenis) == 'PP' ? 'selected' : ''}} >Payment Point</option>
                                 </select>
                                 @error('jenis')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -79,7 +79,7 @@
                                 <textarea name="alamat" id="alamat" cols="30" rows="5"
                                     class="form-control @error('alamat') is-invalid @enderror">{{old('alamat', $jaringanKantor->alamat)}}</textarea>
                                 @error('alamat')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -89,7 +89,7 @@
                                 <input name="kode_area" id="kode_area" placeholder="Kode Area" type="number"
                                     class="form-control @error('kode_area') is-invalid @enderror" value="{{old('kode_area', $jaringanKantor->kode_area)}}">
                                 @error('kode_area')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -99,7 +99,7 @@
                                 <input name="telepon" id="telepon" placeholder="Nomor Telepon" type="number"
                                     class="form-control @error('telepon') is-invalid @enderror" value="{{old('telepon', $jaringanKantor->telepon)}}">
                                 @error('telepon')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -109,7 +109,7 @@
                                 <input name="fax" id="fax" placeholder="Faksimile" type="number"
                                     class="form-control @error('fax') is-invalid @enderror" value="{{old('fax', $jaringanKantor->fax)}}">
                                 @error('fax')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

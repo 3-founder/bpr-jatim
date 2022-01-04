@@ -31,7 +31,31 @@
                                 <label for="tahun" class="">Tahun</label>
                                 <input name="tahun" id="tahun" placeholder="ex: 2020" type="text" class="form-control @error('tahun') is-invalid @enderror" value="{{ old('tahun', $laporan->tahun) }}">
                                 @error('tahun')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="title" class="">Judul</label>
+                                <input name="title" value="{{ old('title', $laporan->title) }}" id="title" placeholder="ex: Laporan Keuangan"
+                                    type="text" class="form-control @error('title') is-invalid @enderror">
+                                @error('title')
+                                    <div class="span text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="cover" class="">File cover(.jpeg/.jpg) - maks 2MB</label>
+                                <br>
+                                @if ($laporan->cover != null)
+                                    <img src="{{ asset('../'.$laporan->cover) }}" width="100" height="100"><br>
+                                @endif
+                                <input name="cover" id="cover" type="file" accept=".jpg,.jpeg"
+                                    class="@error('cover') is-invalid @enderror">
+                                @error('cover')
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -40,11 +64,11 @@
                                 <label for="laporan" class="">File Laporan(.pdf) - maks 10MB</label>
                                 <br>
                                 @if ($laporan->file != null)
-                                <a href="{{ asset('../'.$laporan->file) }}" target="_blank">{{ $laporan->file }}</a>
+                                <a href="{{ asset('../'.$laporan->file) }}" target="_blank">{{ $laporan->file }}</a><br>
                                 @endif
-                                <input name="laporan" id="laporan" type="file" class="form-control @error('laporan') is-invalid @enderror">
+                                <input name="laporan" id="laporan" type="file" class="@error('laporan') is-invalid @enderror">
                                 @error('laporan')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

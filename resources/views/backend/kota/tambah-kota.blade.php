@@ -31,7 +31,7 @@
                                 <label for="name" class="">Nama Wilayah</label>
                                 <input name="name" id="name" placeholder="Nama Wilayah" type="text" class="form-control @error('name') is-invalid @enderror">
                                 @error('name')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -40,7 +40,7 @@
                                 <label for="alamat" class="">Alamat</label>
                                 <textarea name="alamat" id="alamat" cols="30" rows="5" class="form-control @error('alamat') is-invalid @enderror"></textarea>
                                 @error('alamat')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -49,7 +49,7 @@
                                 <label for="kode_area" class="">Kode Area</label>
                                 <input name="kode_area" id="kode_area" placeholder="Kode Area" type="number" class="form-control @error('kode_area') is-invalid @enderror">
                                 @error('kode_area')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -58,7 +58,7 @@
                                 <label for="telp" class="">Telepon</label>
                                 <input name="telp" id="telp" placeholder="Nomor Telepon" type="number" class="form-control @error('telp') is-invalid @enderror">
                                 @error('telp')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -67,7 +67,7 @@
                                 <label for="telp" class="">Faksimile</label>
                                 <input name="fax" id="fax" placeholder="Faksimile" type="number" class="form-control @error('fax') is-invalid @enderror">
                                 @error('fax')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -76,7 +76,7 @@
                                 <label for="longitude" class="">Longitude</label>
                                 <input name="longitude" id="longitude" placeholder="Longitude" type="text" class="form-control @error('longitude') is-invalid @enderror">
                                 @error('longitude')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -85,7 +85,7 @@
                                 <label for="latitude" class="">Latitude</label>
                                 <input name="latitude" id="latitude" placeholder="Latitude" type="text" class="form-control @error('latitude') is-invalid @enderror">
                                 @error('latitude')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

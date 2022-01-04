@@ -4,7 +4,7 @@
         class="form-control"
         value="{{old('judul', $item->judul)}}">
     @error('judul')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror
@@ -13,7 +13,7 @@
     <label for="Text Top" class="">Text Top</label>
     <textarea name="text_top" class="form-control @error('text_top') is-invalid @enderror">{{ old('text_top', $item->text_top) }}</textarea>
     @error('text_top')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror
@@ -27,7 +27,7 @@
         {!! old('konten', $item->konten) !!}
     </div>
     @error('konten')
-        <div class="invalid-feedback">
+        <div class="span text-danger">
             {{ $message }}
         </div>
     @enderror

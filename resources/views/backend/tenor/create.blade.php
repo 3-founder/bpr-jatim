@@ -31,7 +31,7 @@
                                 <label for="tenor" class="">Tenor (tahun)</label>
                                 <input name="tenor" id="tenor" placeholder="ex : 1" type="number" class="form-control @error('tenor') is-invalid @enderror">
                                 @error('tenor')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror

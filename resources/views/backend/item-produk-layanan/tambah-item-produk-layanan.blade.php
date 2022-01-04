@@ -46,7 +46,7 @@
                                     @endforeach
                                 </select>
                                 @error('jenis')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -55,7 +55,7 @@
                                 <label for="judul" class="">Judul</label>
                                 <input name="judul" id="judul" placeholder="Nama Jenis Produk & Layanan" type="text" class="form-control @error('judul') is-invalid @enderror">
                                 @error('judul')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -64,7 +64,7 @@
                                 <label for="cover" class="">Cover</label>
                                 <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror">
                                 @error('cover')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -73,7 +73,7 @@
                                 <label for="deskripsi" class="">Deskripsi</label>
                                 <textarea name="deskripsi" id="deskripsi" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5">{{old('deskripsi')}}</textarea>
                                 @error('deskripsi')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -82,7 +82,7 @@
                                 <label for="konten" class="">Konten</label>
                                 <textarea name="konten" id="konten" class="form-control @error('judul') is-invalid @enderror" cols="30" rows="5">{{old('konten')}}</textarea>
                                 @error('konten')
-                                    <div class="invalid-feedback">
+                                    <div class="span text-danger">
                                         {{ $message }}
                                     </div>
                                 @enderror
