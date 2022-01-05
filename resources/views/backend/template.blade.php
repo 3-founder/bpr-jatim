@@ -290,12 +290,12 @@
                                             </i>Peranan
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a href="{{ url('administrator/about?t=struktur') }}">
                                             <i class="metismenu-icon">
                                             </i>Struktur Organisasi
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="{{ url('administrator/about?t=manajemen') }}">
                                             <i class="metismenu-icon">
