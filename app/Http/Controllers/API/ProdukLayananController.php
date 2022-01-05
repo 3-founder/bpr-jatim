@@ -51,6 +51,7 @@ class ProdukLayananController extends Controller
 
             foreach ($data as $key => $value) {
                 $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
+                $value->cover =  str_replace('public/public', 'public',$value->cover);
             }
             
             $status = 200;
@@ -85,6 +86,7 @@ class ProdukLayananController extends Controller
         try {
             $data = ItemProdukLayanan::where('slug', $slug)->first();
             $data->cover =  $request->getSchemeAndHttpHost().'/public/'.$data->cover;
+            $data->cover =  str_replace('public/public', 'public',$data->cover);
             $sidemenu = ItemProdukLayanan::select('id','judul', 'slug')
                                         ->where('id_jenis', $data->id_jenis)
                                         ->orderBy('judul', 'ASC')
