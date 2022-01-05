@@ -15,6 +15,177 @@
                 
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-midnight-bloom">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">User</div>
+                            <div class="widget-subheading">Total user yang ada</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>{{ \App\Models\User::count() }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-arielle-smile">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Cabang</div>
+                            <div class="widget-subheading">Total cabang Bank UMKM</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>{{ \App\Models\Kota::count() }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-night-fade">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Binaan</div>
+                            <div class="widget-subheading">Total UMKM Binaan</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>{{ \App\Models\UmkmBinaan::count() }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-vicious-stance">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Produk & Layanan</div>
+                            <div class="widget-subheading">Total produk dan layanan yang disediakan</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>{{ \App\Models\ItemProdukLayanan::count() }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-amy-crisp">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Berita</div>
+                            <div class="widget-subheading">Total berita yang ada</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>{{ \App\Models\Berita::count() }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-deep-blue">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Promo</div>
+                            <div class="widget-subheading">Total promo yang ada</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>{{ \App\Models\Promo::count() }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-asteroid">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Epaper</div>
+                            <div class="widget-subheading">Total epaper yang ada</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>{{ \App\Models\Epaper::count() }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-sunny-morning">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Penghargaan</div>
+                            <div class="widget-subheading">Total penghargaan yang diraih</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>{{ \App\Models\Penghargaan::count() }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-malibu-beach">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Kantor Kas</div>
+                            <div class="widget-subheading">Total kantor kas yang ada</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-white"><span>{{ \App\Models\JaringanKantor::count() }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-card card">
+            <div class="card-header">
+                Profil Perusahaan
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    @php
+                        $profil = \App\Models\Profil::first();
+                    @endphp
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Kantor Pusat</th>
+                                <td>{{ $profil->kantor_pusat }}</td>
+                            </tr>
+                            <tr>
+                                <th>Facebook</th>
+                                <td>{{ $profil->facebook }}</td>
+                            </tr>
+                            <tr>
+                                <th>Instagram</th>
+                                <td>{{ $profil->instagram }}</td>
+                            </tr>
+                            <tr>
+                                <th>Youtube</th>
+                                <td>{{ $profil->youtube }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ $profil->email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telp.1</th>
+                                <td>{{ $profil->telepon1 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telp.2</th>
+                                <td>{{ $profil->telepon2 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telp.3</th>
+                                <td>{{ $profil->telepon3 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         {{-- <div class="row">
             <div class="col-md-6 col-xl-4">
                 <div class="card mb-3 widget-content bg-midnight-bloom">
