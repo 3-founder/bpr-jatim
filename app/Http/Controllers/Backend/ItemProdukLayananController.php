@@ -232,7 +232,7 @@ class ItemProdukLayananController extends Controller
         );
         try {
             if($request->file('cover') != null) {
-                $folder = 'public/upload/produk-layanan/';
+                $folder = '/public/upload/produk-layanan/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
