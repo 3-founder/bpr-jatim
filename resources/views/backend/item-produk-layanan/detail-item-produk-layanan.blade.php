@@ -47,7 +47,7 @@
                                         <th class="w-25">Sampul</th>
                                         <td>
                                             @if ($konten->cover != null)
-                                            <img src="{{ Request::root().'/'.$konten->cover }}" width="200" height="200">
+                                            <img src="{{ Request::root().'/public/ '.$konten->cover }}" width="200" height="200">
                                             @else
                                             -
                                             @endif
