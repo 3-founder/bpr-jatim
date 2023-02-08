@@ -105,64 +105,12 @@
 @endsection
 
 @section('extraJS')
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script>
-        var quill = new Quill('#konten', {
-            modules: {
-                toolbar: [
-                    [{
-                        header: [1, 2, 3, 4, 5, 6, false]
-                    }],
-                    ['blockquote', 'code-block'],
-                    [{
-                        'list': 'ordered'
-                    }, {
-                        'list': 'bullet'
-                    }],
-                    [{
-                        'script': 'sub'
-                    }, {
-                        'script': 'super'
-                    }],
-                    [{
-                        'indent': '-1'
-                    }, {
-                        'indent': '+1'
-                    }],
-                    [{
-                        'direction': 'rtl'
-                    }],
-                    [{
-                        'size': ['small', false, 'large', 'huge']
-                    }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['link', 'image', 'video', 'formula'],
-                    [{
-                        'color': []
-                    }, {
-                        'background': []
-                    }],
-                    [{
-                        'align': []
-                    }],
-                ]
-            },
-            placeholder: 'Masukkan konten disini',
-            theme: 'snow' // or 'bubble'
-        });
-
-        quill.on('text-change', function() {
-            var delta = quill.getContents();
-            var text = quill.getText();
-            var justHtml = quill.root.innerHTML;
-            // preciousContent.innerHTML = JSON.stringify(delta);
-            // justTextContent.innerHTML = text;
-            // justHtmlContent.innerHTML = justHtml;
-            // console.log(justHtml)
-            $('#getKonten').val(justHtml)
-            console.log(justHtml);
-        });
-
-        $('#getKonten').hide();
-    </script>
+<<script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#konten' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 @endsection
