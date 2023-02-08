@@ -207,9 +207,7 @@ class ItemProdukLayananController extends Controller
     public function update(Request $request, $id)
     {
         // return $request->all();
-        $folder = 'public/upload/produk-layanan/';
-        $path = realpath($folder);
-        // return $request->file('cover')->getClientOriginalName();
+        return $request->file('cover')->getClientOriginalName();
         return $path;
         $konten = ItemProdukLayanan::find($id);
 
