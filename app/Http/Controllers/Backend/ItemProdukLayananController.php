@@ -206,9 +206,6 @@ class ItemProdukLayananController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request->all();
-        // return $request->file('cover')->getClientOriginalName();
-        // return $path;
         $konten = ItemProdukLayanan::find($id);
 
         $isUnique = $konten->judul == $request->judul ? '' : '|unique:item_produk_layanan,judul';
@@ -234,6 +231,7 @@ class ItemProdukLayananController extends Controller
         try {
             if($request->file('cover') != null) {
                 $folder = 'public/upload/produk-layanan/';
+                $folder1 = 'upload/produk-layanan/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
@@ -253,15 +251,15 @@ class ItemProdukLayananController extends Controller
                 $compressed = \Image::make($file->getRealPath());
 
                 if($compressed->save($folder.$filename, 50)) {
-                    $konten->cover = $folder.$filename;
+                    $konten->cover = $folder1.$filename;
                 }
+                $konten->cover = $folder1.$filename;
             }
             $konten->id_jenis = $request->get('jenis');
             $konten->judul = $request->get('judul');
             $konten->slug = Str::slug($request->get('judul'));
             $konten->text_top = $request->get('deskripsi');
             $konten->konten = $request->get('konten');
-            
             $konten->save();
 
             if($isUnique != '')
