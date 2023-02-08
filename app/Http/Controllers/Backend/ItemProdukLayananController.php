@@ -207,8 +207,8 @@ class ItemProdukLayananController extends Controller
     public function update(Request $request, $id)
     {
         // return $request->all();
-        return $request->file('cover')->getClientOriginalName();
-        return $path;
+        // return $request->file('cover')->getClientOriginalName();
+        // return $path;
         $konten = ItemProdukLayanan::find($id);
 
         $isUnique = $konten->judul == $request->judul ? '' : '|unique:item_produk_layanan,judul';
@@ -256,6 +256,7 @@ class ItemProdukLayananController extends Controller
                     $konten->cover = $folder.$filename;
                 }
             }
+            return $path;
             $konten->id_jenis = $request->get('jenis');
             $konten->judul = $request->get('judul');
             $konten->slug = Str::slug($request->get('judul'));
