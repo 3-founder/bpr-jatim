@@ -206,7 +206,7 @@ class ItemProdukLayananController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request->all();
+        return $request->all();
         $konten = ItemProdukLayanan::find($id);
 
         $isUnique = $konten->judul == $request->judul ? '' : '|unique:item_produk_layanan,judul';
