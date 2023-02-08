@@ -7,6 +7,7 @@ use App\Models\ItemProdukLayanan;
 use App\Models\JenisProdukLayanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File; 
 
 class ItemProdukLayananController extends Controller
 {
@@ -231,7 +232,6 @@ class ItemProdukLayananController extends Controller
         try {
             if($request->file('cover') != null) {
                 $folder = 'public/upload/produk-layanan/';
-                $folder1 = 'upload/produk-layanan/';
                 $file = $request->file('cover');
                 $filename = date('YmdHis').$file->getClientOriginalName();
                 // Get canonicalized absolute pathname
@@ -251,9 +251,8 @@ class ItemProdukLayananController extends Controller
                 $compressed = \Image::make($file->getRealPath());
 
                 if($compressed->save($folder.$filename, 50)) {
-                    $konten->cover = $folder1.$filename;
+                    $konten->cover = $folder.$filename;
                 }
-                $konten->cover = $folder1.$filename;
             }
             $konten->id_jenis = $request->get('jenis');
             $konten->judul = $request->get('judul');
