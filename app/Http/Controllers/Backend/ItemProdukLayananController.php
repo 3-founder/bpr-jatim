@@ -256,7 +256,6 @@ class ItemProdukLayananController extends Controller
                     $konten->cover = $folder.$filename;
                 }
             }
-            return $path;
             $konten->id_jenis = $request->get('jenis');
             $konten->judul = $request->get('judul');
             $konten->slug = Str::slug($request->get('judul'));
