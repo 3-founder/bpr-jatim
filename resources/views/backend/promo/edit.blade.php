@@ -15,7 +15,7 @@
     height: 514px !important;
 }
 </style>
-    
+
 @endsection
 
 @section('content')
@@ -65,6 +65,10 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+                            </div>
+                            <div class="position-relative form-check form-switch pt-2 pb-4">
+                                <input type="checkbox" name="is_shown" id="shown-select" class="form-check-input" {{ $konten->is_shown > 0 ? 'checked' : '' }} value="1">
+                                <label for="shown-select" class="form-check-label">Tampilkan pada popup halaman utama</label>
                             </div>
                             <div class="position-relative form-group">
                                 <label for="konten" class="">Konten</label>

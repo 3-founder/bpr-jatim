@@ -54,6 +54,7 @@ Route::get('get-detail-berita/{slug}', 'API\BeritaController@detailBerita');
 /** Promo */
 Route::get('get-promo', 'API\PromoController@getPromo');
 Route::get('get-detail-promo/{slug}', 'API\PromoController@detailPromo');
+Route::get('get-promo/popup', 'API\PromoController@popupPromo');
 /** END Promo */
 
 /** Epaper */
@@ -98,7 +99,7 @@ Route::get('get-laporan-keuangan', 'API\LaporanKeuanganController@getLaporan');
  * GET tanggung-jawab-perusahaan
  */
 
- Route::get('get-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getIndex']);
- Route::get('get-tahun-tanggung-jawab-perusahaan', [tjController::class, 'getTahun']);
- Route::get('get-default-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getDefaultContent']);
- Route::get('get-selected-tanggung-jawab-perusahaan/{tahun}/{id}', [tjController::class, 'getDefaultContent']);
+Route::get('get-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getIndex']);
+Route::get('get-tahun-tanggung-jawab-perusahaan', [tjController::class, 'getTahun']);
+Route::get('get-default-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getDefaultContent']);
+Route::get('get-selected-tanggung-jawab-perusahaan/{tahun}/{id}', [tjController::class, 'getDefaultContent']);
