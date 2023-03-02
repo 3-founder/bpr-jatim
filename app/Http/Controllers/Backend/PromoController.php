@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\PromoRequest;
 use Illuminate\Http\Request;
 use App\Models\Promo;
 use Illuminate\Support\Facades\File;
@@ -58,9 +59,9 @@ class PromoController extends Controller
             $this->param['btnRight']['text'] = 'Lihat Data';
             $this->param['btnRight']['link'] = route('promo.index');
 
-            $this->param['konten'] = Promo::find($id);
+            $this->param['konten'] = Promo::findOrFail($id);
 
-            return \view('backend.promo.detail', $this->param);
+            return view('backend.promo.detail', $this->param);
         } catch (\Exception $e) {
             return redirect()->back()->withError('Terjadi kesalahan');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -68,23 +69,8 @@ class PromoController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(PromoRequest $request)
     {
-        $validatedData = $request->validate(
-            [
-                'judul' => 'required',
-                'cover' => 'required',
-                'konten' => 'required',
-            ],
-            [
-                'required' => ':attribute tidak boleh kosong.',
-            ],
-            [
-                'judul' => 'Judul',
-                'cover' => 'Cover',
-                'konten' => 'Konten',
-            ]
-        );
         try {
             if ($request->file('cover') != null) {
                 $folder = 'public/upload/promo/';
@@ -99,14 +85,12 @@ class PromoController extends Controller
                     mkdir($folder, 0755, true);
                 }
                 if ($file->move($folder, $filename)) {
-                    $newPromo = new Promo;
-
-                    $newPromo->judul = $request->get('judul');
-                    $newPromo->slug = Str::slug($request->get('judul'));
-                    $newPromo->cover = $folder . '/' . $filename;
-                    $newPromo->konten = $request->get('konten');
-
-                    $newPromo->save();
+                    Promo::create([
+                        'judul' => $request->judul,
+                        'cover' => $folder . '/' . $filename,
+                        'konten' => $request->konten,
+                        'is_shown' => $request->is_shown ?? 0
+                    ]);
                 }
             }
 
@@ -124,7 +108,7 @@ class PromoController extends Controller
             $this->param['btnRight']['text'] = 'Lihat Data';
             $this->param['btnRight']['link'] = route('promo.index');
 
-            $this->param['konten'] = Promo::find($id);
+            $this->param['konten'] = Promo::findOrFail($id);
 
             return \view('backend.promo.edit', $this->param);
         } catch (\Exception $e) {
@@ -173,8 +157,8 @@ class PromoController extends Controller
             }
 
             $promo->judul = $request->get('judul');
-            $promo->slug = Str::slug($request->get('judul'));
             $promo->konten = $request->get('konten');
+            $promo->is_shown = $request->is_shown ?? 0;
 
             $promo->save();
 
