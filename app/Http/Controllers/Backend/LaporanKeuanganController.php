@@ -70,6 +70,7 @@ class LaporanKeuanganController extends Controller
         $validatedData = $request->validate(
             [
                 'tahun' => 'required|unique:lap_keuangan,tahun',
+                'title' => 'required',
                 'cover' => 'required|file|max:2048|mimes:jpeg,jpg',
                 'laporan' => 'required|file|max:10240|mimes:pdf',
             ],
@@ -82,6 +83,7 @@ class LaporanKeuanganController extends Controller
             ],
             [
                 'tahun' => 'Tahun',
+                'title' => 'Title',
                 'cover' => 'Cover',
                 'laporan' => 'File Laporan Keuangan'
             ]
@@ -121,6 +123,7 @@ class LaporanKeuanganController extends Controller
                             $newLaporan = new LaporanKeuangan;
         
                             $newLaporan->tahun = $request->get('tahun');
+                            $newLaporan->title = $request->get('title');
                             $newLaporan->cover = $folder.$filename;
                             $newLaporan->file = $folder.$filenameL;
                             $newLaporan->user_id = auth()->user()->id;
@@ -191,7 +194,8 @@ class LaporanKeuanganController extends Controller
             [
                 'tahun' => 'required'.$isUnique,
                 'cover' => $validCover,
-                'laporan' => $validFile
+                'laporan' => $validFile,
+                'title' => 'required'
             ],
             [
                 'required' => ':attribute tidak boleh kosong.',
@@ -202,6 +206,7 @@ class LaporanKeuanganController extends Controller
             ],
             [
                 'tahun' => 'Tahun',
+                'title' => 'Title',
                 'cover' => 'Cover',
                 'laporan' => 'File Laporan Keuangan',
             ]
