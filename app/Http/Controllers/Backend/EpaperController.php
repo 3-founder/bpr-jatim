@@ -188,9 +188,7 @@ class EpaperController extends Controller
                 $compressedCover = \Image::make($file->getRealPath());
 
                 if($compressedCover->save($folder. $filename, 50)) {
-                    if(File::delete($epaper->cover)) {
-                        $epaper->cover = $folder.$filename;
-                    }
+                    $epaper->cover = $folder.$filename;
                 }
             }
 
