@@ -10,7 +10,12 @@ class TanggungJawabPerusahaanController extends Controller
 {
     public function getIndex($tahun)
     {
-        $data = TanggungJawabPerusahaan::select('title','id')->where('tahun',$tahun)->orderBy('tahun','DESC')->get();
+        $data = TanggungJawabPerusahaan::where('tahun',$tahun)->orderBy('tahun','DESC')->get();
+
+        foreach ($data as $key => $value) {
+            $value->cover =  str_replace('public/public', 'public',$value->cover);
+            $value->file =  str_replace('public/public', 'public',$value->file);
+        }
 
         if (!$data) {
             abort(404);

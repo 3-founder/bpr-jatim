@@ -274,50 +274,49 @@ class TanggungJawabPerusahaanController extends Controller
                         $laporan->file = $folder.$filename;
                     }
                 }
-                if($request->file('cover') != null) {
-                    if($laporan->cover != null) {
-                        // mengecek apakah file sebelumnya ada atau tidak
-                        if(file_exists($laporan->cover)){
-                            // Menghapus file sebelumnya
-                            if(File::delete($laporan->cover)) {
-                                $folderC = 'public/upload/tanggung-jawab-perusahaan/';
-                                $fileC = $request->file('cover');
-                                $filenameC = date('YmdHis').str_replace(' ', '_', $fileC->getClientOriginalName());
-                                // Get canonicalized absolute pathname
-                                $pathC = realpath($folderC);
-    
-                                // If it exist, check if it's a directory
-                                if(!($pathC !== true AND is_dir($pathC)))
-                                {
-                                    // Path/folder does not exist then create a new folder
-                                    mkdir($folderC, 0755, true);
-                                }
-                                $coverCompressed = \Image::make($fileC->getRealPath());
-                
-                                if($coverCompressed->save($folderC.$filenameC, 50)) {
-                                    $laporan->cover = $folderC.$filenameC;
-                                }
+            }
+            if($request->file('cover') != null) {
+                if($laporan->cover != null) {
+                    // mengecek apakah file sebelumnya ada atau tidak
+                    if(file_exists($laporan->cover)){
+                        // Menghapus file sebelumnya
+                        if(File::delete($laporan->cover)) {
+                            $folderC = 'public/upload/tanggung-jawab-perusahaan/';
+                            $fileC = $request->file('cover');
+                            $filenameC = date('YmdHis').str_replace(' ', '_', $fileC->getClientOriginalName());
+                            // Get canonicalized absolute pathname
+                            $pathC = realpath($folderC);
+
+                            // If it exist, check if it's a directory
+                            if(!($pathC !== true AND is_dir($pathC)))
+                            {
+                                // Path/folder does not exist then create a new folder
+                                mkdir($folderC, 0755, true);
+                            }
+                            $coverCompressed = \Image::make($fileC->getRealPath());
+            
+                            if($coverCompressed->save($folderC.$filenameC, 50)) {
+                                $laporan->cover = $folderC.$filenameC;
                             }
                         }
                     }
-                    else {
-                        $folderC = 'public/upload/tanggung-jawab-perusahaan/';
-                        $fileC = $request->file('cover');
-                        $filenameC = date('YmdHis').$fileC->getClientOriginalName();
-                        // Get canonicalized absolute pathname
-                        $pathC = realpath($folderC);
-    
-                        // If it exist, check if it's a directory
-                        if(!($pathC !== true AND is_dir($pathC)))
-                        {
-                            // Path/folder does not exist then create a new folder
-                            mkdir($folderC, 0755, true);
-                        }
-                        $coverCompressed = \Image::make($fileC->getRealPath());
-        
-                        if($coverCompressed->save($folderC.$filenameC, 50)) {
-                            $laporan->cover = $folderC.$filenameC;
-                        }
+                }
+                else {
+                    $folderC = 'public/upload/tanggung-jawab-perusahaan/';
+                    $fileC = $request->file('cover');
+                    $filenameC = date('YmdHis').$fileC->getClientOriginalName();
+                    // Get canonicalized absolute pathname
+                    $pathC = realpath($folderC);
+
+                    // If it exist, check if it's a directory
+                    if(!($pathC !== true AND is_dir($pathC)))
+                    {
+                        // Path/folder does not exist then create a new folder
+                        mkdir($folderC, 0755, true);
+                    }
+                    $coverCompressed = \Image::make($fileC->getRealPath());
+                    if($coverCompressed->save($folderC.$filenameC, 50)) {
+                        $laporan->cover = $folderC.$filenameC;
                     }
                 }
             }
