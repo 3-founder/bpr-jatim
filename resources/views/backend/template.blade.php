@@ -469,6 +469,23 @@
                                 </ul>
                             </li>
                             @endif
+                            @if (auth()->user()->role == 'admin')
+                                <li class="app-sidebar__heading">FAQ</li>
+                                <li>
+                                    <a href="{{ url('administrator/kategori-faq') }}"
+                                        class="{{ Request::segment(4) == 'kategori-faq' ? 'mm-active' : '' }}">
+                                        <i class="metismenu-icon">
+                                        </i>Kategori FAQ
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('administrator/items-faq') }}"
+                                        class="{{ Request::segment(4) == 'items-faq' ? 'mm-active' : '' }}">
+                                        <i class="metismenu-icon">
+                                        </i>Kategori FAQ
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
