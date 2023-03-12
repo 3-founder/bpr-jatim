@@ -15,27 +15,29 @@ class LaporanKeuanganController extends Controller
         $data = null;
 
         try {
-            $data = LaporanKeuangan::orderBy('tahun', 'DESC')->get();
+            $data = LaporanKeuangan::query();
+
+            if ($request->title) $data->where('title', 'LIKE', "%{$request->title}%");
+
+            $data->orWhere('tahun', 'LIKE', "%{$request->tahun}%");
+            $data = $data->orderBy('tahun', 'DESC')->get();
 
             foreach ($data as $key => $value) {
-                $value->cover = $request->getSchemeAndHttpHost().'/public/'.$value->cover;
-                $value->cover =  str_replace('public/public', 'public',$value->cover);
-                $value->file = $request->getSchemeAndHttpHost().'/public/'.$value->file;
-                $value->file =  str_replace('public/public', 'public',$value->file);
+                $value->cover = $request->getSchemeAndHttpHost() . '/public/' . $value->cover;
+                $value->cover =  str_replace('public/public', 'public', $value->cover);
+                $value->file = $request->getSchemeAndHttpHost() . '/public/' . $value->file;
+                $value->file =  str_replace('public/public', 'public', $value->file);
             }
 
             $status = 200;
             $message = 'berhasil';
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $status = 400;
-            $message = 'gagal.'.$e->getMessage();
-        }
-        catch (\Illuminate\Database\QueryException $e) {
+            $message = 'gagal.' . $e->getMessage();
+        } catch (\Illuminate\Database\QueryException $e) {
             $status = 400;
-            $message = 'gagal.'.$e->getMessage();
-        }
-        finally {
+            $message = 'gagal.' . $e->getMessage();
+        } finally {
 
             $response = array(
                 'status' => $status,
@@ -43,11 +45,13 @@ class LaporanKeuanganController extends Controller
                 'data' => $data
             );
 
-            return response($response,
-            $status,
-            array(
-                'Content-Type'=>'application/json; charset=utf-8'
-            ));
+            return response(
+                $response,
+                $status,
+                array(
+                    'Content-Type' => 'application/json; charset=utf-8'
+                )
+            );
         }
     }
 }
