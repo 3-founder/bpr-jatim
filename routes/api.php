@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\FAQController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\TanggungJawabPerusahaanController as tjController;
@@ -103,3 +104,7 @@ Route::get('get-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getIn
 Route::get('get-tahun-tanggung-jawab-perusahaan', [tjController::class, 'getTahun']);
 Route::get('get-default-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getDefaultContent']);
 Route::get('get-selected-tanggung-jawab-perusahaan/{tahun}/{id}', [tjController::class, 'getDefaultContent']);
+
+// Get FAQ
+Route::get('get-kategori-faq', [FAQController::class, 'getKategoriIndex']);
+Route::get('get-items-faq/{kategori}', [FAQController::class, 'getItemsByKategori']);
