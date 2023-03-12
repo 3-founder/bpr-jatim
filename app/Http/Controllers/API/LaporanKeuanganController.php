@@ -15,11 +15,13 @@ class LaporanKeuanganController extends Controller
         $data = null;
 
         try {
+            $keyword = $request->get('keyword');
             $data = LaporanKeuangan::query();
 
-            if ($request->title) $data->where('title', 'LIKE', "%{$request->title}%");
+            if ($keyword) {
+                $data->where('title', 'LIKE', "%$keyword%")->orWhere('tahun', 'LIKE', "%$keyword%");
+            }   
 
-            $data->orWhere('tahun', 'LIKE', "%{$request->tahun}%");
             $data = $data->orderBy('tahun', 'DESC')->get();
 
             foreach ($data as $key => $value) {
