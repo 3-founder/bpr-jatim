@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('kota', 'Backend\KotaController');
         Route::resource('kurs', 'Backend\KursController');
         Route::resource('laporan-keuangan', 'Backend\LaporanKeuanganController');
+        Route::resource('kategori-faq', 'Backend\KategoriFaqController');
+        Route::resource('items-faq', 'Backend\ItemsFaqController');
 
         Route::resource('tanggung-jawab-perusahaan', TgControlller::class);
 
