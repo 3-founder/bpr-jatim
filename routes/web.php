@@ -25,7 +25,7 @@ Route::get('/', function () {
 // backend
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'administrator'], function () {
-        Route::get('dashboard', function(){
+        Route::get('dashboard', function () {
             return view('backend.dashboard', ['pageTitle' => 'Dashboard', 'pageIcon' => 'tachometer-alt', 'title' => 'Dashboard']);
         })->name('dashboard');
         Route::get('ganti-password/{id}', 'Backend\UserController@gantiPassword');
@@ -70,10 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
                 'destroy'
             ]);
         });
-
-
     });
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
