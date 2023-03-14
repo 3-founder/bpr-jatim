@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class ItemsFaqController extends Controller
 {
     private $param;
-    
+
     public function __construct()
     {
         $this->param['title'] = 'Pertanyaan FAQ';
@@ -27,7 +27,7 @@ class ItemsFaqController extends Controller
     public function index()
     {
         $this->param['btnRight']['text'] = 'Tambah';
-        $this->param['btnRight']['link'] = route('berita.create');
+        $this->param['btnRight']['link'] = route('items-faq.create');
         $this->param['data'] = DB::table('items_faq')
             ->join('kategori_faq', 'items_faq.id_kategori', 'kategori_faq.id')
             ->select('kategori_faq.nama_kategori', 'items_faq.pertanyaan', 'items_faq.jawaban', 'items_faq.id')
@@ -72,7 +72,7 @@ class ItemsFaqController extends Controller
             'jawaban' => 'Jawaban'
         ]);
 
-        try{
+        try {
             DB::table('items_faq')
                 ->insert([
                     'id_kategori' => $request->id_kategori,
@@ -82,13 +82,13 @@ class ItemsFaqController extends Controller
                     'created_at' => now()
                 ]);
 
-            return redirect()->route('items-faq.add')->withStatus('Data berhasil ditambahkan.');
-        } catch(Exception $e){
+            return redirect()->route('items-faq.index')->withStatus('Data berhasil ditambahkan.');
+        } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('items-faq.index')->withStatus('Data gagal ditambahkan. '.$e);
-        } catch(QueryException $e){
+            return redirect()->route('items-faq.index')->withStatus('Data gagal ditambahkan. ' . $e);
+        } catch (QueryException $e) {
             DB::rollBack();
-            return redirect()->route('items-faq.index')->withStatus('Data gagal ditambahkan. '.$e);
+            return redirect()->route('items-faq.index')->withStatus('Data gagal ditambahkan. ' . $e);
         }
     }
 
@@ -117,7 +117,7 @@ class ItemsFaqController extends Controller
             ->where('id', $id)
             ->first();
         $this->param['data'] = DB::table('kategori_faq')->get();
-        if(!$this->param['itemFAQ']){
+        if (!$this->param['itemFAQ']) {
             return redirect()->route('items-faq.index')->withStatus('Data tidak dapat ditemukan.');
         }
 
@@ -137,14 +137,14 @@ class ItemsFaqController extends Controller
             ->where('id', $id)
             ->first();
 
-        if(!$data){
+        if (!$data) {
             return redirect()->route('items-faq.index')->withStatus('Data tidak dapat ditemukan.');
         }
 
         $isUnique = $data->pertanyaan == $request->pertanyaan ? '' : '|unique:items_faq,pertanyaan';
         $validate = $request->validate([
             'id_kategori' => 'required',
-            'pertanyaan' => 'required'.$isUnique,
+            'pertanyaan' => 'required' . $isUnique,
             'jawaban' => 'required'
         ], [
             'required' => ':attribute harus diisi.',
@@ -155,7 +155,7 @@ class ItemsFaqController extends Controller
             'jawaban' => 'Jawaban'
         ]);
 
-        try{
+        try {
             DB::table('items_faq')
                 ->where('id', $id)
                 ->update([
@@ -166,12 +166,12 @@ class ItemsFaqController extends Controller
                 ]);
 
             return redirect()->route('items-faq.index')->withStatus('Data berhasil diperbarui.');
-        } catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('items-faq.index')->withStatus('Data gagal ditambahkan. '.$e);
-        } catch(QueryException $e){
+            return redirect()->route('items-faq.index')->withStatus('Data gagal ditambahkan. ' . $e);
+        } catch (QueryException $e) {
             DB::rollBack();
-            return redirect()->route('items-faq.index')->withStatus('Data gagal ditambahkan. '.$e);
+            return redirect()->route('items-faq.index')->withStatus('Data gagal ditambahkan. ' . $e);
         }
     }
 
@@ -186,22 +186,22 @@ class ItemsFaqController extends Controller
         $data = DB::table('items_faq')
             ->where('id', $id)
             ->first();
-        if(!$data){
+        if (!$data) {
             return redirect()->route('kategori-faq.index')->withStatus('Data tidak ditemukan.');
         }
 
-        try{
+        try {
             DB::table('kategori_faq')
                 ->where('id', $id)
                 ->delete();
 
             return redirect()->route('kategori-faq.index')->withStatus('Data berhasil dihapus.');
-        } catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('kategori-faq.index')->withStatus('Data gagal dihapus. '.$e);
-        } catch(QueryException $e){
+            return redirect()->route('kategori-faq.index')->withStatus('Data gagal dihapus. ' . $e);
+        } catch (QueryException $e) {
             DB::rollBack();
-            return redirect()->route('kategori-faq.index')->withStatus('Data gagal dihapus. '.$e);
+            return redirect()->route('kategori-faq.index')->withStatus('Data gagal dihapus. ' . $e);
         }
     }
 }
