@@ -1,5 +1,6 @@
 <?php
 
+use Backend\JumbotronController;
 use Illuminate\Support\Facades\Route;
 use Backend\TanggungJawabPerusahaanController as TgControlller;
 
@@ -42,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('laporan-keuangan', 'Backend\LaporanKeuanganController');
         Route::resource('kategori-faq', 'Backend\KategoriFaqController');
         Route::resource('items-faq', 'Backend\ItemsFaqController');
+        Route::resource('jumbotrons', JumbotronController::class);
 
         Route::resource('tanggung-jawab-perusahaan', TgControlller::class);
 
