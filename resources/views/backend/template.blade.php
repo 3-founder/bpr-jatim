@@ -263,6 +263,15 @@
                                 </a>
                             </li>
 
+                            <li>
+                                <a href="{{ route('jumbotrons.index') }}"
+                                    class="{{ Request::segment(2) == 'jumbotrons' ? 'mm-active' : '' }}">
+                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                    <i class="metismenu-icon fa fa-address-card icon-gradient bg-arielle-smile"></i>
+                                    Jumbotron
+                                </a>
+                            </li>
+
                             <li class="app-sidebar__heading">Tentang BPR</li>
                             <li>
                                 <a href="#">
@@ -525,7 +534,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="mb-0">Pilih tombol logout untuk melanjutkan.</p>
+                    <p class="mb-0">Pilih tombol    logout untuk melanjutkan.</p>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">
