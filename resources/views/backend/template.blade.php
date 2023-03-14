@@ -491,7 +491,16 @@
                                     <a href="{{ url('administrator/items-faq') }}"
                                         class="{{ Request::segment(4) == 'items-faq' ? 'mm-active' : '' }}">
                                         <i class="metismenu-icon">
-                                        </i>Kategori FAQ
+                                        </i>Item FAQ
+                                    </a>
+                                </li>
+
+                                <li class="app-sidebar__heading">Pengajuan Kredit</li>
+                                <li>
+                                    <a href="{{ url('administrator/pengajuan-kredit') }}"
+                                        class="{{ Request::segment(5) == 'pengajuan-kredit' ? 'mm-active' : '' }}">
+                                        <i class="metismenu-icon">
+                                        </i>List Pengajuan Kredit
                                     </a>
                                 </li>
                             @endif

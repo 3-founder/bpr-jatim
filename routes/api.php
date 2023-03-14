@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\FAQController;
+use App\Http\Controllers\API\PengajuanKreditController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\TanggungJawabPerusahaanController as tjController;
@@ -108,3 +109,6 @@ Route::get('get-selected-tanggung-jawab-perusahaan/{tahun}/{id}', [tjController:
 // Get FAQ
 Route::get('get-kategori-faq', [FAQController::class, 'getKategoriIndex']);
 Route::get('get-items-faq/{kategori}', [FAQController::class, 'getItemsByKategori']);
+
+// Post Pengajuan Kredit
+Route::post('post-pengajuan-kredit', [PengajuanKreditController::class, 'postPengajuanKredit']);
