@@ -96,6 +96,8 @@ Route::get('get-pengumuman-lelang-jaminan', 'API\PengumumanLelangJaminanControll
 Route::get('get-laporan-keuangan', 'API\LaporanKeuanganController@getLaporan');
 /** END Laporan Keuangan */
 
+Route::get('jumbotron', 'API\JumbotronController@index');
+
 /**
  * GET tanggung-jawab-perusahaan
  */
