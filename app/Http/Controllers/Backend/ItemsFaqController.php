@@ -44,7 +44,7 @@ class ItemsFaqController extends Controller
     public function create()
     {
         $this->param['btnRight']['text'] = 'Lihat Data';
-        $this->param['btnRight']['link'] = route('berita.index');
+        $this->param['btnRight']['link'] = route('items-faq.index');
         $this->param['data'] = DB::table('kategori_faq')
             ->get();
 
@@ -112,7 +112,7 @@ class ItemsFaqController extends Controller
     public function edit($id)
     {
         $this->param['btnRight']['text'] = 'Lihat Data';
-        $this->param['btnRight']['link'] = route('berita.index');
+        $this->param['btnRight']['link'] = route('items-faq.index');
         $this->param['itemFAQ'] = DB::table('items_faq')
             ->where('id', $id)
             ->first();
