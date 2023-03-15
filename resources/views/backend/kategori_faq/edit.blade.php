@@ -46,7 +46,7 @@
                             @method('PUT')
                             <div class="position-relative form-group">
                                 <label for="name" class="">Nama Jenis</label>
-                                <input name="name" id="name" placeholder="Nama Jenis" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name', $data->nama_kategoriz1)}}">
+                                <input name="name" id="name" placeholder="Nama Jenis" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name', $data->nama_kategori)}}">
                                 @error('name')
                                     <div class="span text-danger">
                                         {{ $message }}
