@@ -84,11 +84,22 @@
                                     </tr>
                                     <tr>
                                         <th class="w-25">Kota</th>
-                                        <td>{{$data->kota}}</td>
+                                        <td>{{$data->nama_kota}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        @if ($data->status == 0)
+                            <div class="row ml-3 mt-3">
+                                <form action="{{ route('pengajuan-kredit.destroy', $data->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="button" class="btn btn-info btn-md" data-toggle="tooltip" title="Tindak Lanjuti" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menindak lanjuti?") }}') ? this.parentElement.submit() : ''">
+                                        Tindak Lanjuti
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

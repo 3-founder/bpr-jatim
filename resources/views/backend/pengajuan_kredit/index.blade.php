@@ -62,6 +62,7 @@
                                     <th>Calon Nasabah</th>
                                     <th>Nominal</th>
                                     <th>Tenor</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -77,17 +78,17 @@
                                         <td>{{ rupiah($item->nominal) }}</td>
                                         <td>{{ $item->tenor }}</td>
                                         <td>
+                                            @if ($item->status == 1)
+                                                Sudah Ditindak Lanjuti
+                                            @else
+                                                Belum Ditindak Lanjuti
+                                            @endif
+                                        </td>
+                                        <td>
                                             <div class="form-inline">
                                                 <a href="{{ route('pengajuan-kredit.show', $item->id) }}" class="mr-2">
                                                     <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-md" data-toggle="tooltip" title="Detail" data-placement="top"><span class="fa fa-eye"></span></button>
                                                 </a>
-                                                <form action="{{ route('pengajuan-kredit.destroy', $item->id) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="button" class="btn btn-danger btn-md" data-toggle="tooltip" title="Hapus" data-placement="top" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
-                                                        <span class="fa fa-trash"></span>
-                                                    </button>
-                                                </form>
                                             </div>
                                         </td>
                                     </tr>

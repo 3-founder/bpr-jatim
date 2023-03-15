@@ -25,6 +25,7 @@ class PengajuanKreditController extends Controller
                     'email' => $request->get('email'),
                     'alamat' => $request->get('alamat'),
                     'kota' => $request->get('kota'),
+                    'status' => 1,
                     'created_at' => now()
                 ]);
 

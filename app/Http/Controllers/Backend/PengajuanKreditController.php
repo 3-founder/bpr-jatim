@@ -62,8 +62,12 @@ class PengajuanKreditController extends Controller
     {
         $this->param['btnRight']['text'] = ' Lihat Data';
         $this->param['btnRight']['link'] = route('pengajuan-kredit.index');
+        $this->param['btnTindakLanjut']['text'] = 'Tindak Lanjut';
+        $this->param['btnTindakLanjut']['link'] = route('pengajuan-kredit.destroy', $id);
         $this->param['data'] = DB::table('pengajuan_kredit')
-            ->where('id', $id)
+            ->where('pengajuan_kredit.id', $id)
+            ->join('kota', 'kota.id', 'pengajuan_kredit.kota')
+            ->select('pengajuan_kredit.*', 'kota.nama_kota')
             ->first();
 
         if($this->param['data'] == null){
@@ -114,15 +118,17 @@ class PengajuanKreditController extends Controller
         try{
             DB::table('pengajuan_kredit')
                 ->where('id', $id)
-                ->delete();
+                ->update([
+                    'status' => '1'
+                ]);
 
-            return redirect()->route('pengajuan-kredit.index')->withStatus('Data berhasil dihapus.');
+            return redirect()->route('pengajuan-kredit.index')->withStatus('Data berhasil ditindak lanjuti.');
         } catch(Exception $e){
             DB::rollBack();
-            return redirect()->route('pengajuan-kredit.index')->withStatus('Data gagal dihapus. '.$e);
+            return redirect()->route('pengajuan-kredit.index')->withStatus('Data gagal ditindak lanjuti. '.$e);
         } catch(QueryException $e){
             DB::rollBack();
-            return redirect()->route('pengajuan-kredit.index')->withStatus('Data gagal dihapus. '.$e);
+            return redirect()->route('pengajuan-kredit.index')->withStatus('Data gagal ditindak lanjuti. '.$e);
         }
     }
 }
