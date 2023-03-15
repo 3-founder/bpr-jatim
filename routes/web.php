@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('kurs', 'Backend\KursController');
         Route::resource('laporan-keuangan', 'Backend\LaporanKeuanganController');
         Route::resource('kategori-faq', 'Backend\KategoriFaqController');
+        Route::post('items-faq/upload', 'Backend\ItemsFaqController@upload')->name('items-faq.upload');
         Route::resource('items-faq', 'Backend\ItemsFaqController');
         Route::resource('jumbotrons', JumbotronController::class);
         Route::resource('pengajuan-kredit', 'Backend\PengajuanKreditController');

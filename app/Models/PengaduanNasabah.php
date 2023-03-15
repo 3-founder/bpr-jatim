@@ -27,6 +27,7 @@ class PengaduanNasabah extends Model
         'tempat_lahir_perwakilan',
         'tgl_lahir_perwakilan',
         'jenis_kelamin_perwakilan',
+        'jenis_identitas_perwakilan',
         'nomor_identitas_perwakilan',
         'alamat_perwakilan',
         'no_telp_perwakilan',

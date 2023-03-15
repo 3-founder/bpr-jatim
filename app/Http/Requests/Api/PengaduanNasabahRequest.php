@@ -5,6 +5,7 @@ namespace App\Http\Requests\Api;
 use App\Exceptions\Api\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PengaduanNasabahRequest extends FormRequest
 {
@@ -25,12 +26,22 @@ class PengaduanNasabahRequest extends FormRequest
      */
     public function rules()
     {
+        $genders = [
+            'Laki-laki', 'perempuan',
+        ];
+
+        $rekenings = [
+            'Tabungan', 'Deposito', 'ATM', 'Kredit', 'Lainnya',
+        ];
+
         return [
             'id_kota' => 'required|exists:kota,id',
             'nama' => 'required',
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required|date',
-            'jenis_kelamin' => 'required',
+            'jenis_kelamin' => [
+                'required', Rule::in($genders),
+            ],
             'jenis_identitas' => 'required',
             'nomor_identitas' => 'required',
             'alamat' => 'required',
@@ -41,14 +52,18 @@ class PengaduanNasabahRequest extends FormRequest
             'nama_perwakilan' => 'required',
             'tempat_lahir_perwakilan' => 'required',
             'tgl_lahir_perwakilan' => 'required|date',
-            'jenis_kelamin_perwakilan' => 'required',
+            'jenis_kelamin_perwakilan' => [
+                'required', Rule::in($genders),
+            ],
             'jenis_identitas_perwakilan' => 'required',
             'nomor_identitas_perwakilan' => 'required',
             'alamat_perwakilan' => 'required',
             'no_telp_perwakilan' => 'required',
             'no_hp_perwakilan' => 'required',
             'no_fax_perwakilan' => 'required',
-            'jenis_rekening' => 'required',
+            'jenis_rekening' => [
+                'required', Rule::in($rekenings),
+            ],
             'detail_pengaduan' => 'required',
         ];
     }
