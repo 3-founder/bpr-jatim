@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Repository\CKEditorRepository;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -202,6 +203,20 @@ class ItemsFaqController extends Controller
         } catch (QueryException $e) {
             DB::rollBack();
             return redirect()->route('kategori-faq.index')->withStatus('Data gagal dihapus. ' . $e);
+        }
+    }
+
+    public function upload(Request $request)
+    {
+        $upload = $request->file('upload');
+
+        if ($upload) {
+            $uploadedFile = CKEditorRepository::upload($upload, 'upload/ckedit');
+
+            return response()->json([
+                'uploaded' => 1,
+                'url' => $request->getSchemeAndHttpHost() . "/{$uploadedFile}",
+            ]);
         }
     }
 }
