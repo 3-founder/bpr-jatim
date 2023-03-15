@@ -8,6 +8,10 @@
 	$hasil_rupiah = "Rp " . number_format($angka,2,',','.');
 	return $hasil_rupiah;
     }
+
+    $pokok = $data->nominal / ($data->tenor * 12);
+    $bunga = $pokok  * 0.0083;
+    $angsuran = $pokok + $bunga;
 @endphp
 @section('content')
     <div class="app-main__inner">
@@ -65,6 +69,10 @@
                                     <tr>
                                         <th class="w-25">Nominal</th>
                                         <td>{{rupiah($data->nominal)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Estimasi Angsuran per Bulan</th>
+                                        <td>{{ rupiah($angsuran) }}</td>
                                     </tr>
                                     <tr>
                                         <th class="w-25">Tenor</th>
