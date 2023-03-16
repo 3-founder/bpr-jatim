@@ -27,7 +27,7 @@ class PengaduanNasabahRequest extends FormRequest
     public function rules()
     {
         $genders = [
-            'Laki-laki', 'perempuan',
+            'Laki-Laki', 'Perempuan',
         ];
 
         $rekenings = [

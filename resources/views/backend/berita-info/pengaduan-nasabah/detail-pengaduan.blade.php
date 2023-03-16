@@ -121,7 +121,7 @@
                             <td>{{ ucwords($data->jenis_rekening) }}</td>
                         </tr>
                         <tr>
-                            <th class="w-25">Tempat & Tanggal Lahir</th>
+                            <th class="w-25">Detail Pengaduan</th>
                             <td>{{$data->detail_pengaduan != null ? $data->detail_pengaduan : '-'}}</td>
                         </tr>
                     </tbody>
