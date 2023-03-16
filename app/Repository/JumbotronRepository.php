@@ -7,7 +7,7 @@ use Illuminate\Http\UploadedFile;
 
 class JumbotronRepository
 {
-    public const FILEPATH = 'upload/jumbotron';
+    public const FILEPATH = 'public/upload/jumbotron';
 
     public static function add(UploadedFile $file): Jumbotron
     {
