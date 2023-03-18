@@ -122,7 +122,7 @@ class ItemsFaqController extends Controller
             return redirect()->route('items-faq.index')->withStatus('Data tidak dapat ditemukan.');
         }
 
-        return view('Backend/items_faq.edit', $this->param);
+        return view('backend/items_faq.edit', $this->param);
     }
 
     /**

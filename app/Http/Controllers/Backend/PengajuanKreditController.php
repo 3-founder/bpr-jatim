@@ -28,7 +28,7 @@ class PengajuanKreditController extends Controller
         $this->param['data'] = DB::table('pengajuan_kredit')
             ->paginate(10);
 
-        return view('backend\pengajuan_kredit\index', $this->param);
+        return view('backend.pengajuan_kredit.index', $this->param);
     }
 
     /**
@@ -74,7 +74,7 @@ class PengajuanKreditController extends Controller
             return redirect()->route('pengajuan-kredit.index')->withStatus('Data tidak dapat ditemukan.');
         }
 
-        return view('backend\pengajuan_kredit\detail', $this->param);
+        return view('backend.pengajuan_kredit.detail', $this->param);
     }
 
     /**
