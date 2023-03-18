@@ -70,4 +70,14 @@ class TanggungJawabPerusahaanController extends Controller
             ], 200
         );
     }
+
+    public function getAllTanggungJawab()
+    {
+        $data = TanggungJawabPerusahaan::select('*')->orderBy('tahun', 'DESC')->get();
+
+        return response()->json([
+            'msg' => 'successfully get data.',
+            'data' => $data
+        ], 200);
+    }
 }

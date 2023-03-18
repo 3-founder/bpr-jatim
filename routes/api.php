@@ -107,6 +107,7 @@ Route::get('get-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getIn
 Route::get('get-tahun-tanggung-jawab-perusahaan', [tjController::class, 'getTahun']);
 Route::get('get-default-tanggung-jawab-perusahaan/{tahun}', [tjController::class, 'getDefaultContent']);
 Route::get('get-selected-tanggung-jawab-perusahaan/{tahun}/{id}', [tjController::class, 'getDefaultContent']);
+Route::get('get-tanggung-jawab-perusahaan-all', [tjController::class, 'getAllTanggungJawab']);
 
 // Get FAQ
 Route::get('get-kategori-faq', [FAQController::class, 'getKategoriIndex']);
