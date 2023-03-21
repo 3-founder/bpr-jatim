@@ -3,18 +3,19 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\PengajuanKreditRequest;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class PengajuanKreditController extends Controller
 {
-    public function postPengajuanKredit(Request $request)
+    public function postPengajuanKredit(PengajuanKreditRequest $request)
     {
         $status = null;
         $message = null;
-
         try{
             DB::table('pengajuan_kredit')
                 ->insert([
@@ -42,6 +43,6 @@ class PengajuanKreditController extends Controller
         return response()->json([
             'status' => $status,
             'message' => $message,
-        ]);
-    }
+        ], Response::HTTP_CREATED);
+    } 
 }
