@@ -25,7 +25,7 @@ class PenghargaanController extends Controller
             $data = $data->paginate(5);
             
             foreach ($data as $key => $value) {
-                $value->cover = $request->getSchemeAndHttpHost().$value->cover;
+                $value->cover = $request->getSchemeAndHttpHost().'/'.$value->cover;
             }
             $status = 200;
             $message = 'berhasil';
@@ -57,7 +57,7 @@ class PenghargaanController extends Controller
 
         try {
             $data = Penghargaan::where('slug', $slug)->first();
-            $data->cover = $request->getSchemeAndHttpHost().$data->cover;
+            $data->cover = $request->getSchemeAndHttpHost().'/'.$data->cover;
             $status = 200;
             $message = 'berhasil';
         }
