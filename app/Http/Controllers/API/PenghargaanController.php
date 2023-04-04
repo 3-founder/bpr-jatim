@@ -57,7 +57,7 @@ class PenghargaanController extends Controller
 
         try {
             $data = Penghargaan::where('slug', $slug)->first();
-            $data->cover = $request->getSchemeAndHttpHost().'/public/'.$data->cover;
+            $data->cover = $request->getSchemeAndHttpHost().$data->cover;
             $status = 200;
             $message = 'berhasil';
         }
