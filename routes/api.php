@@ -35,6 +35,10 @@ Route::get('get-promo-home', 'API\HomeController@getPromo');
 Route::get('get-about/{tipe}', 'API\AboutController@getAboutByTipe');
 /** END Tentang */
 
+/* Tata Kelola Perusahaan */
+Route::get('get-tata-kelola','API\TataKelolaController@getData');
+/* End-Tata Kelola Perusahaan */
+
 /** Produk & Layanan */
 Route::get('get-nav-menu-produk-layanan', 'API\ProdukLayananController@getMenuProdukLayanan');
 Route::get('get-nav-item-produk-layanan/{id_jenis}', 'API\ProdukLayananController@getItemProdukLayananByJenis');
