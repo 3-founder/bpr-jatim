@@ -7,7 +7,7 @@ use Illuminate\Http\UploadedFile;
 
 class JumbotronRepository
 {
-    public const FILEPATH = 'public/upload/jumbotron';
+    public const FILEPATH = 'upload/jumbotron';
 
     public static function add(UploadedFile $file): Jumbotron
     {
@@ -19,7 +19,7 @@ class JumbotronRepository
     {
         $name = time() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path(self::FILEPATH), $name);
-
+        echo public_path();
         return self::FILEPATH . "/{$name}";
     }
 }
