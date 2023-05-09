@@ -20,6 +20,6 @@ class JumbotronRepository
         $name = time() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path(self::FILEPATH), $name);
         echo public_path();
-        return self::FILEPATH . "/{$name}";
+        return self::FILEPATH . "/public/{$name}";
     }
 }
