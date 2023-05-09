@@ -18,8 +18,8 @@ class JumbotronRepository
     private static function upload(UploadedFile $file): string
     {
         $name = time() . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path(self::FILEPATH), $name);
-        echo public_path();
-        return self::FILEPATH . "/public/{$name}";
+        $file->move(public_path("/public" . self::FILEPATH), $name);
+        
+        return self::FILEPATH . "/{$name}";
     }
 }
