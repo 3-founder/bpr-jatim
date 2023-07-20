@@ -27,10 +27,11 @@ class PengaduanNasabahController extends Controller
                 'pengaduan_nasabah.jenis_kelamin',
                 'pengaduan_nasabah.alamat',
                 'pengaduan_nasabah.nomor_identitas',
+                'pengaduan_nasabah.created_at',
                 'kota.nama_kota'
             )
             ->join('kota', 'kota.id', 'pengaduan_nasabah.id_kota')
-            ->orderBy('nama', 'ASC');
+            ->orderBy('pengaduan_nasabah.created_at', 'DESC');
 
             if ($keyword) {
                 $data->where('pengaduan_nasabah.nama', 'LIKE', "%$keyword%")

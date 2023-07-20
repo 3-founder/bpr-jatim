@@ -52,6 +52,7 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th>Cabang</th>
+                                    <th>Tanggal</th>
                                     <th>Nomor Identitas</th>
                                     <th>Nama Nasabah</th>
                                     <th>Jenis Kelamin</th>
@@ -68,6 +69,7 @@
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
                                         <td>{{ ucwords($item->nama_kota) }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                                         <td>{{ $item->nomor_identitas }}</td>
                                         <td>{{ ucwords($item->nama) }}</td>
                                         <td>{{ $item->jenis_kelamin }}</td>

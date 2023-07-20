@@ -79,6 +79,10 @@
                                         <td>{{$data->tenor}} Tahun</td>
                                     </tr>
                                     <tr>
+                                        <th class="w-25">Tanggal</th>
+                                        <td>{{ date('d-m-Y', strtotime($data->created_at)) }}</td>
+                                    </tr>
+                                    <tr>
                                         <th class="w-25">Alamat</th>
                                         <td>{{$data->alamat}}</td>
                                     </tr>

@@ -26,6 +26,9 @@ class PengajuanKreditController extends Controller
     public function index()
     {
         $this->param['data'] = DB::table('pengajuan_kredit')
+            ->select('pengajuan_kredit.*','kota.nama_kota')
+            ->join('kota', 'kota.id', 'pengajuan_kredit.kota')
+            ->orderByDesc('pengajuan_kredit.created_at')
             ->paginate(10);
 
         return view('backend.pengajuan_kredit.index', $this->param);

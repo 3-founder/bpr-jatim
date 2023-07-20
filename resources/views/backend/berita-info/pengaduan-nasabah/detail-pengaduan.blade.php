@@ -47,6 +47,10 @@
                                     <td>{{ ucwords($data->nama_kota) }}</td>
                                 </tr>
                                 <tr>
+                                    <th class="w-25">Tanggal Pengaduan</th>
+                                    <td>{{ date('d-m-Y', strtotime(ucwords($data->created_at))) }}</td>
+                                </tr>
+                                <tr>
                                     <th class="w-25">Nama Nasabah</th>
                                     <td>{{ ucwords($data->nama) }}</td>
                                 </tr>

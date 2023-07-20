@@ -60,8 +60,10 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th>Calon Nasabah</th>
+                                    <th>Kota</th>
                                     <th>Nominal</th>
                                     <th>Tenor</th>
+                                    <th>Tanggal</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -75,8 +77,10 @@
                                     <tr>
                                         <td class="text-center text-muted">{{ $no }}</td>
                                         <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->nama_kota }}</td>
                                         <td>{{ rupiah($item->nominal) }}</td>
                                         <td>{{ $item->tenor }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                                         <td>
                                             @if ($item->status == 1)
                                                 Sudah Ditindak Lanjuti
