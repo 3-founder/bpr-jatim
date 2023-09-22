@@ -347,7 +347,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ url('administrator/about?t=komposisi') }}">
+                                            <a href="{{ route('komposisi-saham.index') }}">
                                                 <i class="metismenu-icon">
                                                 </i>Komposisi Saham
                                             </a>
