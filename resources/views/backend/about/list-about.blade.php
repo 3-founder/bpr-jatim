@@ -53,8 +53,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ str_replace('_', ' ', $item->tipe) }}</h5>
                     <form action="{{route('about.update', $item->id)}}" method="POST" autocomplete="off">
-                    @csrf
-                    @method('PUT')
+                        @csrf
+                        <input type="hidden" name="tipe" value="{{$_GET['t']}}">
+                        @method('PUT')
                         @include('backend.about.partials.form-control')
                         <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
                     </form>

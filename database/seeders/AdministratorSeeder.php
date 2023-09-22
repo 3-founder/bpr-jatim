@@ -27,29 +27,36 @@ class AdministratorSeeder extends Seeder
         // $administrator->role = 'admin';
         // $administrator->save();
 
-        User::create([
+        $admin = User::create([
             'name' => 'Administrator',
             'email' => 'administrator@mail.com',
             'password' => Hash::make('mwb546hs51'),
             'role' => 'admin'
         ]);
-        User::create([
+        $admin->assignRole('admin');
+
+        $produklayanan = User::create([
             'name' => 'Admin Produk & Layanan',
             'email' => 'produklayanan@mail.com',
             'password' => Hash::make('12345678'),
             'role' => 'produklayanan'
         ]);
-        User::create([
+        $produklayanan->assignRole('produklayanan');
+
+        $berita = User::create([
             'name' => 'Admin Berita',
             'email' => 'berita@mail.com',
             'password' => Hash::make('12345678'),
             'role' => 'berita'
         ]);
-        User::create([
+        $berita->assignRole('berita');
+
+        $umkmbinaan = User::create([
             'name' => 'Admin Umkm Binaan',
             'email' => 'umkmbinaan@mail.com',
             'password' => Hash::make('12345678'),
             'role' => 'umkmbinaan'
         ]);
+        $umkmbinaan->assignRole('umkmbinaan');
     }
 }

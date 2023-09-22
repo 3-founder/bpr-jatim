@@ -32,7 +32,9 @@
 
     @yield('extraCSS')
 </head>
-
+@php
+$role = \DB::table('model_has_roles')->where('model_id', Auth::user()->id)->first();
+@endphp
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-header">
         <div class="app-header header-shadow">
