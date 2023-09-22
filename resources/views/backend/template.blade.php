@@ -32,9 +32,6 @@
 
     @yield('extraCSS')
 </head>
-@php
-$role = \DB::table('model_has_roles')->where('model_id', Auth::user()->id)->first();
-@endphp
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-header">
         <div class="app-header header-shadow">
@@ -155,135 +152,201 @@ $role = \DB::table('model_has_roles')->where('model_id', Auth::user()->id)->firs
                 <div class="scrollbar-sidebar">
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
-                            <li class="app-sidebar__heading">Dashboards</li>
-                            <li>
-                                <a href="{{ url('administrator/dashboard') }}"
-                                    class="{{ Request::segment(2) == 'dashboard' ? 'mm-active' : '' }}">
-                                    {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                    <i class="metismenu-icon fa fa-tachometer-alt icon-gradient bg-arielle-smile"></i>
-                                    Dashboard
-                                </a>
-                            </li>
+                            @php
+                                $has_permission_dashboard = \App\Http\Controllers\Controller::hasPermission('Dashboard');
+                            @endphp
+                            @if ($has_permission_dashboard)
+                                <li class="app-sidebar__heading">Dashboards</li>
+                                <li>
+                                    <a href="{{ url('administrator/dashboard') }}"
+                                        class="{{ Request::segment(2) == 'dashboard' ? 'mm-active' : '' }}">
+                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                        <i class="metismenu-icon fa fa-tachometer-alt icon-gradient bg-arielle-smile"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+                            @endif
 
-                            @if (auth()->user()->role == 'admin')
+                            @php
+                                $master_menu = \Spatie\Permission\Models\Permission::where('name', 'like', 'Master%')->pluck('name')->toArray();
+                                $has_permission_master = [];
+                                for ($i=0; $i< count($master_menu); $i++) {
+                                    $has_permission = \App\Http\Controllers\Controller::hasPermission($master_menu[$i]);
+                                    $has_permission_master[$master_menu[$i]] = $has_permission;
+                                }
+
+                                $no_master_menu_allowed = true; // if all has_permission_master is false
+                                foreach ($has_permission_master as $item) {
+                                    if ($item) {
+                                        $no_master_menu_allowed = false;
+                                        break;
+                                    }
+                                }
+                            @endphp
+                            @if (!$no_master_menu_allowed)
                                 <li class="app-sidebar__heading">Master</li>
-                                <li>
-                                    <a href="{{ url('administrator/user') }}"
-                                        class="{{ Request::segment(2) == 'user' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i class="metismenu-icon fa fa-users icon-gradient bg-arielle-smile"></i>
-                                        User
-                                    </a>
-                                </li>
 
-                                <li>
-                                    <a href="{{ url('administrator/profil') }}"
-                                        class="{{ Request::segment(2) == 'profil' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i
-                                            class="metismenu-icon fa fa-address-card icon-gradient bg-arielle-smile"></i>
-                                        Profil Perusahaan
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master User'])
+                                    <li>
+                                        <a href="{{ url('administrator/user') }}"
+                                            class="{{ Request::segment(2) == 'user' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i class="metismenu-icon fa fa-users icon-gradient bg-arielle-smile"></i>
+                                            User
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ url('administrator/intro-vidio') }}"
-                                        class="{{ Request::segment(2) == 'intro-vidio' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i class="metismenu-icon fa fa-film icon-gradient bg-arielle-smile"></i>
-                                        Vidio Intro
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Profil Perusahaan'])
+                                    <li>
+                                        <a href="{{ url('administrator/profil') }}"
+                                            class="{{ Request::segment(2) == 'profil' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i
+                                                class="metismenu-icon fa fa-address-card icon-gradient bg-arielle-smile"></i>
+                                            Profil Perusahaan
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ url('administrator/kebijakan-privasi') }}"
-                                        class="{{ Request::segment(2) == 'kebijakan-privasi' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i class="metismenu-icon fa fa-user-shield icon-gradient bg-arielle-smile"></i>
-                                        Kebijakan Privasi
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Vidio Intro'])
+                                    <li>
+                                        <a href="{{ url('administrator/intro-vidio') }}"
+                                            class="{{ Request::segment(2) == 'intro-vidio' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i class="metismenu-icon fa fa-film icon-gradient bg-arielle-smile"></i>
+                                            Vidio Intro
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ url('administrator/sk') }}"
-                                        class="{{ Request::segment(2) == 'sk' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i class="metismenu-icon fa fa-handshake icon-gradient bg-arielle-smile"></i>
-                                        Syarat dan Ketentuan
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Kebijakan Privasi'])
+                                    <li>
+                                        <a href="{{ url('administrator/kebijakan-privasi') }}"
+                                            class="{{ Request::segment(2) == 'kebijakan-privasi' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i class="metismenu-icon fa fa-user-shield icon-gradient bg-arielle-smile"></i>
+                                            Kebijakan Privasi
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ url('administrator/bunga') }}"
-                                        class="{{ Request::segment(2) == 'bunga' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i
-                                            class="metismenu-icon fa fa-file-invoice-dollar icon-gradient bg-arielle-smile"></i>
-                                        Bunga
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Syarat dan Ketentuan'])
+                                    <li>
+                                        <a href="{{ url('administrator/sk') }}"
+                                            class="{{ Request::segment(2) == 'sk' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i class="metismenu-icon fa fa-handshake icon-gradient bg-arielle-smile"></i>
+                                            Syarat dan Ketentuan
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ url('administrator/tenor') }}"
-                                        class="{{ Request::segment(2) == 'tenor' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i
-                                            class="metismenu-icon fa fa-business-time icon-gradient bg-arielle-smile"></i>
-                                        Tenor
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Bunga'])
+                                    <li>
+                                        <a href="{{ url('administrator/bunga') }}"
+                                            class="{{ Request::segment(2) == 'bunga' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i
+                                                class="metismenu-icon fa fa-file-invoice-dollar icon-gradient bg-arielle-smile"></i>
+                                            Bunga
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ url('administrator/kota') }}"
-                                        class="{{ Request::segment(2) == 'kota' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i class="metismenu-icon fa fa-home icon-gradient bg-arielle-smile"></i>
-                                        Cabang
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Tenor'])
+                                    <li>
+                                        <a href="{{ url('administrator/tenor') }}"
+                                            class="{{ Request::segment(2) == 'tenor' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i
+                                                class="metismenu-icon fa fa-business-time icon-gradient bg-arielle-smile"></i>
+                                            Tenor
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ url('administrator/kurs') }}"
-                                        class="{{ Request::segment(2) == 'kurs' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i class="metismenu-icon fa fa-dollar-sign icon-gradient bg-arielle-smile"></i>
-                                        Kurs
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Cabang'])
+                                    <li>
+                                        <a href="{{ url('administrator/kota') }}"
+                                            class="{{ Request::segment(2) == 'kota' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i class="metismenu-icon fa fa-home icon-gradient bg-arielle-smile"></i>
+                                            Cabang
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ url('administrator/laporan-keuangan') }}"
-                                        class="{{ Request::segment(2) == 'laporan-keuangan' ? 'mm-active' : '' }}">
-                                        <i class="metismenu-icon fa fa-book icon-gradient bg-arielle-smile"></i>
-                                        Laporan Keuangan
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('administrator/tata-kelola-perusahaan') }}"
-                                        class="{{ Request::segment(2) == 'tata-kelola-perusahaan' ? 'mm-active' : '' }}">
-                                        <i class="metismenu-icon fa fa-briefcase icon-gradient bg-arielle-smile"></i>
-                                        Tata Kelola Perusahaan
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Kurs'])
+                                    <li>
+                                        <a href="{{ url('administrator/kurs') }}"
+                                            class="{{ Request::segment(2) == 'kurs' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i class="metismenu-icon fa fa-dollar-sign icon-gradient bg-arielle-smile"></i>
+                                            Kurs
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ route('tanggung-jawab-perusahaan.index') }}"
-                                        class="{{ Request::segment(2) == 'tanggung-jawab-perusahaan' ? 'mm-active' : '' }}">
-                                        <i class="metismenu-icon fa fa-book icon-gradient bg-arielle-smile"></i>
-                                        Tanggung Jawab Perusahaan
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Laporan Keuangan'])
+                                    <li>
+                                        <a href="{{ url('administrator/laporan-keuangan') }}"
+                                            class="{{ Request::segment(2) == 'laporan-keuangan' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon fa fa-book icon-gradient bg-arielle-smile"></i>
+                                            Laporan Keuangan
+                                        </a>
+                                    </li>
+                                @endif
 
-                                <li>
-                                    <a href="{{ route('jumbotrons.index') }}"
-                                        class="{{ Request::segment(2) == 'jumbotrons' ? 'mm-active' : '' }}">
-                                        {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
-                                        <i
-                                            class="metismenu-icon fa fa-address-card icon-gradient bg-arielle-smile"></i>
-                                        Jumbotron
-                                    </a>
-                                </li>
+                                @if ($has_permission_master['Master Tata Kelola Perusahaan'])
+                                    <li>
+                                        <a href="{{ url('administrator/tata-kelola-perusahaan') }}"
+                                            class="{{ Request::segment(2) == 'tata-kelola-perusahaan' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon fa fa-briefcase icon-gradient bg-arielle-smile"></i>
+                                            Tata Kelola Perusahaan
+                                        </a>
+                                    </li>
+                                @endif
 
+                                @if ($has_permission_master['Master Tanggung Jawab Perusahaan'])
+                                    <li>
+                                        <a href="{{ route('tanggung-jawab-perusahaan.index') }}"
+                                            class="{{ Request::segment(2) == 'tanggung-jawab-perusahaan' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon fa fa-book icon-gradient bg-arielle-smile"></i>
+                                            Tanggung Jawab Perusahaan
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if ($has_permission_master['Master Jumbotron'])
+                                    <li>
+                                        <a href="{{ route('jumbotrons.index') }}"
+                                            class="{{ Request::segment(2) == 'jumbotrons' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i
+                                                class="metismenu-icon fa fa-address-card icon-gradient bg-arielle-smile"></i>
+                                            Jumbotron
+                                        </a>
+                                    </li>
+                                @endif
+                            @endif
+
+                            @php
+                                $tentang_menu = \Spatie\Permission\Models\Permission::where('name', 'like', 'Tentang BPR%')->pluck('name')->toArray();
+                                $has_permission_tentang = [];
+                                for ($i=0; $i< count($tentang_menu); $i++) {
+                                    $has_permission = \App\Http\Controllers\Controller::hasPermission($tentang_menu[$i]);
+                                    $has_permission_tentang[$tentang_menu[$i]] = $has_permission;
+                                }
+                                $no_tentang_menu_allowed = true; // if all has_permission_tentang is false
+                                foreach ($has_permission_tentang as $item) {
+                                    if ($item) {
+                                        $no_tentang_menu_allowed = false;
+                                        break;
+                                    }
+                                }
+                            @endphp
+                            @if (!$no_tentang_menu_allowed)
                                 <li class="app-sidebar__heading">Tentang BPR</li>
                                 <li>
                                     <a href="#">
@@ -294,45 +357,79 @@ $role = \DB::table('model_has_roles')->where('model_id', Auth::user()->id)->firs
                                             pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul>
-                                        <li>
-                                            <a href="{{ url('administrator/about?t=sejarah') }}">
-                                                <i class="metismenu-icon">
-                                                </i>Sejarah
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/about?t=visi-misi') }}">
-                                                <i class="metismenu-icon">
-                                                </i>Visi Misi
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/about?t=peranan') }}">
-                                                <i class="metismenu-icon">
-                                                </i>Peranan
-                                            </a>
-                                        </li>
+                                        @if ($has_permission_tentang['Tentang BPR - Sejarah'])
+                                            <li>
+                                                <a href="{{ url('administrator/about?t=sejarah') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Sejarah
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_tentang['Tentang BPR - Visi Misi'])
+                                            <li>
+                                                <a href="{{ url('administrator/about?t=visi-misi') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Visi Misi
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_tentang['Tentang BPR - Peranan'])
+                                            <li>
+                                                <a href="{{ url('administrator/about?t=peranan') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Peranan
+                                                </a>
+                                            </li>
+                                        @endif
+                                        
                                         {{-- <li>
-                                        <a href="{{ url('administrator/about?t=struktur') }}">
-                                            <i class="metismenu-icon">
-                                            </i>Struktur Organisasi
-                                        </a>
-                                    </li> --}}
-                                        <li>
-                                            <a href="{{ url('administrator/about?t=manajemen') }}">
+                                            <a href="{{ url('administrator/about?t=struktur') }}">
                                                 <i class="metismenu-icon">
-                                                </i>Manajemen
+                                                </i>Struktur Organisasi
                                             </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/about?t=identitas') }}">
-                                                <i class="metismenu-icon">
-                                                </i>Identitas Perusahaan
-                                            </a>
-                                        </li>
+                                        </li> --}}
+
+                                        @if ($has_permission_tentang['Tentang BPR - Manajemen'])
+                                            <li>
+                                                <a href="{{ url('administrator/about?t=manajemen') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Manajemen
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_tentang['Tentang BPR - Identitas Perusahaan'])
+                                            <li>
+                                                <a href="{{ url('administrator/about?t=identitas') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Identitas Perusahaan
+                                                </a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </li>
+                            @endif
 
+                            @php
+                                $transparansi_menu = \Spatie\Permission\Models\Permission::where('name', 'like', 'Transparansi%')->pluck('name')->toArray();
+                                $has_permission_transparansi = [];
+                                for ($i=0; $i< count($transparansi_menu); $i++) {
+                                    $has_permission = \App\Http\Controllers\Controller::hasPermission($transparansi_menu[$i]);
+                                    $has_permission_transparansi[$transparansi_menu[$i]] = $has_permission;
+                                }
+
+                                $no_transparansi_menu_allowed = true; // if all has_permission_transparansi is false
+                                foreach ($has_permission_transparansi as $item) {
+                                    if ($item) {
+                                        $no_transparansi_menu_allowed = false;
+                                        break;
+                                    }
+                                }
+                            @endphp
+
+                            @if (!$no_transparansi_menu_allowed)
                                 <li>
                                     <a href="#">
                                         <i class="metismenu-icon fa fa-eye icon-gradient bg-arielle-smile"></i>
@@ -342,29 +439,53 @@ $role = \DB::table('model_has_roles')->where('model_id', Auth::user()->id)->firs
                                             pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul>
-                                        <li>
-                                            <a href="{{ url('administrator/about?t=hukum') }}">
-                                                <i class="metismenu-icon">
-                                                </i>Hukum Perusahaan
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/about?t=komposisi') }}">
-                                                <i class="metismenu-icon">
-                                                </i>Komposisi Saham
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/about?t=tata_kelola') }}">
-                                                <i class="metismenu-icon">
-                                                </i>Tata Kelola Perusahaan
-                                            </a>
-                                        </li>
+                                        @if ($has_permission_transparansi['Transparansi - Hukum Perusahaan'])
+                                            <li>
+                                                <a href="{{ url('administrator/about?t=hukum') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Hukum Perusahaan
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_transparansi['Transparansi - Komposisi Saham'])
+                                            <li>
+                                                <a href="{{ url('administrator/about?t=komposisi') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Komposisi Saham
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_transparansi['Transparansi - Tata Kelola Perusahaan'])
+                                            <li>
+                                                <a href="{{ url('administrator/about?t=tata_kelola') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Tata Kelola Perusahaan
+                                                </a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </li>
                             @endif
 
-                            @if (auth()->user()->role == 'produklayanan' || auth()->user()->role == 'admin')
+                            @php
+                                $produk_layanan_menu = \Spatie\Permission\Models\Permission::where('name', 'like', 'Produk & Layanan%')->pluck('name')->toArray();
+                                $has_permission_produk_layanan = [];
+                                for ($i=0; $i< count($produk_layanan_menu); $i++) {
+                                    $has_permission = \App\Http\Controllers\Controller::hasPermission($produk_layanan_menu[$i]);
+                                    $has_permission_produk_layanan[$produk_layanan_menu[$i]] = $has_permission;
+                                }
+
+                                $no_produk_layanan_menu_allowed = true; // if all has_permission_produk_layanan is false
+                                foreach ($has_permission_produk_layanan as $item) {
+                                    if ($item) {
+                                        $no_produk_layanan_menu_allowed = false;
+                                        break;
+                                    }
+                                }
+                            @endphp
+                            @if (!$no_produk_layanan_menu_allowed)
                                 <li class="app-sidebar__heading">Produk & Layanan</li>
                                 <li>
                                     <a href="#">
@@ -375,23 +496,32 @@ $role = \DB::table('model_has_roles')->where('model_id', Auth::user()->id)->firs
                                             pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul>
-                                        <li>
-                                            <a href="{{ route('jenis-produk-layanan.index') }}">
-                                                <i class="metismenu-icon">
-                                                </i>Master Jenis
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('item-produk-layanan.index') }}">
-                                                <i class="metismenu-icon">
-                                                </i>Master Konten
-                                            </a>
-                                        </li>
+                                        @if ($has_permission_produk_layanan['Produk & Layanan - Master Jenis'])
+                                            <li>
+                                                <a href="{{ route('jenis-produk-layanan.index') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Master Jenis
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_produk_layanan['Produk & Layanan - Master Konten'])
+                                            <li>
+                                                <a href="{{ route('item-produk-layanan.index') }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Master Konten
+                                                </a>
+                                            </li>
+                                        @endif
                                         <li>
                                     </ul>
                                 </li>
                             @endif
-                            @if (auth()->user()->role == 'umkmbinaan' || auth()->user()->role == 'admin')
+
+                            @php
+                                $has_permission_umkm_binaan = \App\Http\Controllers\Controller::hasPermission('UMKM Binaan');
+                            @endphp
+                            @if ($has_permission_umkm_binaan)
                                 <li class="app-sidebar__heading">UMKM Binaan</li>
                                 <li>
                                     <a href="{{ url('administrator/umkm-binaan') }}"
@@ -404,7 +534,24 @@ $role = \DB::table('model_has_roles')->where('model_id', Auth::user()->id)->firs
                                 </li>
                             @endif
 
-                            @if (auth()->user()->role == 'berita' || auth()->user()->role == 'admin')
+                            @php
+                                $berita_info_menu = \Spatie\Permission\Models\Permission::where('name', 'like', 'Berita & Info%')->pluck('name')->toArray();
+                                $has_permission_berita_info = [];
+                                for ($i=0; $i< count($berita_info_menu); $i++) {
+                                    $has_permission = \App\Http\Controllers\Controller::hasPermission($berita_info_menu[$i]);
+                                    $has_permission_berita_info[$berita_info_menu[$i]] = $has_permission;
+                                }
+                                
+                                $no_berita_info_menu_allowed = true; // if all has_permission_berita_info is false
+                                foreach ($has_permission_berita_info as $item) {
+                                    if ($item) {
+                                        $no_berita_info_menu_allowed = false;
+                                        break;
+                                    }
+                                }
+                            @endphp
+
+                            @if (!$no_berita_info_menu_allowed)
                                 <li class="app-sidebar__heading">Berita & Info</li>
                                 <li>
                                     <a href="#"
@@ -418,111 +565,160 @@ $role = \DB::table('model_has_roles')->where('model_id', Auth::user()->id)->firs
                                     </a>
                                     <ul
                                         class="{{ Request::segment(2) == 'berita-info' ? 'mm-collapse mm-show' : '' }}">
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/kategori-berita') }}"
-                                                class="{{ Request::segment(3) == 'kategori-berita' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon"></i>
-                                                Kategori Berita
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/berita') }}"
-                                                class="{{ Request::segment(3) == 'berita' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon"></i>
-                                                Berita
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/promo') }}"
-                                                class="{{ Request::segment(3) == 'promo' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon">
-                                                </i>Promo
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/epaper') }}"
-                                                class="{{ Request::segment(3) == 'epaper' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon">
-                                                </i>ePaper UMKM
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/penghargaan') }}"
-                                                class="{{ Request::segment(3) == 'penghargaan' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon">
-                                                </i>Penghargaan
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/peta-cabang') }}"
-                                                class="{{ Request::segment(3) == 'peta-cabang' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon">
-                                                </i>Peta Cabang
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/karier') }}"
-                                                class="{{ Request::segment(3) == 'karier' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon">
-                                                </i>Karier
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('pengaduan-nasabah') }}"
-                                                class="{{ Request::segment(3) == 'pengaduan-nasabah' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon">
-                                                </i>Data Pengaduan Nasabah
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/tips-info-terkini') }}"
-                                                class="{{ Request::segment(3) == 'tips-info-terkini' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon">
-                                                </i>Tips Keamanan & Info Terkini
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/jaringan-kantor') }}"
-                                                class="{{ Request::segment(3) == 'jaringan-kantor' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon">
-                                                </i>Jaringan Kantor Kas
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('administrator/berita-info/pengumuman-lelang-jaminan') }}"
-                                                class="{{ Request::segment(3) == 'pengumuman-lelang-jaminan' ? 'mm-active' : '' }}">
-                                                <i class="metismenu-icon">
-                                                </i>Pengumuman Lelang Jaminan
-                                            </a>
-                                        </li>
+                                        @if ($has_permission_berita_info['Berita & Info - Kategori Berita'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/kategori-berita') }}"
+                                                    class="{{ Request::segment(3) == 'kategori-berita' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon"></i>
+                                                    Kategori Berita
+                                                </a>
+                                            </li>
+                                        @endif
+                                        
+                                        @if ($has_permission_berita_info['Berita & Info - Berita'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/berita') }}"
+                                                    class="{{ Request::segment(3) == 'berita' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon"></i>
+                                                    Berita
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_berita_info['Berita & Info - Promo'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/promo') }}"
+                                                    class="{{ Request::segment(3) == 'promo' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Promo
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_berita_info['Berita & Info - ePaper UMKM'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/epaper') }}"
+                                                    class="{{ Request::segment(3) == 'epaper' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>ePaper UMKM
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_berita_info['Berita & Info - Penghargaan'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/penghargaan') }}"
+                                                    class="{{ Request::segment(3) == 'penghargaan' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Penghargaan
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_berita_info['Berita & Info - Peta Cabang'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/peta-cabang') }}"
+                                                    class="{{ Request::segment(3) == 'peta-cabang' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Peta Cabang
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_berita_info['Berita & Info - Karier'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/karier') }}"
+                                                    class="{{ Request::segment(3) == 'karier' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Karier
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_berita_info['Berita & Info - Data Pengaduan Nasabah'])
+                                            <li>
+                                                <a href="{{ route('pengaduan-nasabah') }}"
+                                                    class="{{ Request::segment(3) == 'pengaduan-nasabah' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Data Pengaduan Nasabah
+                                                </a>
+                                            </li>
+                                        @endif
+                                        
+                                        @if ($has_permission_berita_info['Berita & Info - Tips Keamanan & Info Terkini'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/tips-info-terkini') }}"
+                                                    class="{{ Request::segment(3) == 'tips-info-terkini' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Tips Keamanan & Info Terkini
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($has_permission_berita_info['Berita & Info - Jaringan Kantor Kas'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/jaringan-kantor') }}"
+                                                    class="{{ Request::segment(3) == 'jaringan-kantor' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Jaringan Kantor Kas
+                                                </a>
+                                            </li>
+                                        @endif
+                                        
+                                        @if ($has_permission_berita_info['Berita & Info - Pengumuman Lelang Jaminan'])
+                                            <li>
+                                                <a href="{{ url('administrator/berita-info/pengumuman-lelang-jaminan') }}"
+                                                    class="{{ Request::segment(3) == 'pengumuman-lelang-jaminan' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon">
+                                                    </i>Pengumuman Lelang Jaminan
+                                                </a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </li>
                             @endif
-                            @if (auth()->user()->role == 'admin')
-                                <li class="app-sidebar__heading">FAQ</li>
-                                <li>
-                                    <a href="{{ url('administrator/kategori-faq') }}"
-                                        class="{{ Request::segment(4) == 'kategori-faq' ? 'mm-active' : '' }}">
-                                        <i class="metismenu-icon">
-                                        </i>Kategori FAQ
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('administrator/items-faq') }}"
-                                        class="{{ Request::segment(4) == 'items-faq' ? 'mm-active' : '' }}">
-                                        <i class="metismenu-icon">
-                                        </i>Item FAQ
-                                    </a>
-                                </li>
 
-                                <li class="app-sidebar__heading">Pengajuan Kredit</li>
-                                <li>
-                                    <a href="{{ url('administrator/pengajuan-kredit') }}"
-                                        class="{{ Request::segment(5) == 'pengajuan-kredit' ? 'mm-active' : '' }}">
-                                        <i class="metismenu-icon">
-                                        </i>List Pengajuan Kredit
-                                    </a>
-                                </li>
+
+                            @php
+                                $has_permission_kategori_faq = \App\Http\Controllers\Controller::hasPermission('Kategori FAQ');
+                                $has_permission_item_faq = \App\Http\Controllers\Controller::hasPermission('Item FAQ');
+                                $no_faq_menu_allowed = !$has_permission_kategori_faq && !$has_permission_item_faq; // if all faq menu is false
+                            @endphp
+                            @if (!$no_faq_menu_allowed)
+                                <li class="app-sidebar__heading">FAQ</li>
+                                @if ($has_permission_kategori_faq)
+                                    <li>
+                                        <a href="{{ url('administrator/kategori-faq') }}"
+                                            class="{{ Request::segment(4) == 'kategori-faq' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon far fa-question-circle icon-gradient bg-arielle-smile">
+                                            </i>Kategori FAQ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if ($has_permission_item_faq)
+                                    <li>
+                                        <a href="{{ url('administrator/items-faq') }}"
+                                            class="{{ Request::segment(4) == 'items-faq' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon far fa-list-alt icon-gradient bg-arielle-smile">
+                                            </i>Item FAQ
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @php
+                                    $has_permission_list_pengajuan = \App\Http\Controllers\Controller::hasPermission('List Pengajuan Kredit');
+                                @endphp
+                                @if ($has_permission_list_pengajuan)
+                                    <li class="app-sidebar__heading">Pengajuan Kredit</li>
+                                    <li>
+                                        <a href="{{ url('administrator/pengajuan-kredit') }}"
+                                            class="{{ Request::segment(5) == 'pengajuan-kredit' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon far fa-list-alt icon-gradient bg-arielle-smile">
+                                            </i>List Pengajuan Kredit
+                                        </a>
+                                    </li>
+                                @endif
                             @endif
                         </ul>
                     </div>

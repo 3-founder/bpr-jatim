@@ -17,7 +17,7 @@ class ItemsFaqController extends Controller
     {
         $this->param['title'] = 'Pertanyaan FAQ';
         $this->param['pageTitle'] = 'Pertanyaan FAQ';
-        $this->param['pageIcon'] = 'store';
+        $this->param['pageIcon'] = 'list-alt';
     }
 
     /**

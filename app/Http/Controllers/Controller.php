@@ -13,7 +13,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function hasPermission($permission) {
+    public static function hasPermission($permission) {
         $model_has_role = \DB::table('model_has_roles')->where('model_id', Auth::user()->id)->first();
         $role = Role::find($model_has_role->role_id);
         $has_permission = false;

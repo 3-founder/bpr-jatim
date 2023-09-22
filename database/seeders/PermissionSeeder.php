@@ -51,7 +51,7 @@ class PermissionSeeder extends Seeder
             'Berita & Info - Tips Keamanan & Info Terkini',
             'Berita & Info - Jaringan Kantor Kas',
             'Berita & Info - Pengumuman Lelang Jaminan',
-            'Kataegori FAQ',
+            'Kategori FAQ',
             'Item FAQ',
             'List Pengajuan Kredit',
         ];

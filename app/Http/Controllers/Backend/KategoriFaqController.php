@@ -16,7 +16,7 @@ class KategoriFaqController extends Controller
     {
         $this->param['title'] = 'Master Kategori FAQ';
         $this->param['pageTitle'] = 'Master Kategori FAQ';
-        $this->param['pageIcon'] = 'Boxes';
+        $this->param['pageIcon'] = 'question-circle';
     }
     /**
      * Display a listing of the resource.
