@@ -91,9 +91,9 @@ class KomposisiSahamSeeder extends Seeder
 
         for ($i=0; $i < count($pemilik); $i++) { 
             $jenis = 'kota/kab';
-            if ($pemilik == 'Pemerintah Propinsi Jatim')
+            if ($pemilik[$i] == 'Pemerintah Propinsi Jatim')
                 $jenis = 'pemprov';
-            if ($pemilik == 'Dana Pensiun Pegawai Bank Jatim')
+            if ($pemilik[$i] == 'Dana Pensiun Pegawai Bank Jatim')
                 $jenis = 'dpd';
 
             DB::table('komposisi_saham')->insert([
