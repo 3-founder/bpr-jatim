@@ -77,7 +77,7 @@
         </div>
     </div>
     <div class="copyright mt-4">
-        Copyright 2021 - <a href="https://limadigital.id/" target="_blank">LIMA Digital</a>
+        Copyright 2021 - <a href="#" target="_blank">Bank UMKM</a>
     </div>
 </body>
 
