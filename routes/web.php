@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('jumbotrons', JumbotronController::class);
         Route::resource('pengajuan-kredit', 'Backend\PengajuanKreditController');
         Route::resource('tata-kelola-perusahaan', 'Backend\TataKelolaPerusahaanController');
+        Route::resource('role', 'Backend\RoleController');
 
         Route::resource('tanggung-jawab-perusahaan', TgControlller::class);
 
