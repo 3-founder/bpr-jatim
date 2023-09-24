@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 class KarierController extends Controller
 {
     private $param;
+    private $menu;
     
     public function __construct()
     {
         $this->param['title'] = 'Karier';
         $this->param['pageTitle'] = 'Karier';
         $this->param['pageIcon'] = 'walking';
+        $this->menu = 'Berita & Info - Karier';
     }
     /**
      * Display a listing of the resource.
@@ -23,13 +25,15 @@ class KarierController extends Controller
      */
     public function index()
     {
-        try {
-            $this->param['data'] = Karier::first();
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('karier.index')->withError('Terjadi Kesalahan');
-        }
-
-        return \view('backend.karier.index', $this->param);
+        if($this->hasPermission($this->menu)){
+            try {
+                $this->param['data'] = Karier::first();
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->route('karier.index')->withError('Terjadi Kesalahan');
+            }
+    
+            return \view('backend.karier.index', $this->param);
+        } else return view('error_page.forbidden');
     }
 
     /**
@@ -84,28 +88,30 @@ class KarierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'judul' => 'required',
-            'konten' => 'required'
-        ], [
-            'required' => ':attribute tidak boleh kosong.'
-        ], [
-            'judul' => 'Judul',
-            'konten' => 'Konten'
-        ]);
-
-        try {
-            $karierUpdate = Karier::findOrFail($id);
-            $karierUpdate->judul = $request->get('judul');
-            $karierUpdate->konten = $request->get('konten');
-            $karierUpdate->save();
-
-            return back()->withStatus('updated Successfully!');
-        } catch (\Exception $e) {
-            return redirect()->route('karier.index')->withError('Terjadi Kesalahan');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('karier.index')->withError('Terjadi Kesalahan');
-        }
+        if($this->hasPermission($this->menu)){
+            $this->validate($request, [
+                'judul' => 'required',
+                'konten' => 'required'
+            ], [
+                'required' => ':attribute tidak boleh kosong.'
+            ], [
+                'judul' => 'Judul',
+                'konten' => 'Konten'
+            ]);
+    
+            try {
+                $karierUpdate = Karier::findOrFail($id);
+                $karierUpdate->judul = $request->get('judul');
+                $karierUpdate->konten = $request->get('konten');
+                $karierUpdate->save();
+    
+                return back()->withStatus('updated Successfully!');
+            } catch (\Exception $e) {
+                return redirect()->route('karier.index')->withError('Terjadi Kesalahan');
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->route('karier.index')->withError('Terjadi Kesalahan');
+            }
+        } else return view('error_page.forbidden');
     }
 
     /**

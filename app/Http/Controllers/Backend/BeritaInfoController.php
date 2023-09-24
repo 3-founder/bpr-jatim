@@ -10,12 +10,14 @@ use Illuminate\Http\Request;
 class BeritaInfoController extends Controller
 {
     private $param;
+    private $menu;
     
     public function __construct()
     {
         $this->param['title'] = 'Berita & Info';
         $this->param['pageTitle'] = 'Berita & Info';
         $this->param['pageIcon'] = 'landmark';
+        $this->menu = 'Berita & Info - Berita';
     }
     /**
      * Display a listing of the resource.
@@ -24,17 +26,19 @@ class BeritaInfoController extends Controller
      */
     public function index(Request $request)
     {
-        $tipe = $request->get('t');
-        try {
-            if (!$tipe) {
+        if($this->hasPermission($this->menu)){
+            $tipe = $request->get('t');
+            try {
+                if (!$tipe) {
+                    return redirect()->route('berita-info.index')->withError('Terjadi Kesalahan');
+                }
+                $this->param['data'] = BeritaInfo::where('tipe', $tipe)->get();
+            } catch (\Illuminate\Database\QueryException $e) {
                 return redirect()->route('berita-info.index')->withError('Terjadi Kesalahan');
             }
-            $this->param['data'] = BeritaInfo::where('tipe', $tipe)->get();
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('berita-info.index')->withError('Terjadi Kesalahan');
-        }
-
-        return \view('backend.berita-info.list-about', $this->param);
+    
+            return \view('backend.berita-info.list-about', $this->param);
+        } else return view('error_page.forbidden');
     }
 
     public function listPengaduanNasabah(Request $request)

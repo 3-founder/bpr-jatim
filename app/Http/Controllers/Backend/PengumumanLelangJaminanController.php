@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 class PengumumanLelangJaminanController extends Controller
 {
     private $param;
+    private $menu;
     
     public function __construct()
     {
         $this->param['title'] = 'Pengumuman Lelang Jaminan';
         $this->param['pageTitle'] = 'Pengumuman Lelang Jaminan';
         $this->param['pageIcon'] = 'info';
+        $this->menu = 'Berita & Info Pengumuman Lelang Jaminan';
     }
     /**
      * Display a listing of the resource.
@@ -23,13 +25,15 @@ class PengumumanLelangJaminanController extends Controller
      */
     public function index()
     {
-        try {
-            $this->param['data'] = PengumumanLelangJaminan::first();
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('pengumuman-lelang-jaminan.index')->withError('Terjadi Kesalahan');
-        }
-
-        return \view('backend.pengumuman-lelang-jaminan.index', $this->param);
+        if($this->hasPermission($this->menu)){
+            try {
+                $this->param['data'] = PengumumanLelangJaminan::first();
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->route('pengumuman-lelang-jaminan.index')->withError('Terjadi Kesalahan');
+            }
+    
+            return \view('backend.pengumuman-lelang-jaminan.index', $this->param);
+        } else return view('error_page.forbidden');
     }
 
     /**
@@ -84,28 +88,30 @@ class PengumumanLelangJaminanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'judul' => 'required',
-            'konten' => 'required'
-        ], [
-            'required' => ':attribute tidak boleh kosong.'
-        ], [
-            'judul' => 'Judul',
-            'konten' => 'Konten'
-        ]);
-
-        try {
-            $newData = PengumumanLelangJaminan::findOrFail($id);
-            $newData->judul = $request->get('judul');
-            $newData->konten = $request->get('konten');
-            $newData->save();
-
-            return back()->withStatus('updated Successfully!');
-        } catch (\Exception $e) {
-            return redirect()->route('pengumuman-lelang-jaminan.index')->withError('Terjadi Kesalahan');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('pengumuman-lelang-jaminan.index')->withError('Terjadi Kesalahan');
-        }
+        if($this->hasPermission($this->menu)){
+            $this->validate($request, [
+                'judul' => 'required',
+                'konten' => 'required'
+            ], [
+                'required' => ':attribute tidak boleh kosong.'
+            ], [
+                'judul' => 'Judul',
+                'konten' => 'Konten'
+            ]);
+    
+            try {
+                $newData = PengumumanLelangJaminan::findOrFail($id);
+                $newData->judul = $request->get('judul');
+                $newData->konten = $request->get('konten');
+                $newData->save();
+    
+                return back()->withStatus('updated Successfully!');
+            } catch (\Exception $e) {
+                return redirect()->route('pengumuman-lelang-jaminan.index')->withError('Terjadi Kesalahan');
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->route('pengumuman-lelang-jaminan.index')->withError('Terjadi Kesalahan');
+            }
+        } else return view('error_page.forbidden');
     }
 
     /**

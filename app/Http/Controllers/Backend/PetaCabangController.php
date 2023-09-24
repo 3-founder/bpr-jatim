@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 class PetaCabangController extends Controller
 {
     private $param;
+    private $menu;
     
     public function __construct()
     {
         $this->param['title'] = 'Peta Cabang';
         $this->param['pageTitle'] = 'Peta Cabang';
         $this->param['pageIcon'] = 'map';
+        $this->menu = 'Berita & Info - Peta Cabang';
     }
     /**
      * Display a listing of the resource.
@@ -23,13 +25,15 @@ class PetaCabangController extends Controller
      */
     public function index()
     {
-        try {
-            $this->param['peta'] = PetaCabang::first();
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('peta-cabang.index')->withError('Terjadi Kesalahan');
-        }
-
-        return \view('backend.peta-cabang.index', $this->param);
+        if($this->hasPermission($this->menu)){
+            try {
+                $this->param['peta'] = PetaCabang::first();
+            } catch (\Illuminate\Database\QueryException $e) {
+                return redirect()->route('peta-cabang.index')->withError('Terjadi Kesalahan');
+            }
+    
+            return \view('backend.peta-cabang.index', $this->param);
+        } else return view('error_page.forbidden');
     }
 
     /**
@@ -84,32 +88,34 @@ class PetaCabangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'judul' => 'required',
-            'konten' => 'required'
-        ], [
-            'required' => ':attribute tidak boleh kosong.'
-        ], [
-            'judul' => 'Judul',
-            'konten' => 'Url Peta'
-        ]);
-
-        try {
-            $attr = $request->all();
-            $petaUpdate = PetaCabang::find($id);
-            $petaUpdate->judul = $request->get('judul');
-            $petaUpdate->konten = $request->get('konten');
-            $petaUpdate->save();
-            // $petaUpdate->update($attr);
-
-            return back()->withStatus('updated Successfully!');
-        } catch (\Exception $e) {
-            return $e->getMessage();
-            return redirect()->route('peta-cabang.index')->withError('Terjadi Kesalahan');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return $e->getMessage();
-            return redirect()->route('peta-cabang.index')->withError('Terjadi Kesalahan');
-        }
+        if($this->hasPermission($this->menu)){
+            $this->validate($request, [
+                'judul' => 'required',
+                'konten' => 'required'
+            ], [
+                'required' => ':attribute tidak boleh kosong.'
+            ], [
+                'judul' => 'Judul',
+                'konten' => 'Url Peta'
+            ]);
+    
+            try {
+                $attr = $request->all();
+                $petaUpdate = PetaCabang::find($id);
+                $petaUpdate->judul = $request->get('judul');
+                $petaUpdate->konten = $request->get('konten');
+                $petaUpdate->save();
+                // $petaUpdate->update($attr);
+    
+                return back()->withStatus('updated Successfully!');
+            } catch (\Exception $e) {
+                return $e->getMessage();
+                return redirect()->route('peta-cabang.index')->withError('Terjadi Kesalahan');
+            } catch (\Illuminate\Database\QueryException $e) {
+                return $e->getMessage();
+                return redirect()->route('peta-cabang.index')->withError('Terjadi Kesalahan');
+            }
+        } else return view('error_page.forbidden');
     }
 
     /**

@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class PengaduanNasabahController extends Controller
 {
+    private $menu;
+
+    public function __construct()
+    {
+        $this->menu = 'Berita & Info - Data Pengaduan Nasabah';
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,42 +21,44 @@ class PengaduanNasabahController extends Controller
      */
     public function index(Request $request)
     {
-        $this->param['title'] = 'Data Pengaduan Nasabah';
-        $this->param['pageTitle'] = 'Data Pengaduan Nasabah';
-        $this->param['pageIcon'] = 'landmark';
-
-        try {
-            $keyword = $request->get('keyword');
-            $data = PengaduanNasabah::select(
-                'pengaduan_nasabah.id',
-                'pengaduan_nasabah.nama',
-                'pengaduan_nasabah.jenis_kelamin',
-                'pengaduan_nasabah.alamat',
-                'pengaduan_nasabah.nomor_identitas',
-                'pengaduan_nasabah.created_at',
-                'kota.nama_kota'
-            )
-            ->join('kota', 'kota.id', 'pengaduan_nasabah.id_kota')
-            ->orderBy('pengaduan_nasabah.created_at', 'DESC');
-
-            if ($keyword) {
-                $data->where('pengaduan_nasabah.nama', 'LIKE', "%$keyword%")
-                    ->orWhere('pengaduan_nasabah.jenis_kelamin', 'LIKE', "%$keyword%")
-                    ->orWhere('pengaduan_nasabah.alamat', 'LIKE', "%$keyword%")
-                    ->orWhere('pengaduan_nasabah.nomor_identitas', 'LIKE', "%$keyword%")
-                    ->orWhere('kota.nama_kota', 'LIKE', "%$keyword%");
+        if($this->hasPermission($this->menu)){
+            $this->param['title'] = 'Data Pengaduan Nasabah';
+            $this->param['pageTitle'] = 'Data Pengaduan Nasabah';
+            $this->param['pageIcon'] = 'landmark';
+    
+            try {
+                $keyword = $request->get('keyword');
+                $data = PengaduanNasabah::select(
+                    'pengaduan_nasabah.id',
+                    'pengaduan_nasabah.nama',
+                    'pengaduan_nasabah.jenis_kelamin',
+                    'pengaduan_nasabah.alamat',
+                    'pengaduan_nasabah.nomor_identitas',
+                    'pengaduan_nasabah.created_at',
+                    'kota.nama_kota'
+                )
+                ->join('kota', 'kota.id', 'pengaduan_nasabah.id_kota')
+                ->orderBy('pengaduan_nasabah.created_at', 'DESC');
+    
+                if ($keyword) {
+                    $data->where('pengaduan_nasabah.nama', 'LIKE', "%$keyword%")
+                        ->orWhere('pengaduan_nasabah.jenis_kelamin', 'LIKE', "%$keyword%")
+                        ->orWhere('pengaduan_nasabah.alamat', 'LIKE', "%$keyword%")
+                        ->orWhere('pengaduan_nasabah.nomor_identitas', 'LIKE', "%$keyword%")
+                        ->orWhere('kota.nama_kota', 'LIKE', "%$keyword%");
+                }
+    
+                $this->param['data'] = $data->paginate(10);
+    
+                return view('backend.berita-info.pengaduan-nasabah.list-pengaduan', $this->param);
+            } catch (\Exception $e) {
+                return $e->getMessage();
+                return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+            } catch(\Illuminate\Database\QueryException $e) {
+                return $e->getMessage();
+                return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
             }
-
-            $this->param['data'] = $data->paginate(10);
-
-            return view('backend.berita-info.pengaduan-nasabah.list-pengaduan', $this->param);
-        } catch (\Exception $e) {
-            return $e->getMessage();
-            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
-        } catch(\Illuminate\Database\QueryException $e) {
-            return $e->getMessage();
-            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
-        }
+        } else return view('error_page.forbidden');
     }
 
     /**
@@ -82,29 +90,31 @@ class PengaduanNasabahController extends Controller
      */
     public function show($id)
     {
-        $this->param['title'] = 'Berita & Info';
-        $this->param['pageTitle'] = 'Berita & Info';
-        $this->param['pageIcon'] = 'landmark';
-        $this->param['btnRight']['text'] = 'Kembali';
-        $this->param['btnRight']['link'] = route('pengaduan-nasabah');
-
-        try {
-            $this->param['data'] = PengaduanNasabah::select(
-                'pengaduan_nasabah.*',
-                'kota.nama_kota'
-            )
-            ->join('kota', 'kota.id', 'pengaduan_nasabah.id_kota')
-            ->where('pengaduan_nasabah.id', $id)
-            ->first();
-
-            return view('backend.berita-info.pengaduan-nasabah.detail-pengaduan', $this->param);
-        } catch (\Exception $e) {
-            return $e->getMessage();
-            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
-        } catch(\Illuminate\Database\QueryException $e) {
-            return $e->getMessage();
-            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
-        }
+        if($this->hasPermission($this->menu)){
+            $this->param['title'] = 'Berita & Info';
+            $this->param['pageTitle'] = 'Berita & Info';
+            $this->param['pageIcon'] = 'landmark';
+            $this->param['btnRight']['text'] = 'Kembali';
+            $this->param['btnRight']['link'] = route('pengaduan-nasabah');
+    
+            try {
+                $this->param['data'] = PengaduanNasabah::select(
+                    'pengaduan_nasabah.*',
+                    'kota.nama_kota'
+                )
+                ->join('kota', 'kota.id', 'pengaduan_nasabah.id_kota')
+                ->where('pengaduan_nasabah.id', $id)
+                ->first();
+    
+                return view('backend.berita-info.pengaduan-nasabah.detail-pengaduan', $this->param);
+            } catch (\Exception $e) {
+                return $e->getMessage();
+                return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+            } catch(\Illuminate\Database\QueryException $e) {
+                return $e->getMessage();
+                return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            }
+        } else return view('error_page.forbidden');
     }
 
     /**

@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 
 class JumbotronController extends Controller
 {
+    private $menu;
+
+    public function __construct()
+    {
+        $this->menu = 'Master Jumbotron';
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,11 +23,13 @@ class JumbotronController extends Controller
      */
     public function index()
     {
-        return view('backend.jumbotron.index', [
-            'pageIcon' => 'image',
-            'pageTitle' => 'Jumbotron',
-            'jumbotrons' => Jumbotron::paginate(10),
-        ]);
+        if($this->hasPermission($this->menu)){
+            return view('backend.jumbotron.index', [
+                'pageIcon' => 'image',
+                'pageTitle' => 'Jumbotron',
+                'jumbotrons' => Jumbotron::paginate(10),
+            ]);
+        } else return view('error_page.forbidden');
     }
 
     /**
@@ -31,10 +39,12 @@ class JumbotronController extends Controller
      */
     public function create()
     {
-        return view('backend.jumbotron.create', [
-            'pageIcon' => 'image',
-            'pageTitle' => 'Tambah Jumbotron',
-        ]);
+        if($this->hasPermission($this->menu)){
+            return view('backend.jumbotron.create', [
+                'pageIcon' => 'image',
+                'pageTitle' => 'Tambah Jumbotron',
+            ]);
+        } else return view('error_page.forbidden');
     }
 
     /**
@@ -45,11 +55,13 @@ class JumbotronController extends Controller
      */
     public function store(JumbotronRequest $request)
     {
-        JumbotronRepository::add($request->image);
-
-        return redirect()
-            ->route('jumbotrons.index')
-            ->with('swals', 'Berhasil menambahkan jumbotron');
+        if($this->hasPermission($this->menu)){
+            JumbotronRepository::add($request->image);
+    
+            return redirect()
+                ->route('jumbotrons.index')
+                ->with('swals', 'Berhasil menambahkan jumbotron');
+        } else return view('error_page.forbidden');
     }
 
     /**
@@ -94,10 +106,12 @@ class JumbotronController extends Controller
      */
     public function destroy($id)
     {
-        Jumbotron::find($id)?->delete();
-
-        return redirect()
-            ->route('jumbotrons.index')
-            ->with('swals', 'Berhasil menghapus jumbotron');
+        if($this->hasPermission($this->menu)){
+            Jumbotron::find($id)?->delete();
+    
+            return redirect()
+                ->route('jumbotrons.index')
+                ->with('swals', 'Berhasil menghapus jumbotron');
+        } else return view('error_page.forbidden');
     }
 }
