@@ -112,7 +112,11 @@ class UserController extends Controller
                 $this->param['role'] = DB::table('roles')->select('id', 'name')->orderBy('name')->get();
                 $this->param['btnRight']['text'] = 'Lihat Data';
                 $this->param['btnRight']['link'] = route('user.index');
-                $this->param['user'] = User::find($id);
+                $this->param['user'] = User::select('users.*', 'r.name AS role_name')
+                                        ->join('model_has_roles AS m', 'm.model_id', 'users.id')
+                                        ->join('roles AS r', 'r.id', 'm.role_id')
+                                        ->where('users.id', $id)
+                                        ->first();
 
                 return \view('backend.user.edit-user', $this->param);
             } catch (\Exception $e) {
@@ -149,15 +153,11 @@ class UserController extends Controller
                 ]
             );
             try {
-                $temp_role = $user->role;
                 $user->name = $request->get('name');
                 $user->email = $request->get('email');
-                $user->role = $request->get('role');
                 $user->save();
 
-                $user->removeRole($temp_role);
-
-                $user->assignRole($request->get('role'));
+                $user->syncRoles($request->get('role'));
 
                 return redirect()->route('user.index')->withStatus('Data berhasil diperbarui.');
             } catch (\Exception $e) {

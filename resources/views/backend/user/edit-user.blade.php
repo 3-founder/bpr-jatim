@@ -51,7 +51,7 @@
                                 <select name="role" id="role" class="form-control @error('role') is-invalid @enderror">
                                     <option value="0">Pilih Role</option>
                                     @foreach ($role as $item)
-                                        <option value="{{$item->name}}" {{ $user->role == $item->name ? 'selected' : '' }}>{{$item->name}}</option>
+                                        <option value="{{$item->name}}" {{ $user->role_name == $item->name ? 'selected' : '' }}>{{$item->name}}</option>
                                     @endforeach
                                     {{--  <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
                                     <option value="produklayanan" {{ $user->role == 'produklayanan' ? 'selected' : '' }}>Produk & Layanan</option>
