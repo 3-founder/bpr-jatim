@@ -29,6 +29,7 @@ class PermissionSeeder extends Seeder
             'Master Tata Kelola Perusahaan',
             'Master Tanggung Jawab Perusahaan',
             'Master Jumbotron',
+            'Master Role',
             'Tentang BPR - Sejarah',
             'Tentang BPR - Visi Misi',
             'Tentang BPR - Peranan',

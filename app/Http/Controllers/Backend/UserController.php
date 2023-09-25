@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -27,10 +28,13 @@ class UserController extends Controller
     
             try {
                 $keyword = $request->get('keyword');
-                $getUsers = User::orderBy('name', 'ASC');
+                $getUsers = User::select('users.*', 'r.name AS role_name')
+                                ->join('model_has_roles AS m', 'm.model_id', 'users.id')
+                                ->join('roles AS r', 'r.id', 'm.role_id')
+                                ->orderBy('users.name', 'ASC');
     
                 if ($keyword) {
-                    $getUsers->where('name', 'LIKE', "%$keyword%")->orWhere('email', 'LIKE', "%$keyword%")->orWhere('role', 'LIKE', "%$keyword%");
+                    $getUsers->where('users.name', 'LIKE', "%$keyword%")->orWhere('users.email', 'LIKE', "%$keyword%")->orWhere('r.name', 'LIKE', "%$keyword%");
                 }
     
                 $this->param['user'] = $getUsers->paginate(10);
@@ -47,6 +51,7 @@ class UserController extends Controller
     public function create()
     {
         if ($this->hasPermission($this->menu)) {
+            $this->param['role'] = DB::table('roles')->select('id', 'name')->orderBy('name')->get();
             $this->param['btnRight']['text'] = 'Lihat Data';
             $this->param['btnRight']['link'] = route('user.index');
     
@@ -86,6 +91,8 @@ class UserController extends Controller
                 $newUser->role = $request->get('role');
     
                 $newUser->save();
+
+                $newUser->assignRole($request->role);
     
                 return redirect()->route('user.index')->withStatus('Data berhasil ditambahkan.');
             } catch (\Exception $e) {
@@ -102,6 +109,7 @@ class UserController extends Controller
     {
         if ($this->hasPermission($this->menu)) {
             try {
+                $this->param['role'] = DB::table('roles')->select('id', 'name')->orderBy('name')->get();
                 $this->param['btnRight']['text'] = 'Lihat Data';
                 $this->param['btnRight']['link'] = route('user.index');
                 $this->param['user'] = User::find($id);
@@ -141,11 +149,15 @@ class UserController extends Controller
                 ]
             );
             try {
-
+                $temp_role = $user->role;
                 $user->name = $request->get('name');
                 $user->email = $request->get('email');
                 $user->role = $request->get('role');
                 $user->save();
+
+                $user->removeRole($temp_role);
+
+                $user->assignRole($request->get('role'));
 
                 return redirect()->route('user.index')->withStatus('Data berhasil diperbarui.');
             } catch (\Exception $e) {
@@ -164,8 +176,10 @@ class UserController extends Controller
             try {
                 $user = User::findOrFail($id);
 
-                $user->delete();
+                DB::table('model_has_roles')->where('model_id', $user->id)->delete();
 
+                $user->delete();
+                
                 return redirect()->route('user.index')->withStatus('Data berhasil dihapus.');
             } catch (\Exception $e) {
                 return redirect()->route('user.index')->withError('Terjadi kesalahan : ' . $e->getMessage());
