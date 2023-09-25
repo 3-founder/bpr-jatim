@@ -63,6 +63,23 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="position-relative form-group">
+                                <label for="password" class="">Password</label>
+                                <div class="input-group" id="show_hide_password">
+                                    <input name="password" id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" value="{{ Str::random(8) }}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" onclick="password_show_hide();">
+                                          <i class="fas fa-eye" id="show_eye"></i>
+                                          <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                @error('password')
+                                    <div class="span text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <button type="submit" class="mt-1 btn btn-primary">Simpan</button>
                         </form>
                     </div>
@@ -70,4 +87,21 @@
             </div>
         </div>
     </div>
+    <script>
+        function password_show_hide() {
+            var x = document.getElementById("password");
+            var show_eye = document.getElementById("show_eye");
+            var hide_eye = document.getElementById("hide_eye");
+            hide_eye.classList.remove("d-none");
+            if (x.type === "password") {
+                x.type = "text";
+                show_eye.style.display = "none";
+                hide_eye.style.display = "block";
+            } else {
+                x.type = "password";
+                show_eye.style.display = "block";
+                hide_eye.style.display = "none";
+            }
+        }
+    </script>
 @endsection

@@ -69,6 +69,7 @@ class UserController extends Controller
                     'name' => 'required',
                     'email' => 'required|email|unique:users',
                     'role' => 'not_in:0',
+                    'password' => 'required',
                 ],
                 [
                     'required' => ':attribute tidak boleh kosong.',
@@ -79,7 +80,8 @@ class UserController extends Controller
                 [
                     'name' => 'Nama',
                     'email' => 'Email',
-                    'role' => 'Role'
+                    'role' => 'Role',
+                    'password' => 'Password'
                 ]
             );
             try {
@@ -87,7 +89,7 @@ class UserController extends Controller
     
                 $newUser->name = $request->get('name');
                 $newUser->email = $request->get('email');
-                $newUser->password = \Hash::make($request->get('email'));
+                $newUser->password = \Hash::make($request->get('password'));
                 $newUser->role = $request->get('role');
     
                 $newUser->save();
