@@ -33,6 +33,12 @@ class AboutController extends Controller
             $menu .= 'Manajemen';
         else if ($tipe == 'identitas')
             $menu .= 'Identitas Perusahaan';
+        else if ($tipe == 'hukum')
+            $menu = 'Transparansi - Hukum Perusahaan';
+        else if ($tipe == 'komposisi')
+            $menu = 'Transparansi - Komposisi Saham';
+        else if ($tipe == 'tata_kelola')
+            $menu = 'Transparansi - Tata Kelola Perusahaan';
 
         if ($this->hasPermission($menu)) {
             try {
@@ -79,6 +85,12 @@ class AboutController extends Controller
             $menu .= 'Manajemen';
         else if ($tipe == 'identitas')
             $menu .= 'Identitas Perusahaan';
+        else if ($tipe == 'hukum')
+            $menu = 'Transparansi - Hukum Perusahaan';
+        else if ($tipe == 'komposisi')
+            $menu = 'Transparansi - Komposisi Saham';
+        else if ($tipe == 'tata_kelola')
+            $menu = 'Transparansi - Tata Kelola Perusahaan';
 
         if ($this->hasPermission($menu)) {
             $attr = $request->all();
