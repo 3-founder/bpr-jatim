@@ -185,6 +185,7 @@ class RoleController extends Controller
                         ->insert($fieldToInsert);
                 }
                 
+                $updated->save();
                 DB::commit();
                 return redirect()->route('role.index')->withStatus('Berhasil mengubah data.');
             } catch(Exception $e){
