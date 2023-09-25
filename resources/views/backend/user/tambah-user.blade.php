@@ -49,10 +49,13 @@
                                 <label for="role" class="">Role</label>
                                 <select name="role" id="role" class="form-control @error('role') is-invalid @enderror">
                                     <option value="0">Pilih Role</option>
-                                    <option value="admin">Admin</option>
+                                    @foreach ($role as $item)
+                                        <option value="{{$item->name}}">{{$item->name}}</option>
+                                    @endforeach
+                                    {{--  <option value="admin">Admin</option>
                                     <option value="produklayanan">Produk & Layanan</option>
                                     <option value="berita">Berita</option>
-                                    <option value="umkmbinaan">Umkm Binaan</option>
+                                    <option value="umkmbinaan">Umkm Binaan</option>  --}}
                                 </select>
                                 @error('role')
                                     <div class="span text-danger">

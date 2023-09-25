@@ -50,10 +50,13 @@
                                 <label for="role" class="">Role</label>
                                 <select name="role" id="role" class="form-control @error('role') is-invalid @enderror">
                                     <option value="0">Pilih Role</option>
-                                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                    @foreach ($role as $item)
+                                        <option value="{{$item->name}}" {{ $user->role == $item->name ? 'selected' : '' }}>{{$item->name}}</option>
+                                    @endforeach
+                                    {{--  <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
                                     <option value="produklayanan" {{ $user->role == 'produklayanan' ? 'selected' : '' }}>Produk & Layanan</option>
                                     <option value="berita" {{ $user->role == 'berita' ? 'selected' : '' }}>Berita</option>
-                                    <option value="umkmbinaan" {{ $user->role == 'umkmbinaan' ? 'selected' : '' }}>Umkm Binaan</option>
+                                    <option value="umkmbinaan" {{ $user->role == 'umkmbinaan' ? 'selected' : '' }}>Umkm Binaan</option>  --}}
                                 </select>
                                 @error('role')
                                     <div class="span text-danger">

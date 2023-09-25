@@ -197,6 +197,17 @@
                                     </li>
                                 @endif
 
+                                @if ($has_permission_master['Master Role'])
+                                    <li>
+                                        <a href="{{ url('administrator/role') }}"
+                                            class="{{ Request::segment(2) == 'role' ? 'mm-active' : '' }}">
+                                            {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
+                                            <i class="metismenu-icon fa fa-list-alt icon-gradient bg-arielle-smile"></i>
+                                            Role
+                                        </a>
+                                    </li>
+                                @endif
+
                                 @if ($has_permission_master['Master Profil Perusahaan'])
                                     <li>
                                         <a href="{{ url('administrator/profil') }}"
