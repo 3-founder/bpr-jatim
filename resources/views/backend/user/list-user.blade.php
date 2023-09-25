@@ -72,7 +72,7 @@
                                         <td class="text-center text-muted">{{ $no }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->role }}</td>
+                                        <td>{{ $item->role_name }}</td>
                                         <td>
                                             <div class="form-inline">
                                                 <a href="{{ route('user.edit', $item->id) }}" class="mr-2">
