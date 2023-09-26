@@ -90,7 +90,6 @@ class UserController extends Controller
                 $newUser->name = $request->get('name');
                 $newUser->email = $request->get('email');
                 $newUser->password = \Hash::make($request->get('password'));
-                $newUser->role = $request->get('role');
     
                 $newUser->save();
 
