@@ -18,7 +18,7 @@ class PengajuanKreditController extends Controller
         $this->param['title'] = 'Pengajuan Kredit';
         $this->param['pageTitle'] = 'Pengajuan Kredit';
         $this->param['pageIcon'] = 'list-alt';
-        $this->menu = 'List Perngajuan Kredit';
+        $this->menu = 'List Pengajuan Kredit';
     }
     /**
      * Display a listing of the resource.

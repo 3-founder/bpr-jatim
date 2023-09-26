@@ -92,7 +92,7 @@
                                         <div tabindex="-1" role="menu" aria-hidden="true"
                                             class="dropdown-menu dropdown-menu-right">
                                             <a class="dropdown-item"
-                                                href="{{ url('administrator/ganti-password', auth()->user()->id) }}">
+                                                href="{{ url('ganti-password', auth()->user()->id) }}">
                                                 <i
                                                     class="metismenu-icon fa fa-fingerprint icon-gradient bg-arielle-smile mr-1"></i>
                                                 Ganti Password
@@ -158,7 +158,7 @@
                             @if ($has_permission_dashboard)
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 <li>
-                                    <a href="{{ url('administrator/dashboard') }}"
+                                    <a href="{{ route('dashboard') }}"
                                         class="{{ Request::segment(2) == 'dashboard' ? 'mm-active' : '' }}">
                                         {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                         <i class="metismenu-icon fa fa-tachometer-alt icon-gradient bg-arielle-smile"></i>
@@ -188,7 +188,7 @@
 
                                 @if ($has_permission_master['Master User'])
                                     <li>
-                                        <a href="{{ url('administrator/user') }}"
+                                        <a href="{{ route('user.index') }}"
                                             class="{{ Request::segment(2) == 'user' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i class="metismenu-icon fa fa-users icon-gradient bg-arielle-smile"></i>
@@ -199,7 +199,7 @@
 
                                 @if ($has_permission_master['Master Role'])
                                     <li>
-                                        <a href="{{ url('administrator/role') }}"
+                                        <a href="{{ route('role.index') }}"
                                             class="{{ Request::segment(2) == 'role' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i class="metismenu-icon fa fa-list-alt icon-gradient bg-arielle-smile"></i>
@@ -210,7 +210,7 @@
 
                                 @if ($has_permission_master['Master Profil Perusahaan'])
                                     <li>
-                                        <a href="{{ url('administrator/profil') }}"
+                                        <a href="{{ route('profil.index') }}"
                                             class="{{ Request::segment(2) == 'profil' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i
@@ -222,7 +222,7 @@
 
                                 @if ($has_permission_master['Master Vidio Intro'])
                                     <li>
-                                        <a href="{{ url('administrator/intro-vidio') }}"
+                                        <a href="{{ route('intro-vidio.index') }}"
                                             class="{{ Request::segment(2) == 'intro-vidio' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i class="metismenu-icon fa fa-film icon-gradient bg-arielle-smile"></i>
@@ -233,7 +233,7 @@
 
                                 @if ($has_permission_master['Master Kebijakan Privasi'])
                                     <li>
-                                        <a href="{{ url('administrator/kebijakan-privasi') }}"
+                                        <a href="{{ route('kebijakan-privasi.index') }}"
                                             class="{{ Request::segment(2) == 'kebijakan-privasi' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i class="metismenu-icon fa fa-user-shield icon-gradient bg-arielle-smile"></i>
@@ -244,7 +244,7 @@
 
                                 @if ($has_permission_master['Master Syarat dan Ketentuan'])
                                     <li>
-                                        <a href="{{ url('administrator/sk') }}"
+                                        <a href="{{ route('sk.index') }}"
                                             class="{{ Request::segment(2) == 'sk' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i class="metismenu-icon fa fa-handshake icon-gradient bg-arielle-smile"></i>
@@ -255,7 +255,7 @@
 
                                 @if ($has_permission_master['Master Bunga'])
                                     <li>
-                                        <a href="{{ url('administrator/bunga') }}"
+                                        <a href="{{ route('bunga.index') }}"
                                             class="{{ Request::segment(2) == 'bunga' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i
@@ -267,7 +267,7 @@
 
                                 @if ($has_permission_master['Master Tenor'])
                                     <li>
-                                        <a href="{{ url('administrator/tenor') }}"
+                                        <a href="{{ route('tenor.index') }}"
                                             class="{{ Request::segment(2) == 'tenor' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i
@@ -279,7 +279,7 @@
 
                                 @if ($has_permission_master['Master Cabang'])
                                     <li>
-                                        <a href="{{ url('administrator/kota') }}"
+                                        <a href="{{ route('kota.index') }}"
                                             class="{{ Request::segment(2) == 'kota' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i class="metismenu-icon fa fa-home icon-gradient bg-arielle-smile"></i>
@@ -290,7 +290,7 @@
 
                                 @if ($has_permission_master['Master Kurs'])
                                     <li>
-                                        <a href="{{ url('administrator/kurs') }}"
+                                        <a href="{{ route('kurs.index') }}"
                                             class="{{ Request::segment(2) == 'kurs' ? 'mm-active' : '' }}">
                                             {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                             <i class="metismenu-icon fa fa-dollar-sign icon-gradient bg-arielle-smile"></i>
@@ -301,7 +301,7 @@
 
                                 @if ($has_permission_master['Master Laporan Keuangan'])
                                     <li>
-                                        <a href="{{ url('administrator/laporan-keuangan') }}"
+                                        <a href="{{ route('laporan-keuangan.index') }}"
                                             class="{{ Request::segment(2) == 'laporan-keuangan' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon fa fa-book icon-gradient bg-arielle-smile"></i>
                                             Laporan Keuangan
@@ -311,7 +311,7 @@
 
                                 @if ($has_permission_master['Master Tata Kelola Perusahaan'])
                                     <li>
-                                        <a href="{{ url('administrator/tata-kelola-perusahaan') }}"
+                                        <a href="{{ route('tata-kelola-perusahaan.index') }}"
                                             class="{{ Request::segment(2) == 'tata-kelola-perusahaan' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon fa fa-briefcase icon-gradient bg-arielle-smile"></i>
                                             Tata Kelola Perusahaan
@@ -370,7 +370,7 @@
                                     <ul>
                                         @if ($has_permission_tentang['Tentang BPR - Sejarah'])
                                             <li>
-                                                <a href="{{ url('administrator/about?t=sejarah') }}">
+                                                <a href="{{ url('tentang-bpr/about?t=sejarah') }}">
                                                     <i class="metismenu-icon">
                                                     </i>Sejarah
                                                 </a>
@@ -379,7 +379,7 @@
 
                                         @if ($has_permission_tentang['Tentang BPR - Visi Misi'])
                                             <li>
-                                                <a href="{{ url('administrator/about?t=visi-misi') }}">
+                                                <a href="{{ url('tentang-bpr/about?t=visi-misi') }}">
                                                     <i class="metismenu-icon">
                                                     </i>Visi Misi
                                                 </a>
@@ -388,7 +388,7 @@
 
                                         @if ($has_permission_tentang['Tentang BPR - Peranan'])
                                             <li>
-                                                <a href="{{ url('administrator/about?t=peranan') }}">
+                                                <a href="{{ url('tentang-bpr/about?t=peranan') }}">
                                                     <i class="metismenu-icon">
                                                     </i>Peranan
                                                 </a>
@@ -396,7 +396,7 @@
                                         @endif
                                         
                                         {{-- <li>
-                                            <a href="{{ url('administrator/about?t=struktur') }}">
+                                            <a href="{{ url('tentang-bpr/about?t=struktur') }}">
                                                 <i class="metismenu-icon">
                                                 </i>Struktur Organisasi
                                             </a>
@@ -404,7 +404,7 @@
 
                                         @if ($has_permission_tentang['Tentang BPR - Manajemen'])
                                             <li>
-                                                <a href="{{ url('administrator/about?t=manajemen') }}">
+                                                <a href="{{ url('tentang-bpr/about?t=manajemen') }}">
                                                     <i class="metismenu-icon">
                                                     </i>Manajemen
                                                 </a>
@@ -413,7 +413,7 @@
 
                                         @if ($has_permission_tentang['Tentang BPR - Identitas Perusahaan'])
                                             <li>
-                                                <a href="{{ url('administrator/about?t=identitas') }}">
+                                                <a href="{{ url('tentang-bpr/about?t=identitas') }}">
                                                     <i class="metismenu-icon">
                                                     </i>Identitas Perusahaan
                                                 </a>
@@ -452,7 +452,7 @@
                                     <ul>
                                         @if ($has_permission_transparansi['Transparansi - Hukum Perusahaan'])
                                             <li>
-                                                <a href="{{ url('administrator/about?t=hukum') }}">
+                                                <a href="{{ url('tentang-bpr/about?t=hukum') }}">
                                                     <i class="metismenu-icon">
                                                     </i>Hukum Perusahaan
                                                 </a>
@@ -470,7 +470,7 @@
 
                                         @if ($has_permission_transparansi['Transparansi - Tata Kelola Perusahaan'])
                                             <li>
-                                                <a href="{{ url('administrator/about?t=tata_kelola') }}">
+                                                <a href="{{ url('tentang-bpr/about?t=tata_kelola') }}">
                                                     <i class="metismenu-icon">
                                                     </i>Tata Kelola Perusahaan
                                                 </a>
@@ -535,7 +535,7 @@
                             @if ($has_permission_umkm_binaan)
                                 <li class="app-sidebar__heading">UMKM Binaan</li>
                                 <li>
-                                    <a href="{{ url('administrator/umkm-binaan') }}"
+                                    <a href="{{ url('umkm-binaan') }}"
                                         class="{{ Request::segment(2) == 'umkm-binaan' ? 'mm-active' : '' }}">
                                         {{-- <i class="metismenu-icon pe-7s-rocket"></i> --}}
                                         <i
@@ -578,7 +578,7 @@
                                         class="{{ Request::segment(2) == 'berita-info' ? 'mm-collapse mm-show' : '' }}">
                                         @if ($has_permission_berita_info['Berita & Info - Kategori Berita'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/kategori-berita') }}"
+                                                <a href="{{ url('berita-info/kategori-berita') }}"
                                                     class="{{ Request::segment(3) == 'kategori-berita' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon"></i>
                                                     Kategori Berita
@@ -588,7 +588,7 @@
                                         
                                         @if ($has_permission_berita_info['Berita & Info - Berita'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/berita') }}"
+                                                <a href="{{ url('berita-info/berita') }}"
                                                     class="{{ Request::segment(3) == 'berita' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon"></i>
                                                     Berita
@@ -598,7 +598,7 @@
 
                                         @if ($has_permission_berita_info['Berita & Info - Promo'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/promo') }}"
+                                                <a href="{{ url('berita-info/promo') }}"
                                                     class="{{ Request::segment(3) == 'promo' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon">
                                                     </i>Promo
@@ -608,7 +608,7 @@
 
                                         @if ($has_permission_berita_info['Berita & Info - ePaper UMKM'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/epaper') }}"
+                                                <a href="{{ url('berita-info/epaper') }}"
                                                     class="{{ Request::segment(3) == 'epaper' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon">
                                                     </i>ePaper UMKM
@@ -618,7 +618,7 @@
 
                                         @if ($has_permission_berita_info['Berita & Info - Penghargaan'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/penghargaan') }}"
+                                                <a href="{{ url('berita-info/penghargaan') }}"
                                                     class="{{ Request::segment(3) == 'penghargaan' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon">
                                                     </i>Penghargaan
@@ -628,7 +628,7 @@
 
                                         @if ($has_permission_berita_info['Berita & Info - Peta Cabang'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/peta-cabang') }}"
+                                                <a href="{{ url('berita-info/peta-cabang') }}"
                                                     class="{{ Request::segment(3) == 'peta-cabang' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon">
                                                     </i>Peta Cabang
@@ -638,7 +638,7 @@
 
                                         @if ($has_permission_berita_info['Berita & Info - Karier'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/karier') }}"
+                                                <a href="{{ url('berita-info/karier') }}"
                                                     class="{{ Request::segment(3) == 'karier' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon">
                                                     </i>Karier
@@ -658,7 +658,7 @@
                                         
                                         @if ($has_permission_berita_info['Berita & Info - Tips Keamanan & Info Terkini'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/tips-info-terkini') }}"
+                                                <a href="{{ url('berita-info/tips-info-terkini') }}"
                                                     class="{{ Request::segment(3) == 'tips-info-terkini' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon">
                                                     </i>Tips Keamanan & Info Terkini
@@ -668,7 +668,7 @@
 
                                         @if ($has_permission_berita_info['Berita & Info - Jaringan Kantor Kas'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/jaringan-kantor') }}"
+                                                <a href="{{ url('berita-info/jaringan-kantor') }}"
                                                     class="{{ Request::segment(3) == 'jaringan-kantor' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon">
                                                     </i>Jaringan Kantor Kas
@@ -678,7 +678,7 @@
                                         
                                         @if ($has_permission_berita_info['Berita & Info - Pengumuman Lelang Jaminan'])
                                             <li>
-                                                <a href="{{ url('administrator/berita-info/pengumuman-lelang-jaminan') }}"
+                                                <a href="{{ url('berita-info/pengumuman-lelang-jaminan') }}"
                                                     class="{{ Request::segment(3) == 'pengumuman-lelang-jaminan' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon">
                                                     </i>Pengumuman Lelang Jaminan
@@ -699,7 +699,7 @@
                                 <li class="app-sidebar__heading">FAQ</li>
                                 @if ($has_permission_kategori_faq)
                                     <li>
-                                        <a href="{{ url('administrator/kategori-faq') }}"
+                                        <a href="{{ url('kategori-faq') }}"
                                             class="{{ Request::segment(4) == 'kategori-faq' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon far fa-question-circle icon-gradient bg-arielle-smile">
                                             </i>Kategori FAQ
@@ -709,7 +709,7 @@
 
                                 @if ($has_permission_item_faq)
                                     <li>
-                                        <a href="{{ url('administrator/items-faq') }}"
+                                        <a href="{{ url('items-faq') }}"
                                             class="{{ Request::segment(4) == 'items-faq' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon far fa-list-alt icon-gradient bg-arielle-smile">
                                             </i>Item FAQ
@@ -723,7 +723,7 @@
                                 @if ($has_permission_list_pengajuan)
                                     <li class="app-sidebar__heading">Pengajuan Kredit</li>
                                     <li>
-                                        <a href="{{ url('administrator/pengajuan-kredit') }}"
+                                        <a href="{{ url('pengajuan-kredit') }}"
                                             class="{{ Request::segment(5) == 'pengajuan-kredit' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon far fa-list-alt icon-gradient bg-arielle-smile">
                                             </i>List Pengajuan Kredit

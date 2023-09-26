@@ -16,7 +16,7 @@ class PengumumanLelangJaminanController extends Controller
         $this->param['title'] = 'Pengumuman Lelang Jaminan';
         $this->param['pageTitle'] = 'Pengumuman Lelang Jaminan';
         $this->param['pageIcon'] = 'info';
-        $this->menu = 'Berita & Info Pengumuman Lelang Jaminan';
+        $this->menu = 'Berita & Info - Pengumuman Lelang Jaminan';
     }
     /**
      * Display a listing of the resource.
