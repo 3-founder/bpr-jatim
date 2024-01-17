@@ -88,7 +88,9 @@
                         </div>
                         <div class="position-relative form-group">
                             <label for="foto" class="">Foto</label>
-                            <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto">
+                            <input type="file" class="form-control @error('foto') is-invalid @enderror only-image" name="foto"
+                                accept="image/png, image/gif, image/jpeg">
+                            <span class="error-limit text-danger" style="display: none; margin-top: 0;"></span>
                             @error('foto')
                                 <div class="span text-danger">
                                     {{ $message }}
