@@ -72,7 +72,9 @@
                                 <label for="cover" class="">Cover</label>
                                 <br>
                                 <img src="{{ Request::root().'/'.$konten->cover }}" alt="{{ $konten->judul }}" width="150" height="150">
-                                <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror">
+                                <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror only-image"
+                                accept="image/png, image/gif, image/jpeg">
+                                <span class="error-limit text-danger" style="display: none; margin-top: 0;"></span>
                                 @error('cover')
                                     <div class="span text-danger">
                                         {{ $message }}
