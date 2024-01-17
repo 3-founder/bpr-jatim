@@ -528,18 +528,35 @@
     <script src="{{ asset('assets/vendor/select2-develop/dist/js/select2.min.js') }}"></script>
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script> --}}
     <script>
-        // ClassicEditor
-        //     .create(document.querySelector('.ck-editor'))
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
-
-        // ClassicEditor
-        //     .create(document.querySelector('.ck-editor2'))
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
         $(".select2").select2();
+        $(".only-image").on('change', function() {
+            if (!this.files[0].type.includes('image')) {
+                $(this).val('')
+                $(this).next().html('Hanya boleh memilih berkas berupa gambar(.jpg, .jpeg, .png, .webp)')
+                $(this).next().css({
+                    "display": "block"
+                });
+            }
+            else {
+                $(this).next().css({
+                    "display": "none"
+                });
+            }
+        })
+        $(".only-pdf").on('change', function() {
+            if (!this.files[0].type.includes('pdf')) {
+                $(this).val('')
+                $(this).next().html('Hanya boleh memilih berkas berupa pdf.')
+                $(this).next().css({
+                    "display": "block"
+                });
+            }
+            else {
+                $(this).next().css({
+                    "display": "none"
+                });
+            }
+        })
     </script>
 </body>
 
