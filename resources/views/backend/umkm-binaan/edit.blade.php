@@ -91,9 +91,9 @@
                             @if ($UmkmBinaan->foto != null)
                                 <br><img src="{{ Request::root().'/'.$UmkmBinaan->foto }}" width="150" height="150"><br>
                             @endif
-                            <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" value="{{old('foto', $UmkmBinaan->foto)}}">
-                            
-                        
+                            <input type="file" class="form-control @error('foto') is-invalid @enderror only-image" name="foto" value="{{old('foto', $UmkmBinaan->foto)}}"
+                                accept="image/png, image/gif, image/jpeg">
+                            <span class="error-limit text-danger" style="display: none; margin-top: 0;"></span>
                             @error('foto')
                                 <div class="span text-danger">
                                     {{ $message }}
