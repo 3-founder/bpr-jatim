@@ -26,9 +26,9 @@ class LaporanKeuanganController extends Controller
 
             foreach ($data as $key => $value) {
                 $value->cover = $request->getSchemeAndHttpHost() . '/public/' . $value->cover;
-                $value->cover =  str_replace('public/public', 'public', $value->cover);
+                $value->cover =  str_replace('public/public', '', $value->cover);
                 $value->file = $request->getSchemeAndHttpHost() . '/public/' . $value->file;
-                $value->file =  str_replace('public/public', 'public', $value->file);
+                $value->file =  str_replace('public/public', '', $value->file);
             }
 
             $status = 200;

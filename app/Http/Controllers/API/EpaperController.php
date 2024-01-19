@@ -26,9 +26,9 @@ class EpaperController extends Controller
 
             foreach ($data as $key => $value) {
                 $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
-                $value->cover =  str_replace('public/public', 'public',$value->cover);
+                $value->cover =  str_replace('public/public', '',$value->cover);
                 $value->konten =  $request->getSchemeAndHttpHost().'/public/'.$value->konten;
-                $value->konten =  str_replace('public/public', 'public',$value->konten);
+                $value->konten =  str_replace('public/public', '',$value->konten);
                 $value->tgl = date('d M Y',strtotime($value->updated_at));
             }
             
@@ -63,9 +63,9 @@ class EpaperController extends Controller
         try {
             $data = Epaper::where('slug', $slug)->first();
             $data->cover =  $request->getSchemeAndHttpHost().'/public/'.$data->cover;
-            $data->cover =  str_replace('public/public', 'public',$data->cover);
+            $data->cover =  str_replace('public/public', '',$data->cover);
             $data->konten =  $request->getSchemeAndHttpHost().'/public/'.$data->konten;
-            $data->konten =  str_replace('public/public', 'public',$data->konten);
+            $data->konten =  str_replace('public/public', '',$data->konten);
             
             $status = 200;
             $message = 'berhasil';

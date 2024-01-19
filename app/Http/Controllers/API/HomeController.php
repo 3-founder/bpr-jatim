@@ -175,7 +175,7 @@ class HomeController extends Controller
             $data['box'] = [];
             foreach ($berita as $key => $value) {
                 $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
-                $value->cover =  str_replace('public/public', 'public',$value->cover);
+                $value->cover =  str_replace('public/public', '',$value->cover);
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
                 $value->tgl = date('d M Y H:i',strtotime($value->created_at));
@@ -282,7 +282,7 @@ class HomeController extends Controller
 
             foreach ($data as $key => $value) {
                 $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
-                $value->cover =  str_replace('public/public', 'public',$value->cover);;
+                $value->cover =  str_replace('public/public', '',$value->cover);;
                 $value->judul = substr($value->judul,0,15);
             }
 
