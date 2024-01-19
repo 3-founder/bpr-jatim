@@ -38,7 +38,7 @@ class BeritaController extends Controller
             // $berita = $berita->paginate(5);
 
             foreach ($berita as $key => $value) {
-                $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
+                $value->cover =  $request->getSchemeAndHttpHost().'/'.$value->cover;
                 $value->cover =  str_replace('public/public', '',$value->cover);
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
@@ -92,7 +92,7 @@ class BeritaController extends Controller
             $data = Berita::with('kategori')->where('slug', $slug)->first();
             $data->telah_dilihat += 1;
             $data->save();
-            $data->cover =  $request->getSchemeAndHttpHost().'/public/'.$data->cover;
+            $data->cover =  $request->getSchemeAndHttpHost().'/'.$data->cover;
             $data->cover =  str_replace('public/public', '',$data->cover);
             $data->tgl = date('d M Y H:i',strtotime($data->created_at));
 

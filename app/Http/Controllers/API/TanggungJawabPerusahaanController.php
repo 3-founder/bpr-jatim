@@ -38,9 +38,9 @@ class TanggungJawabPerusahaanController extends Controller
         }
 
         foreach ($data as $key => $value) {
-            $value->cover = $request->getSchemeAndHttpHost().'/public/'.$value->cover;
+            $value->cover = $request->getSchemeAndHttpHost().'/'.$value->cover;
             $value->cover =  str_replace('public/public', '',$value->cover);
-            $value->file = $request->getSchemeAndHttpHost().'/public/'.$value->file;
+            $value->file = $request->getSchemeAndHttpHost().'/'.$value->file;
             $value->file =  str_replace('public/public', '',$value->file);
         }
 

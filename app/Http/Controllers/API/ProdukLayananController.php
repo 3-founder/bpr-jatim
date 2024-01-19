@@ -50,7 +50,7 @@ class ProdukLayananController extends Controller
             $data = ItemProdukLayanan::select('id','judul', 'slug','cover', 'updated_at')->where('id_jenis', $id_jenis)->orderBy('judul', 'ASC')->get();
 
             foreach ($data as $key => $value) {
-                $value->cover =  $request->getSchemeAndHttpHost().'/public/'.$value->cover;
+                $value->cover =  $request->getSchemeAndHttpHost().'/'.$value->cover;
                 $value->cover =  str_replace('public/public', '',$value->cover);
             }
             
@@ -85,7 +85,7 @@ class ProdukLayananController extends Controller
         
         try {
             $data = ItemProdukLayanan::where('slug', $slug)->first();
-            $data->cover =  $request->getSchemeAndHttpHost().'/public/'.$data->cover;
+            $data->cover =  $request->getSchemeAndHttpHost().'/'.$data->cover;
             $data->cover =  str_replace('public/public', '',$data->cover);
             $sidemenu = ItemProdukLayanan::select('id','judul', 'slug')
                                         ->where('id_jenis', $data->id_jenis)
