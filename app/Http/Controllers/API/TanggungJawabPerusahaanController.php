@@ -13,8 +13,8 @@ class TanggungJawabPerusahaanController extends Controller
         $data = TanggungJawabPerusahaan::where('tahun',$tahun)->orderBy('tahun','DESC')->get();
 
         foreach ($data as $key => $value) {
-            $value->cover =  str_replace('public/public', '',$value->cover);
-            $value->file =  str_replace('public/public', '',$value->file);
+            $value->cover =  str_replace('public', '',$value->cover);
+            $value->file =  str_replace('public', '',$value->file);
         }
 
         if (!$data) {
@@ -39,9 +39,9 @@ class TanggungJawabPerusahaanController extends Controller
 
         foreach ($data as $key => $value) {
             $value->cover = $request->getSchemeAndHttpHost().'/'.$value->cover;
-            $value->cover =  str_replace('public/public', '',$value->cover);
+            $value->cover =  str_replace('public', '',$value->cover);
             $value->file = $request->getSchemeAndHttpHost().'/'.$value->file;
-            $value->file =  str_replace('public/public', '',$value->file);
+            $value->file =  str_replace('public', '',$value->file);
         }
 
         if (!$data) {
