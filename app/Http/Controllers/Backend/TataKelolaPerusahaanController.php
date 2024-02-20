@@ -65,7 +65,7 @@ class TataKelolaPerusahaanController extends Controller
                 [
                     'required' => ':attribute tidak boleh kosong.',
                     'unique' => ':attribute telah tersedia.',
-                    'mimes' => ':attribute hanya dapat menerima file pdf.',
+                    'mimes' => ':attribute hanya dapat menerima file jpeg, jpg.',
                     'file' => ':attribute harus berbentuk file.',
                     'max' => 'Maksimal ukuran file hingga 10mb.'
                 ],
