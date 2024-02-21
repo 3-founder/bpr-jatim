@@ -25,10 +25,10 @@ class LaporanKeuanganController extends Controller
             $data = $data->orderBy('tahun', 'DESC')->get();
 
             foreach ($data as $key => $value) {
-                $value->cover = $request->getSchemeAndHttpHost() . '/public/' . $value->cover;
-                $value->cover =  str_replace('public', '', $value->cover);
-                $value->file = $request->getSchemeAndHttpHost() . '/public/' . $value->file;
-                $value->file =  str_replace('public', '', $value->file);
+                $value->cover = $request->getSchemeAndHttpHost() . '/' . $value->cover;
+                
+                $value->file = $request->getSchemeAndHttpHost() . '/' . $value->file;
+                
             }
 
             $status = 200;

@@ -4,16 +4,16 @@
 <!-- Include the Quill library -->
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <style>
-#konten {
-  font-family: 'Poppins', sans-serif;
-  font-size: 18px;
-  height: 375px;
-}
+    #konten {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        height: 375px;
+    }
 
-.ql-editor .ql-video {
-    width: 914px !important;
-    height: 514px !important;
-}
+    .ql-editor .ql-video {
+        width: 914px !important;
+        height: 514px !important;
+    }
 </style>
 
 @endsection
@@ -56,7 +56,10 @@
                             </div>
                             <div class="position-relative form-group">
                                 <label for="cover" class="">Cover</label>
-                                <input name="cover" id="cover" type="file" class="form-control @error('cover') is-invalid @enderror">
+                                <input name="cover" id="cover" type="file"
+                                    class="form-control @error('cover') is-invalid @enderror only-image"
+                                    accept="image/png, image/gif, image/jpeg">
+                                <span class="error-limit text-danger" style="display: none; margin-top: 0;"></span>
                                 @error('cover')
                                     <div class="span text-danger">
                                         {{ $message }}

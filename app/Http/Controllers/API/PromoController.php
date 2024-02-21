@@ -25,8 +25,8 @@ class PromoController extends Controller
 
             $data = $data->paginate(5);
             foreach ($data as $key => $value) {
-                $value->cover =  $request->getSchemeAndHttpHost() . '/public/' . $value->cover;
-                $value->cover =  str_replace('public', '', $value->cover);
+                $value->cover =  $request->getSchemeAndHttpHost() . '/' . $value->cover;
+                
                 $value->judulFull = $value->judul;
                 $value->kontenFull = $value->konten;
                 $value->judul = substr($value->judul, 0, 30);
@@ -60,8 +60,7 @@ class PromoController extends Controller
 
         try {
             $data = Promo::where('slug', $slug)->first();
-            $data->cover =  $request->getSchemeAndHttpHost() . '/public/' . $data->cover;
-            $data->cover =  str_replace('public', '', $data->cover);
+            $data->cover =  $request->getSchemeAndHttpHost() . '/' . $data->cover;
 
             $status = 200;
             $message = 'berhasil';

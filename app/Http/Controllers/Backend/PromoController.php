@@ -80,12 +80,12 @@ class PromoController extends Controller
         if($this->hasPermission($this->menu)){
             try {
                 if ($request->file('cover') != null) {
-                    $folder = 'public/upload/promo/';
+                    $folder = public_path('upload/promo');
                     $file = $request->file('cover');
                     $filename = date('YmdHis') . $file->getClientOriginalName();
                     // Get canonicalized absolute pathname
                     $path = realpath($folder);
-    
+
                     // If it exist, check if it's a directory
                     if (!($path !== true and is_dir($path))) {
                         // Path/folder does not exist then create a new folder
@@ -100,7 +100,7 @@ class PromoController extends Controller
                         ]);
                     }
                 }
-    
+
                 return redirect()->route('promo.index')->withStatus('Data berhasil ditambahkan.');
             } catch (\Exception $e) {
                 return redirect()->route('promo.index')->withError('Terjadi kesalahan. : ' . $e->getMessage());
