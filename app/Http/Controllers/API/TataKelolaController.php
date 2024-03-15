@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\AssetPathHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TataKelolaPerusahaan;
@@ -25,10 +26,10 @@ class TataKelolaController extends Controller
             $data = $data->orderBy('tahun', 'DESC')->get();
 
             foreach ($data as $key => $value) {
-                $value->cover = $request->getSchemeAndHttpHost() . '/' . $value->cover;
-                
-                $value->file = $request->getSchemeAndHttpHost() . '/' . $value->file;
-                
+                $value->cover = $request->getSchemeAndHttpHost() . '/' . AssetPathHelper::assetPath($value->cover);
+
+                $value->file = $request->getSchemeAndHttpHost() . '/' . AssetPathHelper::assetPath($value->file);
+
             }
 
             $status = 200;

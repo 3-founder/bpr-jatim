@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class JumbotronController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $jumbotron = Jumbotron::all();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\AssetPathHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Kota;
 use App\Models\UmkmBinaan;
@@ -17,7 +18,7 @@ class UmkmBinaanController extends Controller
 
         try {
             $data = Kota::select('id', 'nama_kota', 'alamat', 'telp')->orderBy('nama_kota', 'ASC')->get();
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -51,10 +52,10 @@ class UmkmBinaanController extends Controller
 
             $data = \DB::table('umkm_binaan as ub')->select('ub.*','k.nama_kota')->join('kota as k','ub.id_kota','k.id')->where('ub.id_kota', $id_kota)->orderBy('ub.nama', 'ASC')->get();
             foreach ($data as $key => $value) {
-                $value->foto =  $request->getSchemeAndHttpHost().'/'.$value->foto;
+                $value->foto =  $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($value->foto);
             }
 
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -107,13 +108,13 @@ class UmkmBinaanController extends Controller
                     $data->where('ub.id_kota',$request->get('id_kota'));
                 }
             }
-            
-            
+
+
             $data = $data->get();
             foreach ($data as $key => $value) {
-                $value->foto =  $request->getSchemeAndHttpHost().'/'.$value->foto;
+                $value->foto =  $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($value->foto);
             }
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -144,7 +145,7 @@ class UmkmBinaanController extends Controller
 
         try {
             $data = UmkmBinaan::where('slug', $slug)->first();
-            $data->foto = $request->getSchemeAndHttpHost().'/'.$data->foto;
+            $data->foto = $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($data->foto);
 
             $status = 200;
             $message = 'berhasil';

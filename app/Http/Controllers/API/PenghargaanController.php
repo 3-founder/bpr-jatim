@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\AssetPathHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Penghargaan;
@@ -21,11 +22,11 @@ class PenghargaanController extends Controller
             if ($keyword) {
                 $data->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
             }
-            
+
             $data = $data->paginate(5);
-            
+
             foreach ($data as $key => $value) {
-                $value->cover = $request->getSchemeAndHttpHost().'/'.$value->cover;
+                $value->cover = $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($value->cover);
             }
             $status = 200;
             $message = 'berhasil';
@@ -57,7 +58,7 @@ class PenghargaanController extends Controller
 
         try {
             $data = Penghargaan::where('slug', $slug)->first();
-            $data->cover = $request->getSchemeAndHttpHost().'/'.$data->cover;
+            $data->cover = $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($data->cover);
             $status = 200;
             $message = 'berhasil';
         }

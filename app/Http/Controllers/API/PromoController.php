@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\AssetPathHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\PromoResource;
 use Illuminate\Http\Request;
@@ -25,8 +26,8 @@ class PromoController extends Controller
 
             $data = $data->paginate(5);
             foreach ($data as $key => $value) {
-                $value->cover =  $request->getSchemeAndHttpHost() . '/' . $value->cover;
-                
+                $value->cover =  $request->getSchemeAndHttpHost() . '/' . AssetPathHelper::assetPath($value->cover);
+
                 $value->judulFull = $value->judul;
                 $value->kontenFull = $value->konten;
                 $value->judul = substr($value->judul, 0, 30);
@@ -60,7 +61,7 @@ class PromoController extends Controller
 
         try {
             $data = Promo::where('slug', $slug)->first();
-            $data->cover =  $request->getSchemeAndHttpHost() . '/' . $data->cover;
+            $data->cover =  $request->getSchemeAndHttpHost() . '/' . AssetPathHelper::assetPath($data->cover);
 
             $status = 200;
             $message = 'berhasil';

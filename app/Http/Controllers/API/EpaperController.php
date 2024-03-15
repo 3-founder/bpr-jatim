@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\AssetPathHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Epaper;
@@ -21,17 +22,17 @@ class EpaperController extends Controller
             if ($keyword) {
                 $data->where('judul', 'LIKE', "%$keyword%")->orWhere('konten', 'LIKE', "%$keyword%");
             }
-            
+
             $data = $data->paginate(5);
 
             foreach ($data as $key => $value) {
-                $value->cover = $request->getSchemeAndHttpHost().'/'.$value->cover;
-                
-                $value->konten =  $request->getSchemeAndHttpHost().'/'.$value->konten;
-                
+                $value->cover = $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($value->cover);
+
+                $value->konten =  $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($value->konten);
+
                 $value->tgl = date('d M Y',strtotime($value->updated_at));
             }
-            
+
             $status = 200;
             $message = 'berhasil';
         }
@@ -62,11 +63,11 @@ class EpaperController extends Controller
 
         try {
             $data = Epaper::where('slug', $slug)->first();
-            $data->cover =  $request->getSchemeAndHttpHost().'/'.$data->cover;
-            
-            $data->konten =  $request->getSchemeAndHttpHost().'/'.$data->konten;
-            
-            
+            if ($data) {
+                $data->cover =  $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($data->cover);
+                $data->konten =  $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($data->konten);
+            }
+
             $status = 200;
             $message = 'berhasil';
         }

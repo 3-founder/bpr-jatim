@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\AssetPathHelper;
 use App\Http\Controllers\Controller;
 use App\Models\TanggungJawabPerusahaan;
 use Illuminate\Http\Request;
@@ -33,9 +34,9 @@ class TanggungJawabPerusahaanController extends Controller
         }
 
         foreach ($data as $key => $value) {
-            $value->cover = $request->getSchemeAndHttpHost().'/'.$value->cover;
-            
-            $value->file = $request->getSchemeAndHttpHost().'/'.$value->file;
+            $value->cover = $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($value->cover);
+
+            $value->file = $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($value->file);
         }
 
         if (!$data) {
@@ -52,11 +53,11 @@ class TanggungJawabPerusahaanController extends Controller
     public function getTahun()
     {
         $data = TanggungJawabPerusahaan::select('tahun')->orderBy('tahun','DESC')->distinct()->get();
-    
+
         if (!$data) {
             abort(404);
         }
-    
+
         return response(
             [
             'msg' => 'successfully get data',

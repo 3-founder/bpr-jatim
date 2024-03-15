@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\AssetPathHelper;
 use App\Http\Controllers\Controller;
 use App\Models\LaporanKeuangan;
 use Illuminate\Http\Request;
@@ -20,15 +21,15 @@ class LaporanKeuanganController extends Controller
 
             if ($keyword) {
                 $data->where('title', 'LIKE', "%$keyword%")->orWhere('tahun', 'LIKE', "%$keyword%");
-            }   
+            }
 
             $data = $data->orderBy('tahun', 'DESC')->get();
 
             foreach ($data as $key => $value) {
-                $value->cover = $request->getSchemeAndHttpHost() . '/' . $value->cover;
-                
-                $value->file = $request->getSchemeAndHttpHost() . '/' . $value->file;
-                
+                $value->cover = $request->getSchemeAndHttpHost() . '/' . AssetPathHelper::assetPath($value->cover);
+
+                $value->file = $request->getSchemeAndHttpHost() . '/' . AssetPathHelper::assetPath($value->file);
+
             }
 
             $status = 200;

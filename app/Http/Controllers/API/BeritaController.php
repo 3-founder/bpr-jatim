@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\AssetPathHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\KategoriBerita;
@@ -14,7 +15,7 @@ class BeritaController extends Controller
         $status = null;
         $message = null;
         $data = null;
-        
+
         try {
             $kategori = KategoriBerita::get();
             $keyword = $request->get('keyword');
@@ -37,8 +38,8 @@ class BeritaController extends Controller
             $berita = $berita->get();
 
             foreach ($berita as $key => $value) {
-                $value->cover =  $request->getSchemeAndHttpHost().'/'.$value->cover;
-                
+                $value->cover =  AssetPathHelper::assetPath($request->getSchemeAndHttpHost().'/'.$value->cover);
+
                 $value->judul = substr($value->judul,0,60);
                 $value->konten = substr($value->konten,0,100);
                 $value->tgl = date('d M Y H:i',strtotime($value->created_at));
@@ -91,8 +92,8 @@ class BeritaController extends Controller
             $data = Berita::with('kategori')->where('slug', $slug)->first();
             $data->telah_dilihat += 1;
             $data->save();
-            $data->cover =  $request->getSchemeAndHttpHost().'/'.$data->cover;
-            
+            $data->cover =  $request->getSchemeAndHttpHost().'/'.AssetPathHelper::assetPath($data->cover);
+
             $data->tgl = date('d M Y H:i',strtotime($data->created_at));
 
             $status = 200;
