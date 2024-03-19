@@ -107,8 +107,10 @@ class JumbotronController extends Controller
     public function destroy($id)
     {
         if($this->hasPermission($this->menu)){
-            Jumbotron::find($id)?->delete();
-    
+            $data = Jumbotron::find($id);
+            if ($data)
+                $data->delete();
+
             return redirect()
                 ->route('jumbotrons.index')
                 ->with('swals', 'Berhasil menghapus jumbotron');
