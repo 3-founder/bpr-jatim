@@ -15,7 +15,7 @@ class KarierController extends Controller
         $data = null;
 
         try {
-            $data = Karier::first();
+            $data = Karier::get();
             
             $status = 200;
             $message = 'berhasil';
